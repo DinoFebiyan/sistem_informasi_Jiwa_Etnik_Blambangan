@@ -1,13 +1,67 @@
-@extends('layouts.umum')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanggar Tari Jiwa Etnik Blambangan</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-@section('title', 'Beranda - Sanggar Tari JEB')
-
-@push('styles')
-<style>
-    section { padding: 5rem 8%; }
-    .section-header { text-align: center; margin-bottom: 3rem; }
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
- /* ══ HERO ══ */
+    :root {
+      --maroon-dark: #4a0c0c; 
+      --red-bg: #b51c1c;      
+      --red-card: #c42020;    
+      --gold: #dfb15b;        
+      --cream: #f8f1e1;       
+      --text-dark: #333333;
+      --text-gray: #666666;
+      --white: #ffffff;
+    }
+
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      background: var(--white); 
+      color: var(--text-dark); 
+      overflow-x: hidden; 
+      scroll-behavior: smooth;
+    }
+
+    /* ══ NAVBAR ══ */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--maroon-dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.8rem 4%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .logo-img-nav {
+      width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--white);
+    }
+    .nav-logo span {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-weight: 700; font-size: 1.5rem; color: var(--white); letter-spacing: 1px;
+    }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-links a {
+      color: var(--white); text-decoration: none; font-size: 0.85rem; font-weight: 400;
+      transition: color .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .btn-login {
+      border: 1px solid var(--gold); color: var(--gold) !important;
+      border-radius: 20px; padding: 0.4rem 1.2rem; display: flex; align-items: center; gap: 0.4rem;
+    }
+    .btn-login:hover { background: var(--gold); color: var(--maroon-dark) !important; }
+
+    /* ══ HERO ══ */
     #beranda {
       background: linear-gradient(135deg, #a71818 0%, #c42020 100%);
       min-height: 90vh;
@@ -224,6 +278,60 @@
     .g-box { background: var(--maroon-dark); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; }
     .g-box.large { grid-row: span 2; }
 
+    /* ══ FOOTER ══ */
+    footer {
+      background: var(--maroon-dark);
+      color: var(--white);
+      padding: 4rem 8% 2rem;
+      border-top: 4px solid var(--gold);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      max-width: 400px;
+    }
+    .footer-links h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      color: var(--white);
+    }
+    .footer-links ul {
+      list-style: none;
+    }
+    .footer-links ul li {
+      margin-bottom: 0.8rem;
+    }
+    .footer-links ul li a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s;
+    }
+    .footer-links ul li a:hover {
+      color: var(--gold);
+    }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+    }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .hero-grid, .profile-grid, .berita-grid, .kalender-grid, .footer-grid { grid-template-columns: 1fr; }
@@ -236,10 +344,29 @@
       .katalog-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; } 
     }
-</style>
-@endpush
+  </style>
+</head>
+<body>
 
-@section('content')
+<nav>
+  <div class="nav-logo">
+    <img src="{{ asset('img/logo-jeb.jpg') }}" alt="Logo JEB" class="logo-img-nav" />
+    <span>JEB</span>
+  </div>
+  <div class="nav-links">
+    <a href="#beranda" class="active">Beranda</a>
+    <a href="#profile">Profile Sanggar</a>
+    <a href="#berita">Artikel/Berita</a>
+    <a href="#kalender">Kalender Event</a>
+    <a href="#katalog">Katalog Kostum</a>
+    <a href="#galeri">Galeri</a>
+    <a href="#" class="btn-login">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+      Login
+    </a>
+  </div>
+</nav>
+
 <section id="beranda">
   <div class="hero-grid">
     <div class="hero-text">
@@ -510,4 +637,35 @@
   <div class="center-action"><a href="#" class="btn-gray-pill">Lihat selengkapnya</a></div>
 </section>
 
-@endsection
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Jiwa Etnik Blambangan</h3>
+      <p>Sanggar Tari Jiwa Etnik Blambangan adalah pusat pelestarian seni dan budaya tari tradisional Banyuwangi. Kami berdedikasi untuk menggerakkan jiwa, merayakan budaya, dan melestarikan warisan Nusantara.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Tautan Singkat</h4>
+      <ul>
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="#profile">Profile Sanggar</a></li>
+        <li><a href="#berita">Artikel & Berita</a></li>
+        <li><a href="#katalog">Katalog Kostum</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Hubungi Kami</h4>
+      <ul>
+        <li><a href="#">📍 Jl. Ahmad Yani No. 123, Banyuwangi</a></li>
+        <li><a href="#">📞 +62 812 3456 7890</a></li>
+        <li><a href="#">✉️ info@jiwaetnikblambangan.com</a></li>
+        <li><a href="#">📷 @jiwaetnikblambangan</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Sanggar Tari Jiwa Etnik Blambangan. Seluruh Hak Cipta Dilindungi.</p>
+  </div>
+</footer>
+
+</body>
+</html>
