@@ -455,7 +455,6 @@
 </head>
 <body>
 
-<!-- ══ NAV ══ -->
 <nav>
   <div class="nav-logo">
     <div class="logo-circle">JEB</div>
@@ -472,7 +471,6 @@
   </div>
 </nav>
 
-<!-- ══ HERO / BERANDA ══ -->
 <section id="beranda">
   <div class="hero-grid">
     <div class="hero-text">
@@ -485,7 +483,6 @@
       <div class="logo-big">
         <div class="logo-inner">
           <p class="logo-text-top">Jiwa<br />Etnik</p>
-          <div class="logo-icon">🥁</div>
           <p class="logo-text-bottom">BLAMBANGAN</p>
         </div>
       </div>
@@ -493,7 +490,6 @@
   </div>
 </section>
 
-<!-- ══ PROFILE SANGGAR ══ -->
 <section id="profile">
   <div class="section-inner">
     <div class="text-center">
@@ -518,7 +514,6 @@
   </div>
 </section>
 
-<!-- ══ VISI & MISI ══ -->
 <section id="visi-misi">
   <div class="section-inner">
     <div class="text-center">
@@ -546,7 +541,6 @@
   </div>
 </section>
 
-<!-- ══ BERITA & ARTIKEL ══ -->
 <section id="berita">
   <div class="section-inner">
     <div class="text-center">
@@ -605,7 +599,6 @@
   </div>
 </section>
 
-<!-- ══ KATALOG KOSTUM ══ -->
 <section id="katalog">
   <div class="section-inner">
     <div class="text-center">
@@ -686,7 +679,6 @@
   </div>
 </section>
 
-<!-- ══ KALENDER EVENT ══ -->
 <section id="kalender">
   <div class="section-inner">
     <div class="text-center">
@@ -716,7 +708,6 @@
           </div>
         </div>
       </div>
-      <!-- Event List -->
       <div class="event-list">
         <div class="event-row">
           <div class="ev-date-box"><div class="ev-num">21</div><div class="ev-mon">MAR</div></div>
@@ -767,7 +758,6 @@
   </div>
 </section>
 
-<!-- ══ GALERI SANGGAR ══ -->
 <section id="galeri">
   <div class="section-inner">
     <div class="text-center">
@@ -788,7 +778,6 @@
   </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -809,10 +798,9 @@
     <div class="footer-col">
       <h4>Kontak</h4>
       <ul>
-        <li><a href="#">📍 Banyuwangi, Jawa Timur</a></li>
-        <li><a href="#">📞 +62 812-3456-7890</a></li>
-        <li><a href="#">✉️ info@jeb-sanggar.id</a></li>
-        <li><a href="#">Instagram: @SanggarJEB</a></li>
+        <li><a href=" https://maps.app.goo.gl/VGsB6WskWPLiZ8hh9?g_st=iw">📍 Sanggar Seni jiwa etnik blambangan</a></li>
+        <li><a href="https://api.whatsapp.com/send/?phone=6282232505355&text&type=phone_number&app_absent=0&utm_source=ig">📞 +62 822-3250-5355</a></li>
+        <li><a href="https://www.instagram.com/jiwaetnikblambangan/">📷 @jiwaetnikblambangan</a></li>
       </ul>
     </div>
   </div>
@@ -822,7 +810,6 @@
 </footer>
 
 <script>
-  // Smooth active nav link highlight on scroll
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
