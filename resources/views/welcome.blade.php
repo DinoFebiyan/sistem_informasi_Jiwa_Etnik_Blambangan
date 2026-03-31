@@ -39,11 +39,8 @@
       font-weight: 700; font-size: 1rem;
       color: var(--red-deep);
     }
-    .nav-logo .logo-circle {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: var(--red-deep);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold-light); font-size: 0.9rem; font-weight: 700;
+    .logo-img-nav {
+      width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
     }
     .nav-links { display: flex; align-items: center; gap: 0.15rem; }
     .nav-links a {
@@ -112,32 +109,13 @@
     .hero-logo-wrap {
       display: flex; align-items: center; justify-content: center;
     }
-    .logo-big {
+    .logo-img-hero {
       width: clamp(220px, 30vw, 320px);
       height: clamp(220px, 30vw, 320px);
       border-radius: 50%;
-      background: var(--white);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      object-fit: cover;
       box-shadow: 0 0 60px rgba(0,0,0,0.35), 0 0 0 8px rgba(255,255,255,0.1);
-      position: relative;
-    }
-    .logo-big .logo-inner {
-      width: 85%; height: 85%; border-radius: 50%;
-      background: var(--red-deep);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      border: 4px solid var(--gold);
-    }
-    .logo-big .logo-text-top {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      color: var(--gold-light); font-size: 1.1rem; font-weight: 700;
-      text-align: center; line-height: 1.2;
-    }
-    .logo-big .logo-icon { font-size: 2.5rem; margin: 0.3rem 0; }
-    .logo-big .logo-text-bottom {
-      font-family: 'Cinzel', serif;
-      color: var(--gold-light); font-size: 0.65rem;
-      letter-spacing: 0.15em; text-align: center; line-height: 1.5;
+      background: var(--white);
     }
 
     /* ══ SECTIONS COMMON ══ */
@@ -457,7 +435,7 @@
 
 <nav>
   <div class="nav-logo">
-    <div class="logo-circle">JEB</div>
+    <img src="{{ asset('img/logo-jeb.jpg') }}" alt="Logo JEB" class="logo-img-nav" />
     <span>JEB</span>
   </div>
   <div class="nav-links">
@@ -480,12 +458,7 @@
       <a href="#galeri" class="btn btn-outline-white">Lihat Galeri</a>
     </div>
     <div class="hero-logo-wrap">
-      <div class="logo-big">
-        <div class="logo-inner">
-          <p class="logo-text-top">Jiwa<br />Etnik</p>
-          <p class="logo-text-bottom">BLAMBANGAN</p>
-        </div>
-      </div>
+      <img src="{{ asset('img/logo-jeb.jpg') }}" alt="Logo Sanggar Jiwa Etnik Blambangan" class="logo-img-hero" />
     </div>
   </div>
 </section>
@@ -687,7 +660,6 @@
       <p class="section-sub">Jadwal pentas dan kegiatan Sanggar JEB</p>
     </div>
     <div class="kalender-wrap">
-      <!-- Mini Calendar -->
       <div class="mini-cal">
         <div class="cal-header">
           <button>‹</button>
