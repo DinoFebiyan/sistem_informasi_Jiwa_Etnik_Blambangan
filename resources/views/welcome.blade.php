@@ -175,18 +175,21 @@
     #berita { background: var(--white); }
     .berita-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
     .berita-main {
-      background: var(--maroon-dark); border-radius: 12px; padding: 2rem;
-      display: flex; flex-direction: column; justify-content: flex-end; min-height: 350px; position: relative;
+      background: var(--maroon-dark); border-radius: 12px; padding: 2.5rem;
+      display: flex; flex-direction: column; min-height: 380px;
     }
     .badge-yellow {
-      position: absolute; top: 1.5rem; left: 1.5rem; background: var(--gold); color: var(--maroon-dark);
-      font-size: 0.7rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 20px; text-transform: uppercase;
+      align-self: flex-start;
+      margin-bottom: auto;
+      background: var(--gold); color: var(--maroon-dark);
+      font-size: 0.75rem; font-weight: 700; padding: 0.4rem 1.2rem; border-radius: 20px; text-transform: uppercase;
     }
-    .berita-main h3 { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--white); font-size: 1.4rem; margin-bottom: 1rem; line-height: 1.4; }
-    .berita-main p { color: rgba(255,255,255,0.7); font-size: 0.8rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .berita-main h3 { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--white); font-size: 1.6rem; margin-bottom: 1.2rem; line-height: 1.4; margin-top: 1.5rem; }
+    .berita-main p { color: rgba(255,255,255,0.7); font-size: 0.85rem; line-height: 1.6; margin-bottom: 2rem; }
     .meta { display: flex; justify-content: space-between; align-items: center; }
-    .meta span { color: rgba(255,255,255,0.5); font-size: 0.75rem; }
-    .btn-red-pill { background: #8b1010; color: var(--white); text-decoration: none; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+    .meta span { color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+    .btn-red-pill { background: #8b1010; color: var(--white); text-decoration: none; padding: 0.6rem 1.5rem; border-radius: 25px; font-size: 0.85rem; font-weight: 600; transition: background 0.3s; }
+    .btn-red-pill:hover { background: #6b0808; }
 
     .berita-list { display: flex; flex-direction: column; gap: 1rem; }
     .berita-item {
@@ -199,21 +202,52 @@
     .berita-item-content span { font-size: 0.75rem; color: #999; }
     
     .center-action { text-align: center; margin-top: 2rem; }
-    .btn-dark-pill { background: var(--maroon-dark); color: var(--white); padding: 0.6rem 2rem; border-radius: 30px; text-decoration: none; font-size: 0.85rem; }
+    .btn-dark-pill { background: var(--maroon-dark); color: var(--white); padding: 0.6rem 2rem; border-radius: 30px; text-decoration: none; font-size: 0.85rem; font-weight: 500;}
 
-    /* ══ KATALOG ══ */
+    /* ══ KATALOG KOSTUM ══ */
     #katalog { background: var(--red-bg); }
     .white { color: var(--white); }
-    .katalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .katalog-card { background: var(--white); border-radius: 12px; overflow: hidden; }
-    .katalog-img { height: 160px; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.1)); position: relative; }
-    .katalog-img .badge { position: absolute; top: 1rem; left: 1rem; background: var(--gold); color: var(--maroon-dark); font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.8rem; border-radius: 12px; }
-    .katalog-info { padding: 1.2rem; }
-    .katalog-info h4 { font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.3rem; }
-    .katalog-info p { font-size: 0.75rem; color: var(--text-gray); margin-bottom: 1rem; }
-    .katalog-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 0.8rem; }
-    .tipe { color: #28a745; font-size: 0.75rem; font-weight: 600; }
-    .katalog-actions button { background: none; border: 1px solid #ddd; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.7rem; cursor: pointer; color: var(--text-gray); }
+    .katalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 3rem; }
+    .katalog-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    
+    .katalog-img { 
+      height: 220px; 
+      background: linear-gradient(to bottom, #b3b3b3, #e5e5e5); 
+      position: relative; 
+    }
+    .katalog-img .badge { 
+      position: absolute; top: 1.2rem; left: 1.2rem; 
+      background: #f1c40f; color: #333; 
+      font-size: 0.75rem; font-weight: 700; 
+      padding: 0.3rem 1rem; border-radius: 20px; 
+    }
+    
+    .katalog-info { padding: 1.5rem; }
+    .katalog-info h4 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
+    .katalog-info p { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 1.5rem; line-height: 1.6; }
+    
+    .katalog-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 1rem; }
+    .katalog-footer .tipe { color: #28a745; font-size: 0.9rem; font-weight: 700; }
+    
+    .katalog-actions { display: flex; gap: 0.5rem; }
+    /* Penyesuaian tombol Edit & Hapus */
+    .katalog-actions button { 
+      background: var(--white); border: 1px solid #ddd; 
+      padding: 0.35rem 0.8rem; border-radius: 6px; 
+      font-size: 0.75rem; font-weight: 500; font-family: 'Poppins', sans-serif; 
+      cursor: pointer; color: #555; 
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .katalog-actions button:hover { background: #f5f5f5; color: var(--maroon-dark); border-color: #bbb; }
+
+    .btn-dark-red-pill { 
+      background: #7a1212; color: var(--white); 
+      padding: 0.8rem 2.5rem; border-radius: 30px; 
+      text-decoration: none; font-size: 0.9rem; font-weight: 600; 
+      transition: background 0.3s;
+    }
+    .btn-dark-red-pill:hover { background: #5c0d0d; }
 
     /* ══ KALENDER ══ */
     #kalender { background: var(--white); }
@@ -244,9 +278,63 @@
     .g-box { background: var(--maroon-dark); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; }
     .g-box.large { grid-row: span 2; }
 
+    /* ══ FOOTER ══ */
+    footer {
+      background: var(--maroon-dark);
+      color: var(--white);
+      padding: 4rem 8% 2rem;
+      border-top: 4px solid var(--gold);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      max-width: 400px;
+    }
+    .footer-links h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      color: var(--white);
+    }
+    .footer-links ul {
+      list-style: none;
+    }
+    .footer-links ul li {
+      margin-bottom: 0.8rem;
+    }
+    .footer-links ul li a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s;
+    }
+    .footer-links ul li a:hover {
+      color: var(--gold);
+    }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+    }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
-      .hero-grid, .profile-grid, .berita-grid, .kalender-grid { grid-template-columns: 1fr; }
+      .hero-grid, .profile-grid, .berita-grid, .kalender-grid, .footer-grid { grid-template-columns: 1fr; }
       .katalog-grid { grid-template-columns: 1fr 1fr; }
       .hero-logo-wrap { justify-content: center; margin-top: 2rem; }
       .galeri-mosaik { grid-template-columns: 1fr 1fr; }
@@ -306,7 +394,7 @@
       <p>Dengan pengajar berpengalaman dan metode pembelajaran yang menyenangkan, kami hadir untuk semua kalangan usia.</p>
     </div>
     <div class="profile-card">
-      <img src="{{ asset('img/penari.png') }}" alt="Ilustrasi Penari" class="profile-card-img">
+      <img src="{{ asset('img/icon.png') }}" alt="Ilustrasi Penari" class="profile-card-img">
       <h4>Warisan Budaya Blambangan</h4>
       <p>Tari Tradisional adalah jiwa dari identitas budaya kita. Bersama kami, lestarikan dan rayakan kekayaan seni Nusantara.</p>
     </div>
@@ -346,7 +434,7 @@
     <div class="berita-main">
       <span class="badge-yellow">BERITA UTAMA</span>
       <h3>Sanggar Tari JEB Raih Penghargaan Terbaik di Festival Seni Budaya Jawa Timur 2026</h3>
-      <p>Sanggar Tari Jiwa Etnik Blambangan kembali mengharumkan nama Banyuwangi dengan meraih penghargaan bergengsi pada ajang Festival Seni Budaya Jawa Timur 2026 yang digelar di Surabaya.</p>
+      <p>Sanggar Tari Jiwa Etnik Blambangan kembali mengharumkan nama Banyuwangi dengan meraih penghargaan bergengsi pada ajang Festival Seni Budaya Jawa Timur 2026 yang digelar di Surabaya. Prestasi membanggakan ini merupakan buah dari kerja keras seluruh penari dan pengajar sanggar selama bertahun-tahun.</p>
       <div class="meta">
         <span>Berita • 22 Feb 2026 • Raka Permana, S.E.</span>
         <a href="#" class="btn-red-pill">Baca Selengkapnya</a>
@@ -396,8 +484,11 @@
         <h4>Tari Gandrung</h4>
         <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
         <div class="katalog-footer">
-          <span class="tipe">Klasik</span>
-          <div class="katalog-actions"><button>👁</button><button>❤</button></div>
+          <span class="tipe">Tayang</span>
+          <div class="katalog-actions">
+            <button>Edit</button>
+            <button>Hapus</button>
+          </div>
         </div>
       </div>
     </div>
@@ -407,8 +498,11 @@
         <h4>Tari Gandrung</h4>
         <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
         <div class="katalog-footer">
-          <span class="tipe">Klasik</span>
-          <div class="katalog-actions"><button>👁</button><button>❤</button></div>
+          <span class="tipe">Tayang</span>
+          <div class="katalog-actions">
+            <button>Edit</button>
+            <button>Hapus</button>
+          </div>
         </div>
       </div>
     </div>
@@ -418,11 +512,59 @@
         <h4>Tari Gandrung</h4>
         <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
         <div class="katalog-footer">
-          <span class="tipe">Klasik</span>
-          <div class="katalog-actions"><button>👁</button><button>❤</button></div>
+          <span class="tipe">Tayang</span>
+          <div class="katalog-actions">
+            <button>Edit</button>
+            <button>Hapus</button>
+          </div>
         </div>
       </div>
     </div>
+    <div class="katalog-card">
+      <div class="katalog-img"><span class="badge">Tradisional</span></div>
+      <div class="katalog-info">
+        <h4>Tari Gandrung</h4>
+        <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
+        <div class="katalog-footer">
+          <span class="tipe">Tayang</span>
+          <div class="katalog-actions">
+            <button>Edit</button>
+            <button>Hapus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="katalog-card">
+      <div class="katalog-img"><span class="badge">Tradisional</span></div>
+      <div class="katalog-info">
+        <h4>Tari Gandrung</h4>
+        <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
+        <div class="katalog-footer">
+          <span class="tipe">Tayang</span>
+          <div class="katalog-actions">
+            <button>Edit</button>
+            <button>Hapus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="katalog-card">
+      <div class="katalog-img"><span class="badge">Tradisional</span></div>
+      <div class="katalog-info">
+        <h4>Tari Gandrung</h4>
+        <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
+        <div class="katalog-footer">
+          <span class="tipe">Tayang</span>
+          <div class="katalog-actions">
+            <button>Edit</button>
+            <button>Hapus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="center-action">
+    <a href="#" class="btn-dark-red-pill">Lihat semua katalog</a>
   </div>
 </section>
 
@@ -455,6 +597,30 @@
           <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
         </div>
       </div>
+       <div class="event-card">
+        <div class="event-date"><h2>22</h2><span>MAR</span></div>
+        <div class="event-info">
+          <h4>Pentas Tari Gandrung</h4>
+          <p>Penampilan dalam rangka HUT Jadi Kabupaten Banyuwangi ke-254</p>
+          <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
+        </div>
+      </div>
+       <div class="event-card">
+        <div class="event-date"><h2>23</h2><span>MAR</span></div>
+        <div class="event-info">
+          <h4>Pentas Tari Gandrung</h4>
+          <p>Penampilan dalam rangka HUT Jadi Kabupaten Banyuwangi ke-254</p>
+          <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
+        </div>
+      </div>
+       <div class="event-card">
+        <div class="event-date"><h2>24</h2><span>MAR</span></div>
+        <div class="event-info">
+          <h4>Pentas Tari Gandrung</h4>
+          <p>Penampilan dalam rangka HUT Jadi Kabupaten Banyuwangi ke-254</p>
+          <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -470,6 +636,36 @@
   </div>
   <div class="center-action"><a href="#" class="btn-gray-pill">Lihat selengkapnya</a></div>
 </section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Jiwa Etnik Blambangan</h3>
+      <p>Sanggar Tari Jiwa Etnik Blambangan adalah pusat pelestarian seni dan budaya tari tradisional Banyuwangi. Kami berdedikasi untuk menggerakkan jiwa, merayakan budaya, dan melestarikan warisan Nusantara.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Tautan Singkat</h4>
+      <ul>
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="#profile">Profile Sanggar</a></li>
+        <li><a href="#berita">Artikel & Berita</a></li>
+        <li><a href="#katalog">Katalog Kostum</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Hubungi Kami</h4>
+      <ul>
+        <li><a href="#">📍 Jl. Ahmad Yani No. 123, Banyuwangi</a></li>
+        <li><a href="#">📞 +62 812 3456 7890</a></li>
+        <li><a href="#">✉️ info@jiwaetnikblambangan.com</a></li>
+        <li><a href="#">📷 @jiwaetnikblambangan</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Sanggar Tari Jiwa Etnik Blambangan. Seluruh Hak Cipta Dilindungi.</p>
+  </div>
+</footer>
 
 </body>
 </html>
