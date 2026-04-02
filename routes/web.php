@@ -17,3 +17,7 @@ Route::get('/auth/forgot_password', function () {
 Route::get('/auth/verifikasi_otp', function () {
     return view('auth.verifikasi_otp');
 })->name('verifikasi.otp');
+
+Route::get('/dashboard', function () {
+    return view('superadmin.dashboard');
+})->name('dashboard');
