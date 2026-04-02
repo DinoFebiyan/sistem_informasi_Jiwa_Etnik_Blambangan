@@ -18,7 +18,7 @@
       --red:       #C0272D;
       --red-dark:  #9B1B20;
       --red-light: #E8474D;
-      --gold:      #dfb15b; /* Warna emas untuk tulisan JEB */
+      --gold:      #dfb15b; 
       --cream:     #FFF8F8;
       --text:      #2C1A1A;
       --muted:     #9A8080;
