@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login – Sanggar Tari JEB</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
@@ -13,9 +15,10 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --red:      #C0272D;
+      --red:       #C0272D;
       --red-dark:  #9B1B20;
       --red-light: #E8474D;
+      --gold:      #dfb15b; /* Warna emas untuk tulisan JEB */
       --cream:     #FFF8F8;
       --text:      #2C1A1A;
       --muted:     #9A8080;
@@ -45,40 +48,59 @@
     }
 
     .logo-ring {
-      position: relative; z-index: 1; width: 120px; height: 120px; border-radius: 50%;
+      position: relative; z-index: 1; width: 130px; height: 130px; border-radius: 50%;
       background: #fff; border: 5px solid rgba(255,255,255,.4); box-shadow: 0 8px 32px rgba(0,0,0,.3);
-      display: flex; align-items: center; justify-content: center; margin-bottom: 1.8rem;
+      display: flex; align-items: center; justify-content: center; 
+      margin-bottom: 0.5rem; /* <-- Jarak bawah logo sudah dirapatkan di sini */
       animation: floatLogo 3.5s ease-in-out infinite;
     }
     @keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    .logo-ring svg { width: 70px; height: 70px; }
 
-    .brand-name { position: relative; z-index: 1; color: #fff; font-size: 2rem; font-weight: 700; text-align: center; line-height: 1.1; }
-    .brand-name em { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-style: italic; color: #FFD6D6; display: block; }
-    .brand-sub { position: relative; z-index: 1; color: rgba(255,255,255,.7); font-size: .85rem; margin-top: .5rem; text-transform: uppercase; }
-    .brand-slogan { position: relative; z-index: 1; margin-top: 2.5rem; text-align: center; color: rgba(255,255,255,.55); font-size: .82rem; font-style: italic; line-height: 1.6; max-width: 240px; border-top: 1px solid rgba(255,255,255,.2); padding-top: 1.2rem; }
+    /* Pengaturan Font Sesuai Figma (Playfair Display Bold Italic 49.58px) */
+    .brand-name { 
+      position: relative; z-index: 1; color: #fff; 
+      font-family: 'Playfair Display', serif; 
+      font-size: 50px; 
+      font-weight: 700; /* Bold */
+      text-align: center; line-height: 1.1; 
+    }
+    .brand-name em { 
+      font-family: 'Playfair Display', serif; 
+      font-size: 50px; 
+      font-style: italic; /* Italic */
+      font-weight: 700; /* Bold */
+      color: var(--gold); 
+      display: block; 
+      margin-top: 0; 
+      letter-spacing: 0;
+    }
+    
+    .brand-sub { position: relative; z-index: 1; color: rgba(255,255,255,.8); font-size: 0.9rem; margin-top: 0.8rem; text-transform: uppercase; letter-spacing: 1px;}
+    .brand-slogan { position: relative; z-index: 1; margin-top: 2.5rem; text-align: center; color: rgba(255,255,255,.6); font-size: .85rem; font-style: italic; line-height: 1.6; max-width: 250px; border-top: 1px solid rgba(255,255,255,.2); padding-top: 1.2rem; }
 
     /* ── Right panel ── */
     .panel-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 3.5rem; background: #fff; }
     .form-box { width: 100%; max-width: 400px; animation: fadeUp .6s ease both; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
-    .greeting-big { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-style: italic; color: var(--red); margin-bottom: .35rem; }
-    .greeting-desc { font-size: .9rem; color: var(--muted); margin-bottom: 2rem; }
+    .greeting-big { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--red); margin-bottom: .35rem; }
+    .greeting-desc { font-size: .9rem; color: var(--muted); margin-bottom: 2.5rem; }
 
-    .field-label { display: block; font-size: .72rem; font-weight: 700; text-transform: uppercase; color: var(--text); margin-bottom: .45rem; margin-top: 1.1rem; }
+    .field-label { display: block; font-size: .75rem; font-weight: 700; text-transform: uppercase; color: var(--text); margin-bottom: .45rem; margin-top: 1.1rem; }
     .input-wrap { position: relative; display: flex; align-items: center; }
     .input-wrap svg.icon { position: absolute; left: .85rem; width: 16px; height: 16px; color: var(--muted); pointer-events: none; }
-    .input-wrap input { width: 100%; padding: .75rem 1rem .75rem 2.4rem; border: 1.5px solid var(--border); border-radius: 10px; background: #FFF5F5; font-size: .9rem; outline: none; }
+    .input-wrap input { width: 100%; padding: .8rem 1rem .8rem 2.4rem; border: 1.5px solid var(--border); border-radius: 10px; background: #FFF5F5; font-size: .9rem; outline: none; transition: all 0.2s;}
     .input-wrap input:focus { border-color: var(--red-light); box-shadow: 0 0 0 3px rgba(192,39,45,.1); background: #fff; }
 
-    .eye-btn { position: absolute; right: .8rem; background: none; border: none; cursor: pointer; color: var(--muted); display: flex; align-items: center; }
+    .eye-btn { position: absolute; right: .8rem; background: none; border: none; cursor: pointer; color: var(--muted); display: flex; align-items: center; transition: color 0.2s;}
+    .eye-btn:hover { color: var(--text); }
 
-    .row-meta { display: flex; align-items: center; justify-content: space-between; margin: 1rem 0 1.2rem; }
-    .remember { display: flex; align-items: center; gap: .45rem; font-size: .83rem; color: var(--muted); cursor: pointer; }
-    .forgot-link { font-size: .83rem; color: var(--red); text-decoration: none; font-weight: 600; }
+    .row-meta { display: flex; align-items: center; justify-content: space-between; margin: 1.2rem 0 1.5rem; }
+    .remember { display: flex; align-items: center; gap: .45rem; font-size: .85rem; color: var(--muted); cursor: pointer; }
+    .forgot-link { font-size: .85rem; color: var(--red); text-decoration: none; font-weight: 700; transition: color 0.2s;}
+    .forgot-link:hover { color: var(--red-dark); }
 
-    /* 2. STYLE UNTUK CONTAINER RECAPTCHA */
+    /* CONTAINER RECAPTCHA */
     .recaptcha-container {
       margin-bottom: 1.5rem;
       display: flex;
@@ -86,13 +108,13 @@
     }
 
     .btn-masuk {
-      width: 100%; padding: .85rem; background: var(--red); color: #fff; border: none; border-radius: 10px;
-      font-size: .95rem; font-weight: 700; text-transform: uppercase; cursor: pointer;
-      box-shadow: 0 4px 16px rgba(192,39,45,.3); transition: all 0.2s;
+      width: 100%; padding: .9rem; background: var(--red); color: #fff; border: none; border-radius: 10px;
+      font-size: .95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(192,39,45,.25); transition: all 0.2s;
     }
-    .btn-masuk:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .btn-masuk:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(192,39,45,.35);}
 
-    @media (max-width: 680px) { .panel-left { display: none; } }
+    @media (max-width: 768px) { .panel-left { display: none; } }
   </style>
 </head>
 <body>
@@ -100,15 +122,7 @@
 
   <div class="panel-left">
     <div class="logo-ring">
-      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="40" cy="40" r="38" fill="#C0272D"/>
-        <circle cx="40" cy="40" r="32" fill="#9B1B20"/>
-        <ellipse cx="40" cy="30" rx="6" ry="14" fill="#FFD6D6" transform="rotate(-30 40 30)"/>
-        <ellipse cx="40" cy="30" rx="6" ry="14" fill="#FFD6D6" transform="rotate(0 40 30)"/>
-        <ellipse cx="40" cy="30" rx="6" ry="14" fill="#FFD6D6" transform="rotate(30 40 30)"/>
-        <circle cx="40" cy="44" r="6" fill="#fff"/>
-        <rect x="38" y="49" width="4" height="14" rx="2" fill="#fff"/>
-      </svg>
+      <img src="{{ asset('img/logo-jeb.jpg') }}" alt="Logo JEB" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" />
     </div>
     <div class="brand-name">Sanggar Tari <em>JEB</em></div>
     <div class="brand-sub">Singojuruh – Banyuwangi</div>
@@ -117,7 +131,7 @@
 
   <div class="panel-right">
     <div class="form-box">
-      <p style="font-size: .85rem; color: var(--muted); text-transform: uppercase;">Selamat</p>
+      <p style="font-size: .85rem; color: var(--muted); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Selamat</p>
       <div class="greeting-big">Datang!</div>
       <p class="greeting-desc">Masuk ke portal Sanggar Tari JEB</p>
 
@@ -167,7 +181,6 @@
     const email = document.getElementById('email').value.trim();
     const pass  = document.getElementById('password').value;
     
-    // 4. CEK APAKAH RECAPTCHA SUDAH DICENTANG
     const captchaResponse = grecaptcha.getResponse();
 
     if (!email || !pass) {
@@ -181,7 +194,7 @@
     }
 
     alert('Login Berhasil! (Simulasi Frontend)');
-    // Di sini kamu bisa redirect: window.location.href = "/dashboard";
+    // Untuk ke dashboard nantinya bisa pakai: window.location.href = "/dashboard";
   }
 </script>
 </body>
