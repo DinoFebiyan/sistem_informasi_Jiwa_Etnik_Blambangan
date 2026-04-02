@@ -253,7 +253,7 @@
   </div>
 </section>
 
-<section id="profil">
+<section id="profile">
   <div class="section-header">
     <span class="badge-pill">TENTANG KAMI</span>
     <h2 class="section-title">Profile Sanggar</h2>

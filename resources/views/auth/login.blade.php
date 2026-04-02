@@ -152,7 +152,7 @@
 
       <div class="row-meta">
         <label class="remember"><input type="checkbox"/> ingat saya</label>
-        <a href="#" class="forgot-link">Lupa Password?</a>
+        <a href="{{ route('forgot_password') }}" class="forgot-link">Lupa Password?</a>
       </div>
 
       <div class="recaptcha-container">
