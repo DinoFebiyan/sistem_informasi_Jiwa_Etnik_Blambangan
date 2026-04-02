@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lupa Password – Sanggar Tari JEB</title>
+    <title>Verifikasi Kode – Sanggar Tari JEB</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,7 @@
         rel="stylesheet" />
 
     <style>
+        /* ── Variabel Warna & Font Sesuai Tema Login ── */
         *,
         *::before,
         *::after {
@@ -24,7 +25,6 @@
         :root {
             --red: #C0272D;
             --red-dark: #9B1B20;
-            --red-light: #E8474D;
             --gold: #dfb15b;
             --cream: #FFF8F8;
             --text: #2C1A1A;
@@ -46,7 +46,7 @@
             width: 100vw;
         }
 
-        /* Left Panel (Sama dengan Login) */
+        /* ── Panel Kiri (Konsisten dengan Halaman Login) ── */
         .panel-left {
             width: 42%;
             background: var(--red);
@@ -80,19 +80,6 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 0.5rem;
-            animation: floatLogo 3.5s ease-in-out infinite;
-        }
-
-        @keyframes floatLogo {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
         }
 
         .brand-name {
@@ -107,10 +94,7 @@
         }
 
         .brand-name em {
-            font-family: 'Playfair Display', serif;
-            font-size: 50px;
             font-style: italic;
-            font-weight: 700;
             color: var(--gold);
             display: block;
         }
@@ -139,7 +123,7 @@
             padding-top: 1.2rem;
         }
 
-        /* Right Panel */
+        /* ── Panel Kanan (Verifikasi Kode) ── */
         .panel-right {
             flex: 1;
             display: flex;
@@ -151,7 +135,7 @@
             position: relative;
         }
 
-        /* Tombol Kembali ke Login sesuai Gambar */
+        /* Tombol Kembali (Seperti di Gambar Login kedua) */
         .back-to-login {
             position: absolute;
             top: 2rem;
@@ -163,11 +147,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: transform 0.2s;
-        }
-
-        .back-to-login:hover {
-            transform: translateX(-5px);
         }
 
         .form-box {
@@ -194,6 +173,7 @@
             font-weight: 700;
             color: var(--text);
             margin-bottom: .35rem;
+            text-align: center;
         }
 
         .title-big em {
@@ -206,6 +186,7 @@
             color: var(--muted);
             margin-bottom: 2.5rem;
             line-height: 1.5;
+            text-align: center;
         }
 
         .field-label {
@@ -214,53 +195,53 @@
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text);
-            margin-bottom: .45rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 2px;
         }
 
-        .input-wrap {
-            position: relative;
-            display: flex;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .input-wrap svg.icon {
-            position: absolute;
-            left: .85rem;
-            width: 16px;
-            height: 16px;
-            color: var(--muted);
-        }
-
-        .input-wrap input {
-            width: 100%;
-            padding: .8rem 1rem .8rem 2.4rem;
-            border: 1.5px solid var(--border);
-            border-radius: 10px;
-            background: #FFF5F5;
-            font-size: .9rem;
+        /* ── Input OTP Bulat Sempurna (Sesuai Gambar Figma) ── */
+        .otp-input {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            /* Bulat Sempurna */
+            border: 2px solid var(--border);
+            background: #FFF8F8;
+            /* Krem tipis sesuai tema */
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--red);
+            /* Angka berwarna merah */
             outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
         }
 
-        .input-wrap input:focus {
-            border-color: var(--red-light);
-            box-shadow: 0 0 0 3px rgba(192, 39, 45, .1);
+        /* Efek saat kotak difokuskan */
+        .otp-input:focus {
+            border-color: var(--gold);
+            /* Border jadi emas saat diisi */
             background: #fff;
+            box-shadow: 0 0 10px rgba(223, 177, 91, 0.3);
+            /* Shadow emas tipis */
         }
 
+        /* ── Tombol Kirim (Sesuai Tombol "MASUK") ── */
         .btn-kirim {
             width: 100%;
-            padding: .9rem;
+            padding: 1rem;
             background: var(--red);
             color: #fff;
             border: none;
             border-radius: 10px;
-            font-size: .95rem;
+            font-size: 0.95rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(192, 39, 45, .25);
+            box-shadow: 0 4px 12px rgba(192, 39, 45, 0.2);
             transition: all 0.2s;
         }
 
@@ -278,48 +259,64 @@
 </head>
 
 <body>
-
     <div class="wrapper">
         <div class="panel-left">
-            <div class="logo-ring">
-                <img src="{{ asset('img/logo-jeb.jpg') }}" alt="Logo JEB"
-                    style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" />
-            </div>
+            <div class="logo-ring"><img src="{{ asset('img/logo-jeb.jpg') }}" alt="Logo"
+                    style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" /></div>
             <div class="brand-name">Sanggar Tari <em>JEB</em></div>
             <div class="brand-sub">Singojuruh – Banyuwangi</div>
             <p class="brand-slogan">"Melestarikan Budaya, Menggerakkan Jiwa, Mewujudkan Karya"</p>
         </div>
 
         <div class="panel-right">
-            <a href="/auth/login" class="back-to-login">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
+            <a href="/auth/forgot_password" class="back-to-login">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <line x1="19" y1="12" x2="5" y2="12"></line>
                     <polyline points="12 19 5 12 12 5"></polyline>
                 </svg>
-                Kembali Ke Login
+                Kembali
             </a>
 
             <div class="form-box">
-                <div class="title-big">Atur Ulang <em>Kata Sandi</em></div>
-                <p class="title-desc">Masukkan email yang sudah terdaftar dan kami akan mengirimkan Verifikasi Password.
-                </p>
-
-                <label class="field-label">Alamat Email</label>
-                <div class="input-wrap">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <input type="email" placeholder="Masukkan Email" required />
+                <div class="title-big">Verifikasi <em>Kode</em></div>
+                <p class="title-desc">Masukkan kode yang telah dikirim ke email terdaftar.</p>
+                <label class="field-label">KODE VERIFIKASI</label>
+                <div class="otp-container"
+                    style="display: flex; gap: 12px; justify-content: center; margin-bottom: 2.5rem;">
+                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
                 </div>
+                <button class="btn-kirim" onclick="window.location.href='{{ route('verifikasi.otp') }}'">KIRIM
+                    KODE</button>
 
-                <button class="btn-kirim" onclick="window.location.href='{{ route('verifikasi.otp') }}'">
-                    KIRIM
-                </button>
+                <div
+                    style="text-align: center; margin-top: 2rem; font-size: 0.85rem; color: var(--muted); line-height: 1.6;">
+                    Belum menerima kode? <br>
+                    <a href="#"
+                        style="color: var(--red); font-weight: 800; text-decoration: none; border-bottom: 1.5px solid var(--red);">KIRIM
+                        ULANG</a>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Script Auto-tab untuk OTP (Kursor pindah otomatis setelah ketik angka)
+        const inputs = document.querySelectorAll('.otp-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.key >= 0 && e.key <= 9) {
+                    if (index < inputs.length - 1) inputs[index + 1].focus();
+                } else if (e.key === 'Backspace') {
+                    if (index > 0) inputs[index - 1].focus();
+                }
+            });
+        });
+    </script>
 
 </body>
 
