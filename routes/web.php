@@ -21,3 +21,19 @@ Route::get('/auth/verifikasi_otp', function () {
 Route::get('/dashboard', function () {
     return view('superadmin.dashboard');
 })->name('dashboard');
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard');
+
+Route::get('/admin/events', function () {
+    return view('admin.events.index');
+});
+
+Route::get('/admin/news', function () {
+    return view('admin.news.index');
+});
+
+Route::get('/admin/profile', function () {
+    return view('admin.profile.index');
+});
