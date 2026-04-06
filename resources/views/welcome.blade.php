@@ -330,14 +330,6 @@
           <span>12 Maret 2026 - Raka Pratama</span>
         </div>
       </div>
-      <div class="berita-item">
-        <div class="berita-img-placeholder"></div>
-        <div class="berita-item-content">
-          <span class="tag">Kegiatan</span>
-          <h5>Latihan Perdana Peserta Didik Baru Akan Segera Dimulai</h5>
-          <span>12 Maret 2026 - Raka Pratama</span>
-        </div>
-      </div>
     </div>
   </div>
   <div class="center-action">
@@ -351,48 +343,6 @@
     <p class="section-subtitle white">Koleksi Kostum tari tradisional dan kreasi Sanggar JEB</p>
   </div>
   <div class="katalog-grid">
-    <div class="katalog-card">
-      <div class="katalog-img"><span class="badge">Tradisional</span></div>
-      <div class="katalog-info">
-        <h4>Tari Gandrung</h4>
-        <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
-        <div class="katalog-footer">
-          <span class="tipe">Tayang</span>
-          <div class="katalog-actions">
-            <button>Edit</button>
-            <button>Hapus</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="katalog-card">
-      <div class="katalog-img"><span class="badge">Tradisional</span></div>
-      <div class="katalog-info">
-        <h4>Tari Gandrung</h4>
-        <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
-        <div class="katalog-footer">
-          <span class="tipe">Tayang</span>
-          <div class="katalog-actions">
-            <button>Edit</button>
-            <button>Hapus</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="katalog-card">
-      <div class="katalog-img"><span class="badge">Tradisional</span></div>
-      <div class="katalog-info">
-        <h4>Tari Gandrung</h4>
-        <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
-        <div class="katalog-footer">
-          <span class="tipe">Tayang</span>
-          <div class="katalog-actions">
-            <button>Edit</button>
-            <button>Hapus</button>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="katalog-card">
       <div class="katalog-img"><span class="badge">Tradisional</span></div>
       <div class="katalog-info">
@@ -470,23 +420,7 @@
           <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
         </div>
       </div>
-       <div class="event-card">
-        <div class="event-date"><h2>22</h2><span>MAR</span></div>
-        <div class="event-info">
-          <h4>Pentas Tari Gandrung</h4>
-          <p>Penampilan dalam rangka HUT Jadi Kabupaten Banyuwangi ke-254</p>
-          <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
-        </div>
-      </div>
-       <div class="event-card">
-        <div class="event-date"><h2>23</h2><span>MAR</span></div>
-        <div class="event-info">
-          <h4>Pentas Tari Gandrung</h4>
-          <p>Penampilan dalam rangka HUT Jadi Kabupaten Banyuwangi ke-254</p>
-          <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
-        </div>
-      </div>
-       <div class="event-card">
+      <div class="event-card">
         <div class="event-date"><h2>24</h2><span>MAR</span></div>
         <div class="event-info">
           <h4>Pentas Tari Gandrung</h4>
