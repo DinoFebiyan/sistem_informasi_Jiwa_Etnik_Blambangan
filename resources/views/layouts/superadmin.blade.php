@@ -3,11 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>@yield('title')</title>
-
+<title>@yield('title') — JEB</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
 <style>
   :root {
     --merah: #8B0000;
@@ -543,22 +540,15 @@
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    
-    <div class="logo-icon">
-      <img src="{{ asset('img/logo-jeb.jpg') }}" 
-           alt="Logo JEB"
-           style="width:100%; height:100%; object-fit:contain;">
-    </div>
-
+    <div class="logo-icon">JEB</div>
     <div class="logo-text">
       <h3>Jiwa Etnik<br>Blambangan</h3>
       <span>Sanggar Tari</span>
     </div>
-
   </div>
+
   <div class="sidebar-role">
     <div class="role-dot"></div>
     <span>Super Admin</span>
@@ -567,12 +557,12 @@
   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
 
-    <a class="nav-item active" href="#">
+    <a class="nav-item {{ request()->is('superadmin/dashboard') ? 'active' : '' }}" href="/superadmin/dashboard">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       Dashboard
     </a>
 
-    <a class="nav-item" href="#">
+    <a class="nav-item {{ request()->is('superadmin/kelola-admin') ? 'active' : '' }}" href="/superadmin/kelola-admin">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
       Kelola Admin
       <span class="nav-badge">3</span>
@@ -580,30 +570,30 @@
 
     <div class="nav-label">Konten</div>
 
-    <a class="nav-item" href="#">
+    <a class="nav-item {{ request()->is('superadmin/kelola-katalog') ? 'active' : '' }}" href="/superadmin/kelola-katalog">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       Kelola Katalog
     </a>
 
-    <a class="nav-item" href="#">
+    <a class="nav-item {{ request()->is('superadmin/kelola-event') ? 'active' : '' }}" href="/superadmin/kelola-event">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Kelola Event
     </a>
 
-    <a class="nav-item" href="#">
+    <a class="nav-item {{ request()->is('superadmin/publikasi-berita') ? 'active' : '' }}" href="/superadmin/publikasi-berita">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       Publikasi Berita
     </a>
 
-    <a class="nav-item" href="#">
+    <a class="nav-item {{ request()->is('superadmin/profil') ? 'active' : '' }}" href="/superadmin/profil">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
       Kelola Profil
     </a>
 
     <div class="nav-label">Sistem</div>
 
-    <a class="nav-item" href="#">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+    <a class="nav-item {{ request()->is('superadmin/pengaturan') ? 'active' : '' }}" href="/superadmin/pengaturan">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       Pengaturan
     </a>
   </nav>
@@ -622,13 +612,11 @@
   </div>
 </aside>
 
-<!-- MAIN -->
 <main class="main">
 
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="topbar-left">
-      <h1>Dashboard Super Admin</h1>
+      <h1>@yield('header_title')</h1>
       <p>Sabtu, 07 Maret 2026 &nbsp;·&nbsp; Selamat datang kembali!</p>
     </div>
     <div class="topbar-right">
@@ -640,12 +628,9 @@
     </div>
   </div>
 
-  <!-- CONTENT -->
   <div class="content">
     @yield('content')
-  </div>
-
-</main>
+  </div></main>
 
 </body>
 </html>
