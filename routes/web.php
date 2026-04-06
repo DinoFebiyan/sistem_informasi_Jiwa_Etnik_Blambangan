@@ -18,6 +18,10 @@ Route::get('/auth/verifikasi_otp', function () {
     return view('auth.verifikasi_otp');
 })->name('verifikasi.otp');
 
+Route::get('/auth/reset_password', function () {
+    return view('auth.reset_password');
+})->name('password.reset');
+
 Route::get('/dashboard', function () {
     return view('superadmin.dashboard');
 })->name('dashboard');
