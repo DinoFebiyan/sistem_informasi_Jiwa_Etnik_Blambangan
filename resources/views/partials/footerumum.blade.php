@@ -53,11 +53,10 @@
 </footer>
 
 <style>
-  /* Tambahan sedikit agar icon terlihat rapi */
   .footer-links ul li i {
-    width: 20px; /* Menyamakan lebar icon agar teks lurus vertikal */
+    width: 20px; 
     margin-right: 10px;
-    color: var(--gold); /* Memberi warna emas pada icon agar senada */
+    color: var(--gold); 
   }
   .footer-links ul li a {
     display: flex;
