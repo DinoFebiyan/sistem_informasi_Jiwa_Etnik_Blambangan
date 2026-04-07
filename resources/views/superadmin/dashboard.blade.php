@@ -132,6 +132,6 @@
         </div>
     </div>
 </div>
-@include('partials.superadmin.tambah-admin')
+@include('superadmin.tambah-admin')
 
 @endsection
