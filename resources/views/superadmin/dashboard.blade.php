@@ -56,11 +56,11 @@
 
     {{-- QUICK ACCESS --}}
     <div class="quick-grid">
-        <a class="quick-card" href="#">
-            <div class="quick-icon"><i class="fas fa-user-plus" style="color: var(--merah);"></i></div>
-            <p>Tambah Admin</p>
-            <span>Buat akun baru</span>
-        </a>
+        <a class="quick-card" href="javascript:void(0)" onclick="openModalTambahAdmin()">
+        <div class="quick-icon"><i class="fas fa-user-plus" style="color: var(--merah);"></i></div>
+        <p>Tambah Admin</p>
+        <span>Buat akun baru</span>
+      </a>
         <a class="quick-card" href="#">
             <div class="quick-icon"><i class="fas fa-folder-plus" style="color: var(--emas);"></i></div>
             <p>Tambah Katalog</p>
@@ -132,4 +132,6 @@
         </div>
     </div>
 </div>
+@include('partials.superadmin.tambah-admin')
+
 @endsection
