@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Verifikasi Kode – Sanggar Tari JEB</title>
+    <title>Reset Password – Sanggar Tari JEB</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,6 @@
         rel="stylesheet" />
 
     <style>
-        /* ── Variabel Warna & Font Sesuai Tema Login ── */
         *,
         *::before,
         *::after {
@@ -46,7 +45,7 @@
             width: 100vw;
         }
 
-        /* ── Panel Kiri (Konsisten dengan Halaman Login) ── */
+        /* Panel Kiri (Sama Persis dengan Login) */
         .panel-left {
             width: 42%;
             background: var(--red);
@@ -109,21 +108,7 @@
             letter-spacing: 1px;
         }
 
-        .brand-slogan {
-            position: relative;
-            z-index: 1;
-            margin-top: 2.5rem;
-            text-align: center;
-            color: rgba(255, 255, 255, .6);
-            font-size: .85rem;
-            font-style: italic;
-            line-height: 1.6;
-            max-width: 250px;
-            border-top: 1px solid rgba(255, 255, 255, .2);
-            padding-top: 1.2rem;
-        }
-
-        /* ── Panel Kanan (Verifikasi Kode) ── */
+        /* Panel Kanan (Form Input) */
         .panel-right {
             flex: 1;
             display: flex;
@@ -133,20 +118,6 @@
             padding: 3rem 3.5rem;
             background: #fff;
             position: relative;
-        }
-
-        /* Tombol Kembali (Seperti di Gambar Login kedua) */
-        .back-to-login {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            text-decoration: none;
-            color: var(--red);
-            font-weight: 700;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .form-box {
@@ -173,7 +144,6 @@
             font-weight: 700;
             color: var(--text);
             margin-bottom: .35rem;
-            text-align: center;
         }
 
         .title-big em {
@@ -186,7 +156,6 @@
             color: var(--muted);
             margin-bottom: 2.5rem;
             line-height: 1.5;
-            text-align: center;
         }
 
         .field-label {
@@ -195,41 +164,42 @@
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text);
+            margin-bottom: .45rem;
+        }
+
+        .input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
             margin-bottom: 1.5rem;
-            text-align: center;
-            letter-spacing: 2px;
         }
 
-        /* ── Input OTP Bulat Sempurna (Sesuai Gambar Figma) ── */
-        .otp-input {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            /* Bulat Sempurna */
-            border: 2px solid var(--border);
-            background: #FFF8F8;
-            /* Krem tipis sesuai tema */
-            text-align: center;
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--red);
-            /* Angka berwarna merah */
+        .input-wrap svg.icon {
+            position: absolute;
+            left: .85rem;
+            width: 16px;
+            height: 16px;
+            color: var(--muted);
+        }
+
+        .input-wrap input {
+            width: 100%;
+            padding: .8rem 1rem .8rem 2.4rem;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            background: #FFF5F5;
+            font-size: .9rem;
             outline: none;
-            transition: all 0.3s ease;
-            font-family: 'Nunito', sans-serif;
+            transition: all 0.2s;
         }
 
-        /* Efek saat kotak difokuskan */
-        .otp-input:focus {
-            border-color: var(--gold);
-            /* Border jadi emas saat diisi */
+        .input-wrap input:focus {
+            border-color: var(--red);
             background: #fff;
-            box-shadow: 0 0 10px rgba(223, 177, 91, 0.3);
-            /* Shadow emas tipis */
+            box-shadow: 0 0 0 3px rgba(192, 39, 45, .1);
         }
 
-        /* ── Tombol Kirim (Sesuai Tombol "MASUK") ── */
-        .btn-kirim {
+        .btn-reset {
             width: 100%;
             padding: 1rem;
             background: var(--red);
@@ -241,11 +211,11 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(192, 39, 45, 0.2);
+            box-shadow: 0 4px 16px rgba(192, 39, 45, .25);
             transition: all 0.2s;
         }
 
-        .btn-kirim:hover {
+        .btn-reset:hover {
             background: var(--red-dark);
             transform: translateY(-2px);
         }
@@ -265,60 +235,37 @@
                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" /></div>
             <div class="brand-name">Sanggar Tari <em>JEB</em></div>
             <div class="brand-sub">Singojuruh – Banyuwangi</div>
-            <p class="brand-slogan">"Melestarikan Budaya, Menggerakkan Jiwa, Mewujudkan Karya"</p>
         </div>
 
         <div class="panel-right">
-            <a href="/auth/forgot_password" class="back-to-login">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                    <polyline points="12 19 5 12 12 5"></polyline>
-                </svg>
-                Kembali
-            </a>
-
             <div class="form-box">
-                <div class="title-big">Verifikasi <em>Kode</em></div>
-                <p class="title-desc">Masukkan kode yang telah dikirim ke email terdaftar.</p>
-                <label class="field-label">KODE VERIFIKASI</label>
-                <div class="otp-container"
-                    style="display: flex; gap: 12px; justify-content: center; margin-bottom: 2.5rem;">
-                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
-                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
-                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
-                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
-                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
-                    <input type="text" maxlength="1" class="otp-input" inputmode="numeric">
-                </div>
-                <button class="btn-kirim" onclick="window.location.href='{{ route('password.reset') }}'">
-                    KIRIM KODE
-                </button>
+                <div class="title-big">Reset <em>Password</em></div>
+                <p class="title-desc">Buatlah password yang mudah diingat namun tetap aman.</p>
 
-                <div
-                    style="text-align: center; margin-top: 2rem; font-size: 0.85rem; color: var(--muted); line-height: 1.6;">
-                    Belum menerima kode? <br>
-                    <a href="#"
-                        style="color: var(--red); font-weight: 800; text-decoration: none; border-bottom: 1.5px solid var(--red);">KIRIM
-                        ULANG</a>
+                <label class="field-label">Password Baru</label>
+                <div class="input-wrap">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    <input type="password" placeholder="********" required />
                 </div>
+
+                <label class="field-label">Konfirmasi Password</label>
+                <div class="input-wrap" style="margin-bottom: 2.5rem;">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    <input type="password" placeholder="********" required />
+                </div>
+
+                <button class="btn-reset" onclick="window.location.href='{{ route('login') }}'">
+                    LOGIN
+                </button>
             </div>
         </div>
     </div>
-
-    <script>
-        // Script Auto-tab untuk OTP (Kursor pindah otomatis setelah ketik angka)
-        const inputs = document.querySelectorAll('.otp-input');
-        inputs.forEach((input, index) => {
-            input.addEventListener('keyup', (e) => {
-                if (e.key >= 0 && e.key <= 9) {
-                    if (index < inputs.length - 1) inputs[index + 1].focus();
-                } else if (e.key === 'Backspace') {
-                    if (index > 0) inputs[index - 1].focus();
-                }
-            });
-        });
-    </script>
-
 </body>
 
 </html>
