@@ -193,8 +193,7 @@
       return;
     }
 
-    alert('Login Berhasil!');
-    window.location.href = "/superadmin/dashboard";
+    window.location.href = "{{ route('superadmin.dashboard') }}";
   }
 </script>
 </body>

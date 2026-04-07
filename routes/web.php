@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/auth/login', function () {
     return view('auth.login');
@@ -18,18 +20,14 @@ Route::get('/auth/verifikasi_otp', function () {
     return view('auth.verifikasi_otp');
 })->name('verifikasi.otp');
 
-<<<<<<< HEAD
-Route::get('/superadmin/dashboard', function () {
-    return view('superadmin.dashboard');
-})->name('superadmin.dashboard');
-=======
 Route::get('/auth/reset_password', function () {
     return view('auth.reset_password');
 })->name('password.reset');
 
+
 Route::get('/superadmin/dashboard', function () {
     return view('superadmin.dashboard');
-});
+})->name('superadmin.dashboard');
 
 Route::get('/superadmin/kelola-admin', function () {
     return view('superadmin.kelola-admin');
@@ -50,7 +48,7 @@ Route::get('/superadmin/publikasi-berita', function () {
 Route::get('/superadmin/profil', function () {
     return view('superadmin.profil');
 });
->>>>>>> 115f876e99c96170525ac4c5b75bde2103c6de19
+
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
