@@ -51,24 +51,23 @@
       position: relative; z-index: 1; width: 130px; height: 130px; border-radius: 50%;
       background: #fff; border: 5px solid rgba(255,255,255,.4); box-shadow: 0 8px 32px rgba(0,0,0,.3);
       display: flex; align-items: center; justify-content: center; 
-      margin-bottom: 0.5rem; /* <-- Jarak bawah logo sudah dirapatkan di sini */
+      margin-bottom: 0.5rem; 
       animation: floatLogo 3.5s ease-in-out infinite;
     }
     @keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-    /* Pengaturan Font Sesuai Figma (Playfair Display Bold Italic 49.58px) */
     .brand-name { 
       position: relative; z-index: 1; color: #fff; 
       font-family: 'Playfair Display', serif; 
       font-size: 50px; 
-      font-weight: 700; /* Bold */
+      font-weight: 700; 
       text-align: center; line-height: 1.1; 
     }
     .brand-name em { 
       font-family: 'Playfair Display', serif; 
       font-size: 50px; 
-      font-style: italic; /* Italic */
-      font-weight: 700; /* Bold */
+      font-style: italic; 
+      font-weight: 700; 
       color: var(--gold); 
       display: block; 
       margin-top: 0; 
@@ -113,6 +112,22 @@
       box-shadow: 0 4px 16px rgba(192,39,45,.25); transition: all 0.2s;
     }
     .btn-masuk:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(192,39,45,.35);}
+
+    /* ── TOMBOL KEMBALI ── */
+    .kembali-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    .kembali-link:hover {
+      color: var(--red);
+      text-decoration: underline;
+    }
 
     @media (max-width: 768px) { .panel-left { display: none; } }
   </style>
@@ -160,6 +175,9 @@
       </div>
 
       <button class="btn-masuk" onclick="handleLogin()">Masuk</button>
+      
+      <a href="{{ url('/') }}" class="kembali-link">&#8592; Kembali ke Beranda</a>
+      
     </div>
   </div>
 </div>
