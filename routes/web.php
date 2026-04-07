@@ -18,9 +18,9 @@ Route::get('/auth/verifikasi_otp', function () {
     return view('auth.verifikasi_otp');
 })->name('verifikasi.otp');
 
-Route::get('/dashboard', function () {
+Route::get('/superadmin/dashboard', function () {
     return view('superadmin.dashboard');
-})->name('dashboard');
+})->name('superadmin.dashboard');
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
@@ -28,12 +28,12 @@ Route::get('/admin/dashboard', function () {
 
 Route::get('/admin/events', function () {
     return view('admin.events.index');
-});
+})->name('admin.events.index');
 
 Route::get('/admin/news', function () {
     return view('admin.news.index');
-});
+})->name('admin.news.index');
 
 Route::get('/admin/profile', function () {
     return view('admin.profile.index');
-});
+})->name('admin.profile.index');

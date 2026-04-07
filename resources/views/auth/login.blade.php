@@ -193,8 +193,8 @@
       return;
     }
 
-    alert('Login Berhasil! (Simulasi Frontend)');
-    // Untuk ke dashboard nantinya bisa pakai: window.location.href = "/dashboard";
+    alert('Login Berhasil!');
+    window.location.href = "/superadmin/dashboard";
   }
 </script>
 </body>
