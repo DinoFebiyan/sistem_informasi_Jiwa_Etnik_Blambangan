@@ -129,7 +129,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>]
     </div>
 </div>
 @include('superadmin.tambah-admin')
