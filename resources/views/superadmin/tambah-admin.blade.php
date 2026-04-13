@@ -125,8 +125,8 @@
       
       <div class="form-grid">
         <div class="form-group">
-          <label for="nama">Nama Lengkap</label>
-          <input type="text" id="nama" name="name" placeholder="Contoh: Budi Santoso" required>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Contoh: budi_santoso" required>
         </div>
         
         <div class="form-group">
