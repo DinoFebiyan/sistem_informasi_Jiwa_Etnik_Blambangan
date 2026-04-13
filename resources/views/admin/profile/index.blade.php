@@ -1,4 +1,4 @@
-@extends('layouts.superadmin')
+@extends('layouts.admin')
 
 @section('title', 'Kelola Profil — JEB')
 @section('header_title', 'Kelola Profil')
