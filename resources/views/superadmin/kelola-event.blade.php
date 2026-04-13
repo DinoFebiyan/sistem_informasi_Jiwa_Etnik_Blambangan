@@ -9,8 +9,8 @@
         <h2 style="font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--teks);">Kelola Event</h2>
         <p style="color: var(--teks-abu); font-size: 0.85rem;">7 event aktif bulan ini</p>
     </div>
-    <button style="background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer;">
-        + Tambah Event
+    <button onclick="bukaModalEvent()" style="background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer;">
+    + Tambah Event
     </button>
 </div>
 
@@ -150,4 +150,5 @@
         </div>
     </div>
 </div>
+@include('superadmin.tambah-event')
 @endsection
