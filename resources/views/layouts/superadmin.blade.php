@@ -602,6 +602,55 @@
         </div>
     </main>
 
+    <div id="modalLogout" class="modal-overlay">
+        <div class="modal-box" style="max-width: 380px; text-align: center;">
+            <div class="modal-header" style="justify-content: center;">
+                <h3>Konfirmasi Keluar</h3>
+            </div>
+            <div class="modal-body" style="padding: 30px 20px;">
+                <div style="background: rgba(139, 0, 0, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--merah)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </div>
+                <p style="font-size: 1rem; color: var(--teks); font-weight: 600; margin-bottom: 5px;">Yakin ingin keluar?</p>
+                <p style="font-size: 0.85rem; color: var(--teks-abu);">Anda akan keluar dari sesi Super Admin. Pastikan semua perubahan sudah disimpan sebelum keluar.</p>
+            </div>
+            <div class="modal-footer" style="justify-content: center; background: #fff; padding-bottom: 25px; gap: 15px;">
+                <button type="button" class="btn-batal" onclick="closeLogoutModal()" style="min-width: 100px;">Batal</button>
+                <button type="button" class="btn-simpan" onclick="executeLogout()" style="min-width: 120px;">Ya, Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <form id="logout-form" action="{{ route('login') }}" method="GET" style="display: none;">
+        @csrf
+    </form>
+
+    <script>
+        function openLogoutModal() {
+            document.getElementById('modalLogout').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('modalLogout').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function executeLogout() {
+            document.getElementById('logout-form').submit();
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById('modalLogout');
+            if (event.target == modal) {
+                closeLogoutModal();
+            }
+        }
+    </script>
     @stack('scripts')
 </body>
 </html>
