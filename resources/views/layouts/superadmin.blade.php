@@ -198,7 +198,6 @@
         }
         .logout-btn:hover { color: #fff; }
 
-        /* ===== MAIN CONTENT ===== */
         .main {
           margin-left: var(--sidebar-w);
           flex: 1;
@@ -207,7 +206,6 @@
           min-height: 100vh;
         }
 
-        /* TOPBAR */
         .topbar {
           background: #fff;
           padding: 16px 32px;
@@ -270,13 +268,11 @@
           cursor: pointer;
         }
 
-        /* PAGE CONTENT */
         .content {
           padding: 28px 32px;
           flex: 1;
         }
 
-        /* STAT CARDS */
         .stats-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -339,7 +335,6 @@
         .stat-icon.hijau { background: rgba(22,163,74,0.08); }
         .stat-icon.biru  { background: rgba(37,99,235,0.08); }
 
-        /* GRID 2 COL */
         .grid-2 {
           display: grid;
           grid-template-columns: 1.6fr 1fr;
@@ -377,7 +372,6 @@
 
         .card-body { padding: 18px 22px; }
 
-        /* TABLE */
         .table-wrap { overflow-x: auto; }
 
         table {
@@ -487,7 +481,6 @@
           display: block;
         }
 
-        /* QUICK ACCESS */
         .quick-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -535,6 +528,66 @@
           font-size: 0.7rem;
           color: var(--teks-abu);
         }
+
+    .modal-overlay {
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); 
+        display: none; 
+        align-items: center; 
+        justify-content: center; 
+        z-index: 9999; 
+        backdrop-filter: blur(3px);
+    }
+
+    .modal-box {
+        background: #fff;
+        width: 95%;
+        max-width: 500px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        overflow: hidden;
+        animation: modalFadeIn 0.3s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+        background: var(--merah);
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+    }
+
+    .modal-header h3 { font-family: 'Playfair Display'; font-size: 1.2rem; margin: 0; }
+    .close-btn { background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; line-height: 1; }
+
+    .modal-body { padding: 25px; }
+    
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--teks); }
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%; padding: 10px 14px; border: 1px solid var(--abu-border); border-radius: 10px; font-size: 0.9rem; outline: none;
+    }
+
+    .modal-footer {
+        padding: 15px 25px;
+        background: #fdf5f5;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    .btn-batal { background: #fff; border: 1px solid #ddd; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+    .btn-simpan { background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 700; }
     </style>
 </head>
 <body>

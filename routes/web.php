@@ -46,7 +46,7 @@ Route::get('/superadmin/publikasi-berita', function () {
 });
 
 Route::get('/superadmin/profil', function () {
-    return view('superadmin.profil');
+    return view('superadmin.kelola-profil');
 });
 
 

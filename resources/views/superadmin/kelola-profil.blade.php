@@ -50,8 +50,8 @@ Membangun kerja sama dengan berbagai pihak untuk mendukung perkembangan dan eksi
 </div>
 
 <div style="display: flex; justify-content: flex-end; align-items: flex-start; margin-bottom: 15px; margin-top: 20px;">
-    <button style="background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 1.2rem;">+</span> Tambah Pengurus
+    <button onclick="openModal()" style="background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-plus"></i> Tambah Pengurus
     </button>
 </div>
 
@@ -91,7 +91,7 @@ Membangun kerja sama dengan berbagai pihak untuk mendukung perkembangan dan eksi
                         <td>081234567890</td>
                         <td><span class="badge badge-aktif">Aktif</span></td>
                         <td>
-                            <button class="action-btn">Edit</button>
+                            <button  onclick="openModal()" class="action-btn">Edit</button>
                             <button class="action-btn">Hapus</button>
                         </td>
                     </tr>
@@ -108,7 +108,7 @@ Membangun kerja sama dengan berbagai pihak untuk mendukung perkembangan dan eksi
                         <td>081234567891</td>
                         <td><span class="badge badge-aktif">Aktif</span></td>
                         <td>
-                            <button class="action-btn">Edit</button>
+                            <button  onclick="openModal()" class="action-btn">Edit</button>
                             <button class="action-btn">Hapus</button>
                         </td>
                     </tr>
@@ -125,7 +125,7 @@ Membangun kerja sama dengan berbagai pihak untuk mendukung perkembangan dan eksi
                         <td>081234567892</td>
                         <td><span class="badge badge-aktif">Aktif</span></td>
                         <td>
-                            <button class="action-btn">Edit</button>
+                            <button  onclick="openModal()" class="action-btn">Edit</button>
                             <button class="action-btn">Hapus</button>
                         </td>
                     </tr>
@@ -142,7 +142,7 @@ Membangun kerja sama dengan berbagai pihak untuk mendukung perkembangan dan eksi
                         <td>081234567893</td>
                         <td><span class="badge badge-nonaktif">Nonaktif</span></td>
                         <td>
-                            <button class="action-btn">Edit</button>
+                            <button  onclick="openModal()" class="action-btn">Edit</button>
                             <button class="action-btn">Hapus</button>
                         </td>
                     </tr>
@@ -159,4 +159,81 @@ Membangun kerja sama dengan berbagai pihak untuk mendukung perkembangan dan eksi
         </div>
     </div>
 </div>
+
+<div id="modalAdmin" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3>Tambah Pengurus Baru</h3>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+        </div>
+        <form action="#" method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Foto Pengurus</label>
+                    <input type="file" name="foto" accept="image/*" style="padding: 8px;">
+                    <small style="color: var(--teks-abu); font-size: 0.75rem; display: block; margin-top: 4px;">
+                        *Format: JPG, PNG. Maksimal 2MB
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" placeholder="Masukkan nama lengkap pengurus" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Jabatan</label>
+                    <select required>
+                        <option value="">-- Pilih Jabatan --</option>
+                        <option>Ketua</option>
+                        <option>Sekretaris</option>
+                        <option>Bendahara</option>
+                        <option>Instruktur</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Nomor Telepon</label>
+                    <input type="tel" placeholder="Contoh: 08123456789" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select required>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Nonaktif">Nonaktif</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-batal" onclick="closeModal()">Batal</button>
+                <button type="submit" class="btn-simpan">Simpan Pengurus</button>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection
+
+@push('scripts')
+<script>
+    function openModal() {
+        document.getElementById('modalAdmin').style.display = 'flex';
+        // Mencegah scroll pada body saat modal terbuka
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('modalAdmin').style.display = 'none';
+        // Mengembalikan scroll body
+        document.body.style.overflow = 'auto';
+    }
+
+    // Tutup modal jika user klik area luar (overlay)
+    window.onclick = function(event) {
+        let modal = document.getElementById('modalAdmin');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+@endpush
