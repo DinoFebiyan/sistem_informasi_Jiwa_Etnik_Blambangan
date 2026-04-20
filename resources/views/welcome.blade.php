@@ -205,7 +205,8 @@
     .cal-grid span { font-size: 0.8rem; padding: 0.5rem 0; color: var(--text-gray); }
     .day-name { font-size: 0.7rem; color: #aaa; margin-bottom: 0.5rem; }
     .cal-grid .active { background: var(--maroon-dark); color: var(--white); border-radius: 5px; font-weight: 600; }
-    .event-day { background: var(--red-bg); color: var(--white); border-radius: 5px; }
+    .event-day { background: var(--red-bg); color: #000; border-radius: 5px; font-weight: 700; }
+    
 
     .event-list { display: flex; flex-direction: column; gap: 1rem; }
     .event-card { border: 1px solid #eee; border-radius: 12px; padding: 1rem; display: flex; gap: 1.5rem; align-items: center; }
@@ -397,37 +398,46 @@
     <h2 class="section-title">Kalender Event</h2>
     <p class="section-subtitle">Jadwal pentas dan kegiatan Sanggar JEB</p>
   </div>
-  <div class="kalender-grid">
-    <div class="cal-widget">
-      <div class="cal-header">Maret 2026</div>
-      <div class="cal-body">
-        <div class="cal-grid">
-          <span class="day-name">Su</span><span class="day-name">Mo</span><span class="day-name">Tu</span><span class="day-name">We</span><span class="day-name">Th</span><span class="day-name">Fr</span><span class="day-name">Sa</span>
-          <span class="event-day">1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
-          <span class="event-day">8</span><span>9</span><span class="active">10</span><span>11</span><span>12</span><span>13</span><span>14</span>
-          <span class="event-day">15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
-          <span class="event-day">22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
-          <span class="event-day">29</span><span>30</span><span>31</span>
+
+  <div class="kalender-container">
+    <div class="kalender-grid">
+      <div class="cal-widget">
+        <div class="cal-header">Maret 2026</div>
+        <div class="cal-body">
+          <div class="cal-grid">
+            <span class="day-name">Su</span><span class="day-name">Mo</span><span class="day-name">Tu</span><span class="day-name">We</span><span class="day-name">Th</span><span class="day-name">Fr</span><span class="day-name">Sa</span>
+            <span class="event-day">1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+            <span class="event-day">8</span><span>9</span><span class="active">10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+            <span class="event-day">15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+            <span class="event-day">22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
+            <span class="event-day">29</span><span>30</span><span>31</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-list">
+        <div class="event-card">
+          <div class="event-date"><h2>21</h2><span>MAR</span></div>
+          <div class="event-info">
+            <h4>Pentas Tari Gandrung</h4>
+            <p>Penampilan dalam rangka HUT Jadi Kabupaten Banyuwangi ke-254</p>
+            <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date"><h2>24</h2><span>MAR</span></div>
+          <div class="event-info">
+            <h4>Workshop Seni Tari</h4>
+            <p>Pelatihan teknik dasar tari bagi anggota tingkat pemula.</p>
+            <div class="meta"><span>📍 Sanggar JEB</span><span>🕐 15:00 WIB</span></div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="event-list">
-      <div class="event-card">
-        <div class="event-date"><h2>21</h2><span>MAR</span></div>
-        <div class="event-info">
-          <h4>Pentas Tari Gandrung</h4>
-          <p>Penampilan dalam rangka HUT Jadi Kabupaten Banyuwangi ke-254</p>
-          <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
-        </div>
-      </div>
-      <div class="event-card">
-        <div class="event-date"><h2>24</h2><span>MAR</span></div>
-        <div class="event-info">
-          <h4>Pentas Tari Gandrung</h4>
-          <p>Penampilan dalam rangka HUT Jadi Kabupaten Banyuwangi ke-254</p>
-          <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
-        </div>
-      </div>
+
+    <div class="center-action">
+      <a href="#" class="btn-dark-pill">Lihat Semua Event</a>
     </div>
   </div>
 </section>
