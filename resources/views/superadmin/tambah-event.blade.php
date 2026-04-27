@@ -66,19 +66,18 @@
 </div>
 
 <script>
-    // Membuka Modal (Mengubah display menjadi flex agar ke tengah)
+    
     function bukaModalEvent() {
         document.getElementById('modalTambahEvent').style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // Mencegah background di-scroll
+        document.body.style.overflow = 'hidden';
     }
 
-    // Menutup Modal
+   
     function tutupModalEvent() {
         document.getElementById('modalTambahEvent').style.display = 'none';
-        document.body.style.overflow = 'auto'; // Mengembalikan scroll
+        document.body.style.overflow = 'auto'; 
     }
-
-    // Menutup modal jika klik area luar kotak putih
+ 
     window.onclick = function(event) {
         const modal = document.getElementById('modalTambahEvent');
         if (event.target == modal) {

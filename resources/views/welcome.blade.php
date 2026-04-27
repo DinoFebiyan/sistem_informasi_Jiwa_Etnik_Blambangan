@@ -437,8 +437,8 @@
     </div>
 
     <div class="center-action">
-      <a href="#" class="btn-dark-pill">Lihat Semua Event</a>
-    </div>
+    <a href="{{ route('event.index') }}" class="btn-dark-pill">Lihat Semua Event</a>
+</div>
   </div>
 </section>
 

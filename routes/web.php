@@ -65,3 +65,7 @@ Route::get('/admin/news', function () {
 Route::get('/admin/profile', function () {
     return view('admin.profile.index');
 })->name('admin.profile.index');
+
+Route::get('/semua-event', function () {
+    return view('semua-event'); 
+})->name('event.index');
