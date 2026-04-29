@@ -3,17 +3,14 @@
 @section('title', 'Profil Sanggar - Sanggar JEB')
 
 <style>
-/* =========================================
-   TENTANG KAMI PAGE STYLES
-   ========================================= */
 
 /* Umum / Utilities */
 .container { width: 85%; max-width: 1200px; margin: 0 auto; }
 .about-section { padding: 5rem 0; }
-.bg-gray { background-color: #d6cfc7; } /* Warna krem abu-abu sesuai desain */
+.bg-gray { background-color: #d6cfc7; } 
 .bg-gray-darker { background-color: #c9c1b8; }
 .bg-white { background-color: #ffffff; }
-.text-center { text-align: center; } /* <-- Ini kode yang baru ditambahkan */
+.text-center { text-align: center; } 
 
 /* Tipografi */
 .text-red-small {
@@ -44,7 +41,7 @@
     line-height: 1.6; color: rgba(255,255,255,0.9);
 }
 
-/* 2. Menu Tabs */
+
 .about-tabs {
     background-color: #cfc9c3; padding: 1rem 0;
     border-bottom: 1px solid #b8b2ac;
@@ -58,7 +55,7 @@
 }
 .about-tabs li.active { color: #B22222; }
 
-/* 3. Profil Sanggar */
+
 .profil-main-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem;
 }
@@ -83,7 +80,7 @@
 }
 .highlight-box p { font-size: 0.8rem; color: #666; font-weight: 600; }
 
-/* 4. Struktur Organisasi */
+
 .org-chart { display: flex; flex-direction: column; align-items: center; }
 .org-label {
     font-size: 0.8rem; color: #333; letter-spacing: 1px; margin: 2rem 0 1rem;
@@ -104,7 +101,7 @@
     width: 100%; max-width: 700px;
 }
 
-/* 5. Prestasi Sanggar */
+
 .prestasi-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
 }
@@ -124,7 +121,6 @@
 </style>
 
 @section('content')
-<!-- === HERO SECTION === -->
 <section class="about-hero">
     <div class="hero-content">
         <span class="badge-yellow-small">TENTANG KAMI</span>
@@ -133,7 +129,7 @@
     </div>
 </section>
 
-<!-- === TAB MENU === -->
+
 <div class="about-tabs">
     <div class="container">
         <ul>
@@ -144,7 +140,7 @@
     </div>
 </div>
 
-<!-- === PROFIL & SEJARAH SECTION === -->
+
 <section id="profil" class="about-section bg-gray">
     <div class="container">
         <div class="section-header-left">
@@ -164,7 +160,7 @@
             </div>
         </div>
 
-        <!-- 4 Kotak Highlight -->
+        
         <div class="profil-highlights">
             <div class="highlight-box">
                 <h3>2010</h3>
@@ -186,7 +182,7 @@
     </div>
 </section>
 
-<!-- === STRUKTUR ORGANISASI SECTION === -->
+
 <section id="pengurus" class="about-section bg-gray-darker">
     <div class="container text-center">
         <span class="text-red-small">STRUKTUR ORGANISASI</span>
@@ -199,7 +195,7 @@
                 <div class="org-box">Ketua Sanggar</div>
             </div>
 
-            <!-- Pengurus Inti -->
+            
             <h4 class="org-label">PENGURUS INTI</h4>
             <div class="org-level-2">
                 <div class="org-box">Sekretaris</div>
@@ -208,7 +204,7 @@
                 <div class="org-box">Divisi Kostum</div>
             </div>
 
-            <!-- Anggota Pengurus -->
+            
             <h4 class="org-label">ANGGOTA PENGURUS</h4>
             <div class="org-level-3">
                 <div class="org-box">Anggota 1</div>
@@ -222,7 +218,7 @@
     </div>
 </section>
 
-<!-- === PRESTASI SECTION === -->
+
 <section id="prestasi" class="about-section bg-white">
     <div class="container">
         <div class="section-header-left">

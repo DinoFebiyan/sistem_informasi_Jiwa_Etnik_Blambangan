@@ -90,7 +90,7 @@
 <script>
 function calendarApp() {
     return {
-        month: 2, // Maret
+        month: 2, 
         year: 2026,
         monthNames: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
         allEvents: [
