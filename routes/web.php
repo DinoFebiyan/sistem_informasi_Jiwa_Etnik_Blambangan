@@ -72,3 +72,7 @@ Route::get('/admin/profile', function () {
 Route::get('/semua-event', function () {
     return view('semua-event'); 
 })->name('event.index');
+
+Route::get('/profil', function () {
+    return view('profil'); 
+})->name('profil'); 

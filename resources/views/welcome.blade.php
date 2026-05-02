@@ -101,6 +101,13 @@
     .profile-card h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--gold); margin: 3rem 0 1rem; }
     .profile-card p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.9); }
 
+    .center-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px; 
+    width: 100%;
+}
+
     /* ══ VISI MISI ══ */
     #visi-misi { background: var(--white); }
     .vm-container { display: flex; flex-direction: column; gap: 2rem; max-width: 800px; margin: 0 auto; }
@@ -260,6 +267,7 @@
     <h2 class="section-title">Profile Sanggar</h2>
     <p class="section-subtitle">Mengenal lebih dekat Sanggar Tari Jiwa Etnik Blambangan</p>
   </div>
+  
   <div class="profile-grid">
     <div class="profile-text">
       <h3>Melestarikan Budaya Banyuwangi</h3>
@@ -267,12 +275,16 @@
       <p>Kami membina generasi muda untuk mencintai dan menguasai seni tari tradisional, mulai dari tari Gandrung, hingga tari kreasi baru berbasis budaya lokal Blambangan.</p>
       <p>Dengan pengajar berpengalaman dan metode pembelajaran yang menyenangkan, kami hadir untuk semua kalangan usia.</p>
     </div>
+    
     <div class="profile-card">
       <img src="{{ asset('img/icon.png') }}" alt="Ilustrasi Penari" class="profile-card-img">
       <h4>Warisan Budaya Blambangan</h4>
       <p>Tari Tradisional adalah jiwa dari identitas budaya kita. Bersama kami, lestarikan dan rayakan kekayaan seni Nusantara.</p>
     </div>
-  </div>
+  </div> 
+  <div class="center-action">
+  <a href="{{ route('profil') }}" class="btn-dark-pill">Profil Lengkap Sanggar</a>
+</div>
 </section>
 
 <section id="visi-misi">
