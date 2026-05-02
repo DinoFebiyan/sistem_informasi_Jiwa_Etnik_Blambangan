@@ -49,6 +49,9 @@ Route::get('/superadmin/profil', function () {
     return view('superadmin.kelola-profil');
 });
 
+Route::get('/superadmin/pengaturan', function () {
+    return view('superadmin.pengaturan');
+});
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
