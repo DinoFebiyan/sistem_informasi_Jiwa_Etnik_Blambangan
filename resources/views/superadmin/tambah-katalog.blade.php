@@ -1,11 +1,11 @@
-@extends('layouts.Superadmin') {{-- Memanggil Sidebar & Layout Utama --}}
+@extends('layouts.Superadmin') {{-- Sesuaikan dengan nama layout Anda --}}
 
-@section('title', 'Tambah Admin Baru')
-@section('header_title', 'Kelola Admin')
+@section('title', 'Tambah Katalog Baru')
+@section('header_title', 'Kelola Katalog')
 
 @section('content')
 <style>
-  /* ══ RESET & CONTAINER UTAMA ══ */
+  
   .page-container {
     width: 100%;
     max-width: 1000px;
@@ -67,17 +67,13 @@
     color: #FF4D4D;
     border: 1.5px solid #FF4D4D;
   }
-  .btn-batal-head:hover { 
-    background: #fff0f0; 
-  }
+  .btn-batal-head:hover { background: #fff0f0; }
 
   .btn-simpan-head {
     color: #007BFF; 
     border: 1.5px solid #007BFF;
   }
-  .btn-simpan-head:hover { 
-    background: #f0f8ff; 
-  }
+  .btn-simpan-head:hover { background: #f0f8ff; }
 
   /* ══ FORM BODY ══ */
   .form-body {
@@ -93,15 +89,16 @@
     gap: 0.4rem;
   }
 
-  /* Label umum berwarna merah maroon */
   .form-group label {
     font-size: 1rem;
     font-weight: 600;
     color: #8A4B4B; 
   }
 
+  /* Penambahan selektor textarea untuk form deskripsi */
   .form-group input:not([type="file"]), 
-  .form-group select {
+  .form-group select,
+  .form-group textarea {
     padding: 0.8rem 1rem;
     border: 1.5px solid #8A4B4B; 
     border-radius: 8px;
@@ -114,8 +111,14 @@
     box-sizing: border-box;
   }
 
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px; /* Membuat kotak deskripsi lebih tinggi */
+  }
+
   .form-group input::placeholder,
-  .form-group select:invalid {
+  .form-group select:invalid,
+  .form-group textarea::placeholder {
     color: #BDBDBD;
   }
 
@@ -125,20 +128,19 @@
     margin-top: -0.2rem;
   }
 
-  /* ══ CUSTOM FILE INPUT (DIPERBAIKI) ══ */
+  /* ══ CUSTOM FILE INPUT ══ */
   .custom-file-wrapper {
     display: flex;
-    align-items: stretch; /* Memastikan tinggi tombol dan kolom teks sama */
+    align-items: stretch;
     border: 1.5px solid #8A4B4B;
     border-radius: 8px;
     background: #ffffff;
     overflow: hidden;
   }
 
-  /* Penambahan selektor lebih spesifik dan warna di-force putih */
   .form-group label.btn-pilih-file {
     background-color: #8A4B4B;
-    color: #ffffff !important; /* Paksa warna tulisan jadi putih */
+    color: #ffffff !important;
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
     font-weight: 500;
@@ -148,7 +150,7 @@
     align-items: center;
     justify-content: center;
     border-right: 1px solid #8A4B4B;
-    white-space: nowrap; /* Mencegah tulisan terpotong ke bawah */
+    white-space: nowrap;
   }
 
   .file-name-display {
@@ -157,7 +159,7 @@
     font-size: 0.9rem;
     flex-grow: 1;
     display: flex;
-    align-items: center; /* Memastikan teks "Masukkan foto profil" sejajar tengah */
+    align-items: center;
   }
 
   input[type="file"] {
@@ -170,14 +172,14 @@
   <!-- ══ FORM HEADER ══ -->
   <div class="header-merah">
     <div class="header-title">
-      <h1>Tambah Admin</h1>
-      <p>Kelola Admin</p>
+      <h1>Tambah Katalog</h1>
+      <p>Kelola Katalog</p>
     </div>
     <div class="header-actions">
       <button type="button" class="btn-action btn-batal-head" onclick="batalAction()">
         &#10005; Batal
       </button>
-      <button type="submit" form="formTambahAdmin" class="btn-action btn-simpan-head">
+      <button type="submit" form="formTambahKatalog" class="btn-action btn-simpan-head">
         &#128190; Simpan
       </button>
     </div>
@@ -185,7 +187,7 @@
 
   <!-- ══ FORM BODY ══ -->
   <div class="form-body">
-    <form id="formTambahAdmin" action="javascript:void(0)" onsubmit="simulasiSimpan()" method="POST" enctype="multipart/form-data">
+    <form id="formTambahKatalog" action="javascript:void(0)" onsubmit="simulasiSimpan()" method="POST" enctype="multipart/form-data">
       @csrf
 
       <!-- FOTO -->
@@ -193,45 +195,39 @@
         <label>Foto</label>
         <div class="custom-file-wrapper">
           <label for="foto" class="btn-pilih-file">Pilih File</label>
-          <span class="file-name-display" id="fileNameDisplay">Masukkan foto profil...</span>
+          <span class="file-name-display" id="fileNameDisplay">Masukkan foto alat/baju...</span>
           <input type="file" id="foto" name="foto" accept=".jpg, .png" onchange="updateFileName(this)">
         </div>
         <span class="form-helper">Format: JPG, PNG. Maks 2MB.</span>
       </div>
 
-      <!-- NAMA LENGKAP -->
+      <!-- NAMA KATALOG -->
       <div class="form-group">
-        <label for="nama_lengkap">Nama Lengkap</label>
-        <input type="text" id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan nama lengkap admin..." required>
+        <label for="nama_katalog">Nama Katalog</label>
+        <input type="text" id="nama_katalog" name="nama_katalog" placeholder="Masukkan katalog..." required>
       </div>
 
-      <!-- EMAIL -->
+      <!-- KATEGORI -->
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Masukkan email admin..." required>
-      </div>
-
-      <!-- PASSWORD -->
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Masukkan password yang akan digunakan admin untuk masuk..." minlength="8" required>
-        <span class="form-helper">Format password: Min 8 karakter tanpa simbol</span>
-      </div>
-
-      <!-- NO HANDPHONE -->
-      <div class="form-group">
-        <label for="no_hp">No Handphone</label>
-        <input type="tel" id="no_hp" name="no_hp" placeholder="Masukkan no handphone admin..." required>
-      </div>
-
-      <!-- STATUS -->
-      <div class="form-group">
-        <label for="status">Status</label>
-        <select id="status" name="status" required>
-          <option value="" disabled selected hidden>Masukkan status admin...</option>
-          <option value="aktif">Aktif</option>
-          <option value="nonaktif">Non-Aktif</option>
+        <label for="kategori">Kategori</label>
+        <select id="kategori" name="kategori" required>
+          <option value="" disabled selected hidden>Pilih kategori katalog...</option>
+          <option value="tradisional">Tradisional</option>
+          <option value="kreasi">Kreasi</option>
+          <option value="ritual">Ritual</option>
         </select>
+      </div>
+
+      <!-- DESKRIPSI -->
+      <div class="form-group">
+        <label for="deskripsi">Deskripsi katalog</label>
+        <textarea id="deskripsi" name="deskripsi" placeholder="Masukkan deskripsi katalog..." required></textarea>
+      </div>
+
+      <!-- STOK BARANG -->
+      <div class="form-group">
+        <label for="stok">Masukkan Stok Barang</label>
+        <input type="number" id="stok" name="stok" placeholder="Masukkan stok barang..." min="0" required>
       </div>
 
     </form>
@@ -245,20 +241,20 @@
       display.textContent = input.files[0].name;
       display.style.color = "#333"; 
     } else {
-      display.textContent = "Masukkan foto profil...";
+      display.textContent = "Masukkan foto alat/baju...";
       display.style.color = "#BDBDBD";
     }
   }
 
   function batalAction() {
     if(confirm('Apakah Anda yakin ingin membatalkan? Data yang diisi akan hilang.')) {
-      window.history.back(); // Kembali ke halaman Dashboard
+      window.history.back(); 
     }
   }
 
   function simulasiSimpan() {
-    alert('Simulasi Frontend: Data Admin berhasil disimpan!');
-    window.location.href = "{{ url('/superadmin/dashboard') }}"; 
+    alert('Simulasi Frontend: Data Katalog berhasil disimpan!');
+    
   }
 </script>
 @endsection

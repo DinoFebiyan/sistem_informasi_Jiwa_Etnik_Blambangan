@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('media', function (Blueprint $table) {
-            $table->id();
-            $table->longText('file_blob'); 
-            $table->string('nama_file');
-            $table->string('kategori_modul'); 
-            $table->boolean('is_watermark')->default(false);
-            $table->timestamps();
-        });
+        $table->id();
+        $table->string('judul')->nullable(); 
+        $table->longText('file_blob'); 
+        $table->string('nama_file');
+        $table->string('kategori_modul'); 
+        $table->string('sumber')->nullable(); 
+        $table->boolean('is_watermark')->default(false);
+        $table->timestamps();
+    });
     }
 
     /**

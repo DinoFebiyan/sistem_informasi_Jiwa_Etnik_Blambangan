@@ -1,4 +1,4 @@
-@extends('layouts.Superadmin') {{-- Pastikan mengarah ke layout yang sama --}}
+@extends('layouts.Superadmin') 
 
 @section('title', 'Dashboard Super Admin')
 @section('header_title', 'Dashboard Super Admin')
@@ -56,12 +56,14 @@
 
     {{-- QUICK ACCESS --}}
     <div class="quick-grid">
-        <a class="quick-card" href="javascript:void(0)" onclick="openModalTambahAdmin()">
-        <div class="quick-icon"><i class="fas fa-user-plus" style="color: var(--merah);"></i></div>
-        <p>Tambah Admin</p>
-        <span>Buat akun baru</span>
-      </a>
-        <a class="quick-card" href="#">
+        {{-- Link sudah diperbarui untuk pindah halaman --}}
+        <a class="quick-card" href="{{ url('/superadmin/tambah-admin') }}">
+            <div class="quick-icon"><i class="fas fa-user-plus" style="color: var(--merah);"></i></div>
+            <p>Tambah Admin</p>
+            <span>Buat akun baru</span>
+        </a>
+        
+        <a class="quick-card" href="{{ url('/superadmin/tambah-katalog') }}">
             <div class="quick-icon"><i class="fas fa-folder-plus" style="color: var(--emas);"></i></div>
             <p>Tambah Katalog</p>
             <span>Upload tari baru</span>
@@ -129,9 +131,7 @@
                     </div>
                 </div>
             </div>
-        </div>]
+        </div>
     </div>
 </div>
-@include('superadmin.tambah-admin')
-
 @endsection
