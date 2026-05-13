@@ -2,48 +2,49 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    // Mass Assignment Protection: Mencegah perubahan kolom sensitif secara ilegal
     protected $fillable = [
         'name',
         'email',
         'password',
+        'peran',
+        'no_handphone',
+        'status',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+    // Data Privacy: Menyembunyikan password saat data dikonversi ke Array/JSON
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+    // Security Casting: Otomatis menghash password dan mengonversi tipe data waktu
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    /** * Hubungan (Relationships):
+     * Seorang User (Admin) bisa membuat banyak data konten.
      */
-    protected function casts(): array
+    public function katalogs()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Katalog::class);
+    }
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+    public function beritas()
+    {
+        return $this->hasMany(Berita::class);
     }
 }
