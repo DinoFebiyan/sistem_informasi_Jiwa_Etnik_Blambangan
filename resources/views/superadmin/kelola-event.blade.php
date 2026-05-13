@@ -74,7 +74,7 @@
 
   /* TOMBOL TAMBAH EVENT (PINK) */
   .ev-btn-tambah {
-    background: #e2c0c0; /* Warna pink pudar persis di figma */
+    background: #e2c0c0; 
     color: #5a1a1a;
     border-radius: 12px;
     display: flex;
@@ -117,11 +117,11 @@
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    color: #eab308; /* Ikon kuning */
+    color: #eab308;
     font-size: 1.2rem;
   }
   .ev-btn-filter {
-    background: #b91c1c; /* Merah pekat */
+    background: #b91c1c;
     color: #ffffff;
     border: none;
     padding: 0 35px;
@@ -152,12 +152,12 @@
   .ev-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 900px; /* Mencegah tabel terlalu tergencet */
+    min-width: 900px;
   }
   .ev-table th {
     text-align: left;
     padding: 12px 10px;
-    color: #b07d7d; /* Warna coklat/merah pudar */
+    color: #b07d7d;
     font-weight: 600;
     font-size: 0.85rem;
     border-bottom: 2px solid #f9f9f9;
@@ -172,7 +172,7 @@
   .ev-foto {
     width: 50px;
     height: 50px;
-    background: #5B1A1A; /* Placeholder gelap */
+    background: #5B1A1A;
     border-radius: 8px;
     object-fit: cover;
   }
@@ -197,17 +197,33 @@
     font-weight: 600;
   }
   
-  .ev-action-btns button {
+  /* PERBAIKAN TOMBOL EDIT AGAR BISA DIKLIK TANPA MERUBAH TAMPILAN */
+  .ev-action-btns {
+    display: flex;
+    gap: 5px;
+  }
+  .ev-btn-edit { 
+    background: #eff6ff; 
+    color: #3b82f6; 
     border: none;
     padding: 6px 14px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.7rem;
     font-weight: 600;
-    margin-right: 5px;
+    text-decoration: none; /* Menghilangkan garis bawah */
+    display: inline-block; /* Agar padding berfungsi pada tag 'a' */
   }
-  .ev-btn-edit { background: #eff6ff; color: #3b82f6; }
-  .ev-btn-hapus { background: #fef2f2; color: #ef4444; margin-right: 0 !important; }
+  .ev-btn-hapus { 
+    background: #fef2f2; 
+    color: #ef4444; 
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
 
   /* ══ PAGINASI ══ */
   .ev-pagination {
@@ -275,7 +291,6 @@
             </div>
         </div>
         
-        <!-- TOMBOL TAMBAH EVENT MENUJU FORM -->
         <a href="{{ url('/superadmin/tambah-event') }}" class="ev-btn-tambah">
             <span>+</span> Tambah Event
         </a>
@@ -310,7 +325,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- BARIS 1 -->
+                @for ($i = 0; $i < 5; $i++)
                 <tr>
                     <td><div class="ev-foto"></div></td>
                     <td><span class="ev-title">Banyuwangi Culture Hub</span></td>
@@ -320,66 +335,12 @@
                     <td>Pendopo Sabha<br>Swagata</td>
                     <td><span class="ev-badge-selesai">Selesai</span></td>
                     <td class="ev-action-btns">
-                        <button class="ev-btn-edit">Edit</button>
+                        <!-- LINK EDIT YANG SUDAH DISAMBUNGKAN -->
+                        <a href="{{ url('/superadmin/edit-event') }}" class="ev-btn-edit">Edit</a>
                         <button class="ev-btn-hapus">Hapus</button>
                     </td>
                 </tr>
-                <!-- BARIS 2 -->
-                <tr>
-                    <td><div class="ev-foto"></div></td>
-                    <td><span class="ev-title">Banyuwangi Culture Hub</span></td>
-                    <td><div class="ev-desc">Pada Event ini JEB menampilkan<br>tari gandrung yang ...</div></td>
-                    <td>Pertunjukan</td>
-                    <td>12 Jan 2026</td>
-                    <td>Pendopo Sabha<br>Swagata</td>
-                    <td><span class="ev-badge-selesai">Selesai</span></td>
-                    <td class="ev-action-btns">
-                        <button class="ev-btn-edit">Edit</button>
-                        <button class="ev-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
-                <!-- BARIS 3 -->
-                <tr>
-                    <td><div class="ev-foto"></div></td>
-                    <td><span class="ev-title">Banyuwangi Culture Hub</span></td>
-                    <td><div class="ev-desc">Pada Event ini JEB menampilkan<br>tari gandrung yang ...</div></td>
-                    <td>Pertunjukan</td>
-                    <td>12 Jan 2026</td>
-                    <td>Pendopo Sabha<br>Swagata</td>
-                    <td><span class="ev-badge-selesai">Selesai</span></td>
-                    <td class="ev-action-btns">
-                        <button class="ev-btn-edit">Edit</button>
-                        <button class="ev-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
-                <!-- BARIS 4 -->
-                <tr>
-                    <td><div class="ev-foto"></div></td>
-                    <td><span class="ev-title">Banyuwangi Culture Hub</span></td>
-                    <td><div class="ev-desc">Pada Event ini JEB menampilkan<br>tari gandrung yang ...</div></td>
-                    <td>Pertunjukan</td>
-                    <td>12 Jan 2026</td>
-                    <td>Pendopo Sabha<br>Swagata</td>
-                    <td><span class="ev-badge-selesai">Selesai</span></td>
-                    <td class="ev-action-btns">
-                        <button class="ev-btn-edit">Edit</button>
-                        <button class="ev-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
-                <!-- BARIS 5 -->
-                <tr>
-                    <td><div class="ev-foto"></div></td>
-                    <td><span class="ev-title">Banyuwangi Culture Hub</span></td>
-                    <td><div class="ev-desc">Pada Event ini JEB menampilkan<br>tari gandrung yang ...</div></td>
-                    <td>Pertunjukan</td>
-                    <td>12 Jan 2026</td>
-                    <td>Pendopo Sabha<br>Swagata</td>
-                    <td><span class="ev-badge-selesai">Selesai</span></td>
-                    <td class="ev-action-btns">
-                        <button class="ev-btn-edit">Edit</button>
-                        <button class="ev-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
+                @endfor
             </tbody>
         </table>
 
@@ -393,6 +354,5 @@
             </div>
         </div>
     </div>
-
 </div>
 @endsection

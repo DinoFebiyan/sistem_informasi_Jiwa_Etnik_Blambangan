@@ -117,11 +117,11 @@
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    color: #eab308; /* Ikon kuning */
+    color: #eab308;
     font-size: 1.2rem;
   }
   .kat-btn-filter {
-    background: #b91c1c; /* Merah pekat */
+    background: #b91c1c;
     color: #ffffff;
     border: none;
     padding: 0 35px;
@@ -172,22 +172,38 @@
   .kat-foto {
     width: 50px;
     height: 50px;
-    background: #e67e22; /* Placeholder warna oren menyesuaikan gambar baju */
+    background: #e67e22; 
     border-radius: 8px;
     object-fit: cover;
   }
   
-  .kat-action-btns button {
+  /* PERBAIKAN TOMBOL EDIT AGAR BISA DIKLIK */
+  .kat-action-btns {
+    display: flex;
+    gap: 5px;
+  }
+  .kat-btn-edit { 
+    background: #eff6ff; 
+    color: #3b82f6; 
     border: none;
     padding: 6px 14px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.7rem;
     font-weight: 600;
-    margin-right: 5px;
+    text-decoration: none; /* Menghilangkan garis bawah link */
+    display: inline-block; /* Agar padding berfungsi pada tag 'a' */
   }
-  .kat-btn-edit { background: #eff6ff; color: #3b82f6; }
-  .kat-btn-hapus { background: #fef2f2; color: #ef4444; margin-right: 0 !important; }
+  .kat-btn-hapus { 
+    background: #fef2f2; 
+    color: #ef4444; 
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
 
   /* ══ PAGINASI ══ */
   .kat-pagination {
@@ -255,7 +271,6 @@
             </div>
         </div>
         
-        <!-- TOMBOL TAMBAH KATALOG MENUJU FORM -->
         <a href="{{ url('/superadmin/tambah-katalog') }}" class="kat-btn-tambah">
             <span>+</span> Tambah Katalog
         </a>
@@ -288,7 +303,8 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- BARIS 1 -->
+                <!-- LOOPING BARIS TABEL -->
+                @for ($i = 0; $i < 5; $i++)
                 <tr>
                     <td><div class="kat-foto"></div></td>
                     <td style="font-weight: 600;">Baju Tari Gandrung</td>
@@ -296,58 +312,12 @@
                     <td style="color: #666; line-height: 1.4;">Baju tari gandrung khas banyuwangi, dengan<br>bahan kain halus dan nyaman dipakai</td>
                     <td style="font-weight: 700;">5</td>
                     <td class="kat-action-btns">
-                        <button class="kat-btn-edit">Edit</button>
+                        <!-- LINK EDIT DISAMBUNGKAN KE VIEW EDIT KATALOG -->
+                        <a href="{{ url('/superadmin/edit-katalog') }}" class="kat-btn-edit">Edit</a>
                         <button class="kat-btn-hapus">Hapus</button>
                     </td>
                 </tr>
-                <!-- BARIS 2 -->
-                <tr>
-                    <td><div class="kat-foto"></div></td>
-                    <td style="font-weight: 600;">Baju Tari Gandrung</td>
-                    <td>Baju Tari</td>
-                    <td style="color: #666; line-height: 1.4;">Baju tari gandrung khas banyuwangi, dengan<br>bahan kain halus dan nyaman dipakai</td>
-                    <td style="font-weight: 700;">5</td>
-                    <td class="kat-action-btns">
-                        <button class="kat-btn-edit">Edit</button>
-                        <button class="kat-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
-                <!-- BARIS 3 -->
-                <tr>
-                    <td><div class="kat-foto"></div></td>
-                    <td style="font-weight: 600;">Baju Tari Gandrung</td>
-                    <td>Baju Tari</td>
-                    <td style="color: #666; line-height: 1.4;">Baju tari gandrung khas banyuwangi, dengan<br>bahan kain halus dan nyaman dipakai</td>
-                    <td style="font-weight: 700;">5</td>
-                    <td class="kat-action-btns">
-                        <button class="kat-btn-edit">Edit</button>
-                        <button class="kat-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
-                <!-- BARIS 4 -->
-                <tr>
-                    <td><div class="kat-foto"></div></td>
-                    <td style="font-weight: 600;">Baju Tari Gandrung</td>
-                    <td>Baju Tari</td>
-                    <td style="color: #666; line-height: 1.4;">Baju tari gandrung khas banyuwangi, dengan<br>bahan kain halus dan nyaman dipakai</td>
-                    <td style="font-weight: 700;">5</td>
-                    <td class="kat-action-btns">
-                        <button class="kat-btn-edit">Edit</button>
-                        <button class="kat-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
-                <!-- BARIS 5 -->
-                <tr>
-                    <td><div class="kat-foto"></div></td>
-                    <td style="font-weight: 600;">Baju Tari Gandrung</td>
-                    <td>Baju Tari</td>
-                    <td style="color: #666; line-height: 1.4;">Baju tari gandrung khas banyuwangi, dengan<br>bahan kain halus dan nyaman dipakai</td>
-                    <td style="font-weight: 700;">5</td>
-                    <td class="kat-action-btns">
-                        <button class="kat-btn-edit">Edit</button>
-                        <button class="kat-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
+                @endfor
             </tbody>
         </table>
 
@@ -361,6 +331,5 @@
             </div>
         </div>
     </div>
-
 </div>
 @endsection

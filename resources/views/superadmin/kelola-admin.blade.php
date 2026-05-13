@@ -74,7 +74,7 @@
 
   /* TOMBOL TAMBAH ADMIN (PINK) */
   .adm-btn-tambah {
-    background: #e2c0c0; /* Warna pink pudar persis di figma */
+    background: #e2c0c0;
     color: #5a1a1a;
     border-radius: 12px;
     display: flex;
@@ -117,11 +117,11 @@
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    color: #eab308; /* Ikon kuning */
+    color: #eab308;
     font-size: 1.2rem;
   }
   .adm-btn-filter {
-    background: #b91c1c; /* Merah pekat */
+    background: #b91c1c;
     color: #ffffff;
     border: none;
     padding: 0 35px;
@@ -157,7 +157,7 @@
   .adm-table th {
     text-align: left;
     padding: 12px 10px;
-    color: #b07d7d; /* Warna coklat/merah pudar */
+    color: #b07d7d;
     font-weight: 600;
     font-size: 0.85rem;
     border-bottom: 2px solid #f9f9f9;
@@ -172,7 +172,7 @@
   .adm-foto {
     width: 35px;
     height: 35px;
-    background: #2563eb; /* Placeholder biru */
+    background: #2563eb;
     color: #fff;
     border-radius: 50%;
     display: flex;
@@ -192,17 +192,33 @@
     font-weight: 600;
   }
   
-  .adm-action-btns button {
+  /* PERBAIKAN TOMBOL EDIT AGAR BISA DIKLIK */
+  .adm-action-btns {
+    display: flex;
+    gap: 5px;
+  }
+  .adm-btn-edit { 
+    background: #eff6ff; 
+    color: #3b82f6; 
     border: none;
     padding: 6px 14px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.7rem;
     font-weight: 600;
-    margin-right: 5px;
+    text-decoration: none; /* Menghilangkan garis bawah link */
+    display: inline-block; /* Agar padding berfungsi pada tag 'a' */
   }
-  .adm-btn-edit { background: #eff6ff; color: #3b82f6; }
-  .adm-btn-hapus { background: #fef2f2; color: #ef4444; margin-right: 0 !important; }
+  .adm-btn-hapus { 
+    background: #fef2f2; 
+    color: #ef4444; 
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
 
   /* ══ PAGINASI ══ */
   .adm-pagination {
@@ -270,7 +286,6 @@
             </div>
         </div>
         
-        <!-- TOMBOL TAMBAH ADMIN MENUJU FORM -->
         <a href="{{ url('/superadmin/tambah-admin') }}" class="adm-btn-tambah">
             <span>+</span> Tambah Admin
         </a>
@@ -303,7 +318,8 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- BARIS 1 -->
+                <!-- LOOPING BARIS TABEL -->
+                @for ($i = 0; $i < 5; $i++)
                 <tr>
                     <td><div class="adm-foto">RP</div></td>
                     <td style="font-weight: 600;">Rizky Pratama</td>
@@ -311,58 +327,12 @@
                     <td>081234567890</td>
                     <td><span class="adm-badge-aktif">Aktif</span></td>
                     <td class="adm-action-btns">
-                        <button class="adm-btn-edit">Edit</button>
+                        <!-- LINK EDIT DISAMBUNGKAN KE VIEW EDIT -->
+                        <a href="{{ url('/superadmin/edit-admin') }}" class="adm-btn-edit">Edit</a>
                         <button class="adm-btn-hapus">Hapus</button>
                     </td>
                 </tr>
-                <!-- BARIS 2 -->
-                <tr>
-                    <td><div class="adm-foto">RP</div></td>
-                    <td style="font-weight: 600;">Rizky Pratama</td>
-                    <td>rizky@jeb.id</td>
-                    <td>081234567890</td>
-                    <td><span class="adm-badge-aktif">Aktif</span></td>
-                    <td class="adm-action-btns">
-                        <button class="adm-btn-edit">Edit</button>
-                        <button class="adm-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
-                <!-- BARIS 3 -->
-                <tr>
-                    <td><div class="adm-foto">RP</div></td>
-                    <td style="font-weight: 600;">Rizky Pratama</td>
-                    <td>rizky@jeb.id</td>
-                    <td>081234567890</td>
-                    <td><span class="adm-badge-aktif">Aktif</span></td>
-                    <td class="adm-action-btns">
-                        <button class="adm-btn-edit">Edit</button>
-                        <button class="adm-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
-                <!-- BARIS 4 -->
-                <tr>
-                    <td><div class="adm-foto">RP</div></td>
-                    <td style="font-weight: 600;">Rizky Pratama</td>
-                    <td>rizky@jeb.id</td>
-                    <td>081234567890</td>
-                    <td><span class="adm-badge-aktif">Aktif</span></td>
-                    <td class="adm-action-btns">
-                        <button class="adm-btn-edit">Edit</button>
-                        <button class="adm-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
-                <!-- BARIS 5 -->
-                <tr>
-                    <td><div class="adm-foto">RP</div></td>
-                    <td style="font-weight: 600;">Rizky Pratama</td>
-                    <td>rizky@jeb.id</td>
-                    <td>081234567890</td>
-                    <td><span class="adm-badge-aktif">Aktif</span></td>
-                    <td class="adm-action-btns">
-                        <button class="adm-btn-edit">Edit</button>
-                        <button class="adm-btn-hapus">Hapus</button>
-                    </td>
-                </tr>
+                @endfor
             </tbody>
         </table>
 
@@ -376,6 +346,5 @@
             </div>
         </div>
     </div>
-
 </div>
 @endsection

@@ -99,3 +99,13 @@ Route::get('/login', function () {
 Route::get('/superadmin/edit-profil', function () { return view('superadmin.edit-profil'); });
 Route::get('/superadmin/tambah-pengurus', function () { return view('superadmin.tambah-pengurus'); });
 Route::get('/superadmin/tambah-pelatih', function () { return view('superadmin.tambah-pelatih'); });
+
+Route::get('/superadmin/edit-admin', function () {
+    return view('superadmin.edit-admin');
+})->name('admin.edit.dummy');
+
+Route::get('/superadmin/edit-katalog', function () {
+ return view('superadmin.edit-katalog'); });
+
+Route::get('/superadmin/edit-event', function () {
+ return view('superadmin.edit-event'); });
