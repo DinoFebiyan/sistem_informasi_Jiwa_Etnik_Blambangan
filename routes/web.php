@@ -76,3 +76,7 @@ Route::get('/semua-event', function () {
 Route::get('/profil', function () {
     return view('profil'); 
 })->name('profil'); 
+
+Route::get('/superadmin/tambah-admin', function () {
+    return view('superadmin.tambah-admin');
+});

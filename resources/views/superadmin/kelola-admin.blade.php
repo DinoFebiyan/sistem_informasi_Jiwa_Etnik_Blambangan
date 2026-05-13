@@ -9,9 +9,11 @@
         <h2 style="font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--teks);">Kelola Admin</h2>
         <p style="color: var(--teks-abu); font-size: 0.85rem;">5 admin terdaftar dalam sistem</p>
     </div>
-    <button style="background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+    
+    <!-- PERUBAHAN DI SINI: Mengubah <button> menjadi <a> dan menambahkan href -->
+    <a href="{{ url('/superadmin/tambah-admin') }}" style="background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none;">
         <span style="font-size: 1.2rem;">+</span> Tambah Admin
-    </button>
+    </a>
 </div>
 
 <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 28px;">

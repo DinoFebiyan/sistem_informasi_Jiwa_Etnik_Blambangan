@@ -1,169 +1,264 @@
+@extends('layouts.Superadmin') {{-- Memanggil Sidebar & Layout Utama --}}
+
+@section('title', 'Tambah Admin Baru')
+@section('header_title', 'Kelola Admin')
+
+@section('content')
 <style>
-  /* ══ OVERLAY MODAL ══ */
-  .modal-overlay {
-    position: fixed; 
-    top: 0; left: 0; right: 0; bottom: 0; 
-    background-color: rgba(0, 0, 0, 0.4); /* Efek gelap transparan di belakang popup */
-    display: none; /* Disembunyikan secara default, akan diubah ke 'flex' via JS */
-    align-items: center; 
-    justify-content: center; 
-    z-index: 9999;
-  }
-  
-  /* ══ KOTAK MODAL UTAMA ══ */
-  .modal-box {
-    background: #ffffff; 
-    width: 100%; 
-    max-width: 550px;
-    border-radius: 12px; 
-    padding: 2.5rem; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  /* ══ RESET & CONTAINER UTAMA ══ */
+  .page-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 2rem auto;
+    background-color: #E6E5E5; 
     font-family: 'Poppins', sans-serif;
-    animation: modalSlideDown 0.3s ease-out forwards;
-  }
-  
-  @keyframes modalSlideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
-  .modal-box h2 { 
-    font-size: 1.25rem; 
-    font-weight: 700; 
-    color: #333; 
-    margin-bottom: 1.5rem; 
+  /* ══ HEADER MERAH ══ */
+  .header-merah {
+    background-color: #5B1A1A; 
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #E4C15A; 
+    box-shadow: 0 4px 10px rgba(228, 193, 90, 0.3);
   }
-  
-  /* ══ GRID FORM (2 KOLOM) ══ */
-  .form-grid { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 1.5rem; 
+
+  .header-title h1 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    font-weight: 700;
+    margin: 0 0 0.2rem 0;
+    font-family: 'Times New Roman', serif; 
   }
-  
-  @media (max-width: 500px) { 
-    .form-grid { grid-template-columns: 1fr; /* Jadi 1 kolom kalau di layar HP */ } 
+
+  .header-title p {
+    font-size: 0.85rem;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 300;
   }
-  
-  .form-group { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 0.5rem; 
+
+  /* ══ TOMBOL HEADER ══ */
+  .header-actions {
+    display: flex;
+    gap: 1rem;
   }
-  
-  .form-group label { 
-    font-size: 0.85rem; 
-    font-weight: 600; 
-    color: #333; 
+
+  .btn-action {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.2s;
   }
-  
-  .form-group input { 
-    padding: 0.75rem 1rem; 
-    border: 1px solid #ddd; 
-    border-radius: 8px; 
-    font-family: 'Poppins', sans-serif; 
-    font-size: 0.85rem; 
+
+  .btn-batal-head {
+    color: #FF4D4D;
+    border: 1.5px solid #FF4D4D;
+  }
+  .btn-batal-head:hover { 
+    background: #fff0f0; 
+  }
+
+  .btn-simpan-head {
+    color: #007BFF; 
+    border: 1.5px solid #007BFF;
+  }
+  .btn-simpan-head:hover { 
+    background: #f0f8ff; 
+  }
+
+  /* ══ FORM BODY ══ */
+  .form-body {
+    padding: 2.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  /* Label umum berwarna merah maroon */
+  .form-group label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #8A4B4B; 
+  }
+
+  .form-group input:not([type="file"]), 
+  .form-group select {
+    padding: 0.8rem 1rem;
+    border: 1.5px solid #8A4B4B; 
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
     color: #333;
-    outline: none; 
-    transition: border-color 0.2s;
-  }
-  
-  .form-group input:focus { 
-    border-color: #6b0808; /* Warna merah maroon JEB saat diklik */
+    outline: none;
+    background: #ffffff;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  .form-group input::placeholder {
-    color: #aaa;
+  .form-group input::placeholder,
+  .form-group select:invalid {
+    color: #BDBDBD;
   }
-  
-  /* ══ TOMBOL AKSI ══ */
-  .modal-footer { 
-    margin-top: 2.5rem; 
-    display: flex; 
-    justify-content: center; 
-    gap: 1rem; 
+
+  .form-helper {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: -0.2rem;
   }
-  
-  .btn-modal { 
-    padding: 0.6rem 2rem; 
-    border-radius: 8px; 
-    font-weight: 600; 
-    font-size: 0.9rem; 
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer; 
-    transition: all 0.2s; 
+
+  /* ══ CUSTOM FILE INPUT (DIPERBAIKI) ══ */
+  .custom-file-wrapper {
+    display: flex;
+    align-items: stretch; /* Memastikan tinggi tombol dan kolom teks sama */
+    border: 1.5px solid #8A4B4B;
+    border-radius: 8px;
+    background: #ffffff;
+    overflow: hidden;
   }
-  
-  .btn-batal { 
-    background: transparent; 
-    border: 1px solid #ccc; 
-    color: #333; 
+
+  /* Penambahan selektor lebih spesifik dan warna di-force putih */
+  .form-group label.btn-pilih-file {
+    background-color: #8A4B4B;
+    color: #ffffff !important; /* Paksa warna tulisan jadi putih */
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #8A4B4B;
+    white-space: nowrap; /* Mencegah tulisan terpotong ke bawah */
   }
-  
-  .btn-batal:hover { 
-    background: #f5f5f5; 
+
+  .file-name-display {
+    padding: 0 1rem;
+    color: #BDBDBD;
+    font-size: 0.9rem;
+    flex-grow: 1;
+    display: flex;
+    align-items: center; /* Memastikan teks "Masukkan foto profil" sejajar tengah */
   }
-  
-  .btn-simpan { 
-    background: #6b0808; /* Merah Maroon JEB */
-    border: 1px solid #6b0808; 
-    color: #ffffff; 
-  }
-  
-  .btn-simpan:hover { 
-    background: #4a0505; 
-    border-color: #4a0505; 
+
+  input[type="file"] {
+    display: none;
   }
 </style>
 
-<div class="modal-overlay" id="modalTambahAdmin">
-  <div class="modal-box">
-    <h2>Tambah Admin Baru</h2>
-    
-    <form action="javascript:void(0)" onsubmit="simulasiSimpan()">
-      @csrf
-      
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" placeholder="Contoh: budi_santoso" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="Masukkan password" required>
-        </div>
+<div class="page-container">
+  
+  <!-- ══ FORM HEADER ══ -->
+  <div class="header-merah">
+    <div class="header-title">
+      <h1>Tambah Admin</h1>
+      <p>Kelola Admin</p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn-action btn-batal-head" onclick="batalAction()">
+        &#10005; Batal
+      </button>
+      <button type="submit" form="formTambahAdmin" class="btn-action btn-simpan-head">
+        &#128190; Simpan
+      </button>
+    </div>
+  </div>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="Contoh: budi@jeb.id" required>
+  <!-- ══ FORM BODY ══ -->
+  <div class="form-body">
+    <form id="formTambahAdmin" action="javascript:void(0)" onsubmit="simulasiSimpan()" method="POST" enctype="multipart/form-data">
+      @csrf
+
+      <!-- FOTO -->
+      <div class="form-group">
+        <label>Foto</label>
+        <div class="custom-file-wrapper">
+          <label for="foto" class="btn-pilih-file">Pilih File</label>
+          <span class="file-name-display" id="fileNameDisplay">Masukkan foto profil...</span>
+          <input type="file" id="foto" name="foto" accept=".jpg, .png" onchange="updateFileName(this)">
         </div>
-        
-        <div class="form-group">
-          <label for="password_confirmation">Konfirmasi Password</label>
-          <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Ulangi password" required>
-        </div>
+        <span class="form-helper">Format: JPG, PNG. Maks 2MB.</span>
       </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn-modal btn-batal" onclick="closeModalTambahAdmin()">Batal</button>
-        <button type="submit" class="btn-modal btn-simpan">Simpan Admin</button>
+
+      <!-- NAMA LENGKAP -->
+      <div class="form-group">
+        <label for="nama_lengkap">Nama Lengkap</label>
+        <input type="text" id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan nama lengkap admin..." required>
       </div>
+
+      <!-- EMAIL -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Masukkan email admin..." required>
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Masukkan password yang akan digunakan admin untuk masuk..." minlength="8" required>
+        <span class="form-helper">Format password: Min 8 karakter tanpa simbol</span>
+      </div>
+
+      <!-- NO HANDPHONE -->
+      <div class="form-group">
+        <label for="no_hp">No Handphone</label>
+        <input type="tel" id="no_hp" name="no_hp" placeholder="Masukkan no handphone admin..." required>
+      </div>
+
+      <!-- STATUS -->
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+          <option value="" disabled selected hidden>Masukkan status admin...</option>
+          <option value="aktif">Aktif</option>
+          <option value="nonaktif">Non-Aktif</option>
+        </select>
+      </div>
+
     </form>
   </div>
 </div>
 
 <script>
-  function openModalTambahAdmin() {
-    document.getElementById('modalTambahAdmin').style.display = 'flex';
+  function updateFileName(input) {
+    const display = document.getElementById('fileNameDisplay');
+    if (input.files && input.files.length > 0) {
+      display.textContent = input.files[0].name;
+      display.style.color = "#333"; 
+    } else {
+      display.textContent = "Masukkan foto profil...";
+      display.style.color = "#BDBDBD";
+    }
   }
 
-  function closeModalTambahAdmin() {
-    document.getElementById('modalTambahAdmin').style.display = 'none';
+  function batalAction() {
+    if(confirm('Apakah Anda yakin ingin membatalkan? Data yang diisi akan hilang.')) {
+      window.history.back(); // Kembali ke halaman Dashboard
+    }
   }
 
   function simulasiSimpan() {
     alert('Simulasi Frontend: Data Admin berhasil disimpan!');
-    closeModalTambahAdmin(); 
+    window.location.href = "{{ url('/superadmin/dashboard') }}"; 
   }
 </script>
+@endsection
