@@ -39,9 +39,9 @@
             Kelola Event
         </a>
 
-        <a class="nav-item {{ request()->is('superadmin/publikasi-berita*') ? 'active' : '' }}" href="/superadmin/publikasi-berita">
+        <a class="nav-item {{ request()->is('superadmin/kelola-berita*') ? 'active' : '' }}" href="/superadmin/kelola-berita">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Publikasi Berita
+            Kelola Berita
         </a>
 
         <a class="nav-item {{ request()->is('superadmin/profil*') ? 'active' : '' }}" href="/superadmin/profil">

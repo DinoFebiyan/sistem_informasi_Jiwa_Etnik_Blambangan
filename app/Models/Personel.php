@@ -13,6 +13,6 @@ class Personel extends Model
     // Relasi ke foto personel di tabel media
     public function media()
     {
-        return $this->belongsTo(Media::class);
+        return $this->belongsTo(Media::class, 'media_id');
     }
 }
