@@ -87,3 +87,15 @@ Route::get('/superadmin/tambah-event', function () {
 Route::get('/superadmin/kelola-berita', function () {
     return view('superadmin.kelola-berita');
 })->name('superadmin.kelola-berita');
+
+Route::get('/profile', function () {
+    return view('profile'); 
+})->name('profile.view');
+
+Route::get('/login', function () {
+    return view('auth.login'); 
+})->name('login');
+
+Route::get('/superadmin/edit-profil', function () { return view('superadmin.edit-profil'); });
+Route::get('/superadmin/tambah-pengurus', function () { return view('superadmin.tambah-pengurus'); });
+Route::get('/superadmin/tambah-pelatih', function () { return view('superadmin.tambah-pelatih'); });
