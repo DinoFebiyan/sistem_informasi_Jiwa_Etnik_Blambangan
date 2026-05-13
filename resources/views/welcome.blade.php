@@ -283,7 +283,7 @@
     </div>
   </div> 
   <div class="center-action">
-  <a href="{{ route('profil') }}" class="btn-dark-pill">Profil Lengkap Sanggar</a>
+  <a href="{{ route('profile.view') }}" class="btn-dark-pill">Profil Lengkap Sanggar</a>
 </div>
 </section>
 
@@ -449,7 +449,7 @@
     </div>
 
     <div class="center-action">
-    <a href="{{ route('event.index') }}" class="btn-dark-pill">Lihat Semua Event</a>
+    <a href="#" class="btn-dark-pill">Lihat Semua Event</a>
 </div>
   </div>
 </section>
