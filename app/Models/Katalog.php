@@ -21,6 +21,6 @@ class Katalog extends Model
     }
     public function media()
     {
-        return $this->belongsTo(Media::class);
+        return $this->belongsTo(Media::class, 'me');
     }
 }

@@ -57,23 +57,25 @@
     {{-- QUICK ACCESS --}}
     <div class="quick-grid">
         {{-- Link sudah diperbarui untuk pindah halaman --}}
-        <a class="quick-card" href="{{ url('/superadmin/tambah-admin') }}">
+        <a class="quick-card" href="{{ url('/superadmin/kelola-admin') }}" style="text-decoration: none; color: inherit;">
             <div class="quick-icon"><i class="fas fa-user-plus" style="color: var(--merah);"></i></div>
             <p>Tambah Admin</p>
             <span>Buat akun baru</span>
         </a>
         
-        <a class="quick-card" href="{{ url('/superadmin/tambah-katalog') }}">
+        <a class="quick-card" href="{{ url('/superadmin/kelola-katalog') }}" style="text-decoration: none; color: inherit;">
             <div class="quick-icon"><i class="fas fa-folder-plus" style="color: var(--emas);"></i></div>
             <p>Tambah Katalog</p>
             <span>Upload tari baru</span>
         </a>
-        <a class="quick-card" href="#">
+
+        <a class="quick-card" href="{{ url('/superadmin/kelola-event') }}" style="text-decoration: none; color: inherit;">
             <div class="quick-icon"><i class="fas fa-calendar-plus" style="color: #16a34a;"></i></div>
             <p>Buat Event</p>
             <span>Jadwalkan kegiatan</span>
         </a>
-        <a href="#" class="quick-card">
+
+        <a class="quick-card" href="#" style="text-decoration: none; color: inherit;">
             <div class="quick-icon"><i class="fas fa-user-circle" style="color: var(--merah-muda);"></i></div>
             <p>Kelola Profil</p>
             <span>Update Data Diri</span>

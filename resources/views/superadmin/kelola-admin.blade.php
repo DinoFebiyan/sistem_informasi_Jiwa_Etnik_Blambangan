@@ -4,164 +4,378 @@
 @section('header_title', 'Kelola Admin')
 
 @section('content')
-<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
-    <div>
-        <h2 style="font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--teks);">Kelola Admin</h2>
-        <p style="color: var(--teks-abu); font-size: 0.85rem;">5 admin terdaftar dalam sistem</p>
-    </div>
+<style>
+  /* ══ CONTAINER UTAMA ══ */
+  .adm-wrapper {
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+  }
+
+  /* ══ HEADER ══ */
+  .adm-header {
+    margin-bottom: 24px;
+  }
+  .adm-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 0 4px 0;
+  }
+  .adm-header p {
+    color: #999;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  /* ══ STATS GRID (4 KOTAK ATAS) ══ */
+  .adm-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 24px;
+  }
+  .adm-stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  }
+  .adm-icon-box {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+  .adm-icon-blue { background: #eff6ff; color: #3b82f6; }
+  .adm-icon-green { background: #f0fdf4; color: #16a34a; }
+  .adm-icon-red { background: #fef2f2; color: #ef4444; }
+  
+  .adm-stat-text h4 {
+    margin: 0;
+    font-size: 0.7rem;
+    color: #999;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .adm-stat-text h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 700;
+  }
+
+  /* TOMBOL TAMBAH ADMIN (PINK) */
+  .adm-btn-tambah {
+    background: #e2c0c0; /* Warna pink pudar persis di figma */
+    color: #5a1a1a;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  }
+  .adm-btn-tambah:hover {
+    background: #d4aeae;
+  }
+
+  /* ══ SEARCH & FILTER ══ */
+  .adm-search-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 24px;
+  }
+  .adm-search-box {
+    flex: 1;
+    position: relative;
+  }
+  .adm-search-box input {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    box-sizing: border-box;
+  }
+  .adm-search-box .fa-search {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #eab308; /* Ikon kuning */
+    font-size: 1.2rem;
+  }
+  .adm-btn-filter {
+    background: #b91c1c; /* Merah pekat */
+    color: #ffffff;
+    border: none;
+    padding: 0 35px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  }
+
+  /* ══ TABEL ADMIN ══ */
+  .adm-table-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    overflow-x: auto;
+  }
+  .adm-table-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  .adm-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+  }
+  .adm-table th {
+    text-align: left;
+    padding: 12px 10px;
+    color: #b07d7d; /* Warna coklat/merah pudar */
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-bottom: 2px solid #f9f9f9;
+  }
+  .adm-table td {
+    padding: 15px 10px;
+    border-bottom: 1px solid #f9f9f9;
+    vertical-align: middle;
+    font-size: 0.85rem;
+  }
+  
+  .adm-foto {
+    width: 35px;
+    height: 35px;
+    background: #2563eb; /* Placeholder biru */
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+    object-fit: cover;
+  }
+  
+  .adm-badge-aktif {
+    background: #dcfce7;
+    color: #16a34a;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .adm-action-btns button {
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-right: 5px;
+  }
+  .adm-btn-edit { background: #eff6ff; color: #3b82f6; }
+  .adm-btn-hapus { background: #fef2f2; color: #ef4444; margin-right: 0 !important; }
+
+  /* ══ PAGINASI ══ */
+  .adm-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+  }
+  .adm-pagination p {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 0;
+  }
+  .adm-page-controls {
+    display: flex;
+    gap: 5px;
+  }
+  .adm-page-controls button {
+    border: 1px solid #eee;
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+  }
+  .adm-page-controls button.active {
+    background: #5B1A1A;
+    color: #fff;
+    border: none;
+    font-weight: 700;
+  }
+</style>
+
+<div class="adm-wrapper">
     
-    <!-- PERUBAHAN DI SINI: Mengubah <button> menjadi <a> dan menambahkan href -->
-    <a href="{{ url('/superadmin/tambah-admin') }}" style="background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none;">
-        <span style="font-size: 1.2rem;">+</span> Tambah Admin
-    </a>
-</div>
+    <!-- HEADER -->
+    <div class="adm-header">
+        <h2>Kelola Admin</h2>
+        <p>Senin, 01 Januari 2026 - Selamat datang kembali!</p>
+    </div>
 
-<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 28px;">
-    <div class="stat-card">
-        <div class="stat-icon merah" style="margin-right: 15px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--merah)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-        </div>
-        <div class="stat-info">
-            <p>TOTAL ADMIN</p>
-            <h2 style="font-size: 1.8rem;">5</h2>
-        </div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-icon hijau" style="margin-right: 15px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <div class="stat-info">
-            <p>AKTIF</p>
-            <h2 style="font-size: 1.8rem;">3</h2>
-        </div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-icon emas" style="margin-right: 15px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--emas)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        </div>
-        <div class="stat-info">
-            <p>PENDING</p>
-            <h2 style="font-size: 1.8rem;">1</h2>
-        </div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-icon biru" style="margin-right: 15px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-        </div>
-        <div class="stat-info">
-            <p>NONAKTIF</p>
-            <h2 style="font-size: 1.8rem;">1</h2>
-        </div>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header" style="border-bottom: none; padding-bottom: 0;">
-        <h3>Daftar Admin</h3>
-        <div style="display: flex; gap: 10px;">
-            <input type="text" placeholder="Cari admin..." style="padding: 8px 12px; border: 1px solid var(--abu-border); border-radius: 8px; font-size: 0.8rem; width: 200px;">
-            <select style="padding: 8px 12px; border: 1px solid var(--abu-border); border-radius: 8px; font-size: 0.8rem; color: var(--teks-abu);">
-                <option>Semua Status</option>
-            </select>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="table-wrap">
-            <table style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th>ADMIN</th>
-                        <th>EMAIL</th>
-                        <th>TGL DIBUAT</th>
-                        <th>STATUS</th>
-                        <th>AKSI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #5a0000; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">RP</div>
-                                <div>
-                                    <div style="font-weight: 700;">Rizky Pratama</div>
-                                    <div style="font-size: 0.7rem; color: var(--teks-abu);">Admin</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>rizky@jeb.id</td>
-                        <td>12 Jan 2026</td>
-                        <td><span class="badge badge-aktif">Aktif</span></td>
-                        <td>
-                            <button class="action-btn">Edit</button>
-                            <button class="action-btn">Nonaktifkan</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #2563eb; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">DL</div>
-                                <div>
-                                    <div style="font-weight: 700;">Dewi Lestari</div>
-                                    <div style="font-size: 0.7rem; color: var(--teks-abu);">Admin</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>dewi@jeb.id</td>
-                        <td>15 Jan 2026</td>
-                        <td><span class="badge badge-aktif">Aktif</span></td>
-                        <td>
-                            <button class="action-btn">Edit</button>
-                            <button class="action-btn">Nonaktifkan</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #16a34a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">BN</div>
-                                <div>
-                                    <div style="font-weight: 700;">Bagas Nugroho</div>
-                                    <div style="font-size: 0.7rem; color: var(--teks-abu);">Admin</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>bagas@jeb.id</td>
-                        <td>01 Feb 2026</td>
-                        <td><span class="badge badge-pending">Pending</span></td>
-                        <td>
-                            <button class="action-btn">Aktivasi</button>
-                            <button class="action-btn">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--emas); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">SW</div>
-                                <div>
-                                    <div style="font-weight: 700;">Sari Wulandari</div>
-                                    <div style="font-size: 0.7rem; color: var(--teks-abu);">Admin</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>sari@jeb.id</td>
-                        <td>20 Des 2025</td>
-                        <td><span class="badge badge-nonaktif">Nonaktif</span></td>
-                        <td>
-                            <button class="action-btn">Aktifkan</button>
-                            <button class="action-btn">Hapus</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- STATS GRID -->
+    <div class="adm-stats-grid">
+        <div class="adm-stat-card">
+            <div class="adm-icon-box adm-icon-blue"><i class="fas fa-user"></i></div>
+            <div class="adm-stat-text">
+                <h4>Total Admin</h4>
+                <h2>5</h2>
+            </div>
         </div>
         
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid #f5eeee;">
-            <p style="font-size: 0.75rem; color: var(--teks-abu);">Menampilkan 5 dari 5 admin</p>
-            <div style="display: flex; gap: 5px;">
-                <button style="padding: 5px 10px; border: 1px solid var(--abu-border); background: #fff; border-radius: 6px; cursor: pointer;">&lsaquo;</button>
-                <button style="padding: 5px 10px; border: none; background: var(--merah); color: #fff; border-radius: 6px; cursor: pointer; font-weight: 700;">1</button>
-                <button style="padding: 5px 10px; border: 1px solid var(--abu-border); background: #fff; border-radius: 6px; cursor: pointer;">&rsaquo;</button>
+        <div class="adm-stat-card">
+            <div class="adm-icon-box adm-icon-green"><i class="fas fa-check-circle"></i></div>
+            <div class="adm-stat-text">
+                <h4>Aktif</h4>
+                <h2>5</h2>
+            </div>
+        </div>
+        
+        <div class="adm-stat-card">
+            <div class="adm-icon-box adm-icon-red"><i class="fas fa-ban"></i></div>
+            <div class="adm-stat-text">
+                <h4>Nonaktif</h4>
+                <h2>5</h2>
+            </div>
+        </div>
+        
+        <!-- TOMBOL TAMBAH ADMIN MENUJU FORM -->
+        <a href="{{ url('/superadmin/tambah-admin') }}" class="adm-btn-tambah">
+            <span>+</span> Tambah Admin
+        </a>
+    </div>
+
+    <!-- SEARCH & FILTER -->
+    <div class="adm-search-row">
+        <div class="adm-search-box">
+            <input type="text" placeholder="Cari nama Admin...">
+            <i class="fas fa-search"></i>
+        </div>
+        <button class="adm-btn-filter">
+            <i class="fas fa-filter"></i> Filter
+        </button>
+    </div>
+
+    <!-- TABEL -->
+    <div class="adm-table-card">
+        <h3>Daftar Admin</h3>
+        
+        <table class="adm-table">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Nama Lengkap</th>
+                    <th>Email</th>
+                    <th>No. Handphone</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BARIS 1 -->
+                <tr>
+                    <td><div class="adm-foto">RP</div></td>
+                    <td style="font-weight: 600;">Rizky Pratama</td>
+                    <td>rizky@jeb.id</td>
+                    <td>081234567890</td>
+                    <td><span class="adm-badge-aktif">Aktif</span></td>
+                    <td class="adm-action-btns">
+                        <button class="adm-btn-edit">Edit</button>
+                        <button class="adm-btn-hapus">Hapus</button>
+                    </td>
+                </tr>
+                <!-- BARIS 2 -->
+                <tr>
+                    <td><div class="adm-foto">RP</div></td>
+                    <td style="font-weight: 600;">Rizky Pratama</td>
+                    <td>rizky@jeb.id</td>
+                    <td>081234567890</td>
+                    <td><span class="adm-badge-aktif">Aktif</span></td>
+                    <td class="adm-action-btns">
+                        <button class="adm-btn-edit">Edit</button>
+                        <button class="adm-btn-hapus">Hapus</button>
+                    </td>
+                </tr>
+                <!-- BARIS 3 -->
+                <tr>
+                    <td><div class="adm-foto">RP</div></td>
+                    <td style="font-weight: 600;">Rizky Pratama</td>
+                    <td>rizky@jeb.id</td>
+                    <td>081234567890</td>
+                    <td><span class="adm-badge-aktif">Aktif</span></td>
+                    <td class="adm-action-btns">
+                        <button class="adm-btn-edit">Edit</button>
+                        <button class="adm-btn-hapus">Hapus</button>
+                    </td>
+                </tr>
+                <!-- BARIS 4 -->
+                <tr>
+                    <td><div class="adm-foto">RP</div></td>
+                    <td style="font-weight: 600;">Rizky Pratama</td>
+                    <td>rizky@jeb.id</td>
+                    <td>081234567890</td>
+                    <td><span class="adm-badge-aktif">Aktif</span></td>
+                    <td class="adm-action-btns">
+                        <button class="adm-btn-edit">Edit</button>
+                        <button class="adm-btn-hapus">Hapus</button>
+                    </td>
+                </tr>
+                <!-- BARIS 5 -->
+                <tr>
+                    <td><div class="adm-foto">RP</div></td>
+                    <td style="font-weight: 600;">Rizky Pratama</td>
+                    <td>rizky@jeb.id</td>
+                    <td>081234567890</td>
+                    <td><span class="adm-badge-aktif">Aktif</span></td>
+                    <td class="adm-action-btns">
+                        <button class="adm-btn-edit">Edit</button>
+                        <button class="adm-btn-hapus">Hapus</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- PAGINASI -->
+        <div class="adm-pagination">
+            <p>Menampilkan 5 dari 5 admin</p>
+            <div class="adm-page-controls">
+                <button>&lsaquo;</button>
+                <button class="active">1</button>
+                <button>&rsaquo;</button>
             </div>
         </div>
     </div>
+
 </div>
 @endsection

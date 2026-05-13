@@ -79,3 +79,11 @@ Route::get('/superadmin/tambah-admin', function () {
 Route::get('/superadmin/tambah-katalog', function () {
     return view('superadmin.tambah-katalog');
 });
+
+Route::get('/superadmin/tambah-event', function () {
+    return view('superadmin.tambah-event');
+});
+
+Route::get('/superadmin/kelola-berita', function () {
+    return view('superadmin.kelola-berita');
+})->name('superadmin.kelola-berita');
