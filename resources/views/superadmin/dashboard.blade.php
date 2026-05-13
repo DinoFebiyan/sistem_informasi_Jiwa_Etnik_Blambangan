@@ -63,7 +63,7 @@
             <span>Buat akun baru</span>
         </a>
         
-        <a class="quick-card" href="#">
+        <a class="quick-card" href="{{ url('/superadmin/tambah-katalog') }}">
             <div class="quick-icon"><i class="fas fa-folder-plus" style="color: var(--emas);"></i></div>
             <p>Tambah Katalog</p>
             <span>Upload tari baru</span>

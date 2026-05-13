@@ -80,3 +80,7 @@ Route::get('/profil', function () {
 Route::get('/superadmin/tambah-admin', function () {
     return view('superadmin.tambah-admin');
 });
+
+Route::get('/superadmin/tambah-katalog', function () {
+    return view('superadmin.tambah-katalog');
+});
