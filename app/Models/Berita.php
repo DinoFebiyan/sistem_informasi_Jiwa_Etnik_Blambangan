@@ -8,7 +8,7 @@ class Berita extends Model
 {
     protected $table = 'berita';
 
-    protected $fillable = ['judul', 'isi_berita', 'tgl_terbit', 'status', 'user_id', 'media_id'];
+    protected $fillable = ['judul', 'isi_berita', 'tgl_terbit', 'status', 'user_id', 'galeri_id'];
 
     protected $casts = [
         'tgl_terbit' => 'date',
@@ -18,8 +18,8 @@ class Berita extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function media()
+    public function galeri()
     {
-        return $this->belongsTo(Media::class, 'media_id');
+        return $this->belongsTo(Galeri::class, 'galeri_id');
     }
 }

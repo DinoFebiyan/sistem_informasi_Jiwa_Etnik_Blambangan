@@ -23,10 +23,10 @@ class ProfilSanggar extends Model
     // Relasi untuk Logo dan Foto Pembina (keduanya merujuk ke tabel media)
     public function logo()
     {
-        return $this->belongsTo(Media::class, 'logo_id');
+        return $this->belongsTo(Galeri::class, 'logo_id');
     }
     public function fotoPembina()
     {
-        return $this->belongsTo(Media::class, 'foto_pembina_id');
+        return $this->belongsTo(Galeri::class, 'foto_pembina_id');
     }
 }

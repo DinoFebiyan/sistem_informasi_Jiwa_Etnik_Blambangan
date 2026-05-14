@@ -8,9 +8,8 @@ class Katalog extends Model
 {
     protected $table = 'katalog';
 
-    protected $fillable = ['nama_tari', 'kategori', 'stok', 'deskripsi', 'status', 'media_id', 'user_id'];
+    protected $fillable = ['nama_tari', 'kategori', 'stok', 'deskripsi', 'status', 'galeri_id', 'user_id'];
 
-    // Input Integrity: Stok harus diperlakukan sebagai angka murni
     protected $casts = [
         'stok' => 'integer',
     ];
@@ -19,8 +18,9 @@ class Katalog extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function media()
+    
+    public function galeri()
     {
-        return $this->belongsTo(Media::class, 'media_id');
+        return $this->belongsTo(Galeri::class, 'galeri_id'); 
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('media', function (Blueprint $table) {
+        Schema::create('galeri', function (Blueprint $table) {
         $table->id();
         $table->string('judul')->nullable(); 
         $table->longText('file_blob'); 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists('galeri');
     }
 };

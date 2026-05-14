@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('katalog', function (Blueprint $table) {
@@ -18,15 +15,12 @@ return new class extends Migration
             $table->integer('stok')->default(0);
             $table->text('deskripsi');
             $table->enum('status', ['tersedia', 'tidak tersedia'])->default('tersedia');
-            $table->foreignId('media_id')->nullable()->constrained('media')->nullOnDelete();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
+            $table->foreignId('galeri_id')->nullable()->constrained('galeri')->nullOnDelete();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('katalog');

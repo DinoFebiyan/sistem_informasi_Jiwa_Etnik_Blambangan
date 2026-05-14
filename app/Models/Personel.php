@@ -8,11 +8,10 @@ class Personel extends Model
 {
     protected $table = 'personel';
 
-    protected $fillable = ['nama', 'jabatan', 'no_handphone', 'instagram', 'peran', 'status', 'media_id'];
+    protected $fillable = ['nama', 'jabatan', 'no_handphone', 'instagram', 'peran', 'status', 'galeri_id'];
 
-    // Relasi ke foto personel di tabel media
-    public function media()
+    public function galeri()
     {
-        return $this->belongsTo(Media::class, 'media_id');
+        return $this->belongsTo(Galeri::class, 'galeri_id');
     }
 }

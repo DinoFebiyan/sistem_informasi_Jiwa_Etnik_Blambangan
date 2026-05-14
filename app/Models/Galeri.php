@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Media extends Model
+class Galeri extends Model
 {
     // Mapping ke nama tabel bahasa Indonesia
-    protected $table = 'media';
+    protected $table = 'galeri';
 
     protected $fillable = ['file_blob', 'nama_file', 'kategori_modul', 'is_watermark'];
 

@@ -15,11 +15,11 @@ Route::get('/auth/verifikasi_otp', function () {
     return view('auth.verifikasi_otp');
 })->name('verifikasi.otp');
 
-Route::get('/auth/reset_password', function () {
-    return view('auth.reset_password');
-})->name('password.reset');
+// Route::get('/auth/reset_password', function () {
+//     return view('auth.reset_password');
+// })->name('password.reset'); // Dihapus karena bentrok dengan auth bawaan
 
-
+// ======================= ROUTE UNTUK SUPER ADMIN =======================
 Route::get('/superadmin/dashboard', function () {
     return view('superadmin.dashboard');
 })->name('superadmin.dashboard');
@@ -48,30 +48,6 @@ Route::get('/superadmin/pengaturan', function () {
     return view('superadmin.pengaturan');
 });
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
-
-Route::get('/admin/events', function () {
-    return view('admin.events.index');
-})->name('admin.events.index');
-
-Route::get('/admin/news', function () {
-    return view('admin.news.index');
-})->name('admin.news.index');
-
-Route::get('/admin/profile', function () {
-    return view('admin.profile.index');
-})->name('admin.profile.index');
-
-Route::get('/semua-event', function () {
-    return view('semua-event'); 
-})->name('event.index');
-
-Route::get('/profil', function () {
-    return view('profil'); 
-})->name('profil'); 
-
 Route::get('/superadmin/tambah-admin', function () {
     return view('superadmin.tambah-admin');
 });
@@ -88,14 +64,55 @@ Route::get('/superadmin/kelola-berita', function () {
     return view('superadmin.kelola-berita');
 })->name('superadmin.kelola-berita');
 
+Route::get('/superadmin/edit-profil', function () {
+    return view('superadmin.edit-profil');
+});
+
+Route::get('/superadmin/tambah-pengurus', function () {
+    return view('superadmin.tambah-pengurus');
+});
+
+Route::get('/superadmin/tambah-pelatih', function () {
+    return view('superadmin.tambah-pelatih');
+});
+
+// ======================= ROUTE UNTUK ADMIN BIASA =======================
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard');
+
+Route::get('/admin/events', function () {
+    return view('admin.events.index');
+})->name('admin.events.index');
+
+Route::get('/admin/news', function () {
+    return view('admin.news.index');
+})->name('admin.news.index');
+
+Route::get('/admin/profile', function () {
+    return view('admin.profile.index');
+})->name('admin.profile.index');
+
+// ======================= HALAMAN PUBLIK (FRONTEND) =======================
+Route::get('/semua-event', function () {
+    return view('semua-event');
+})->name('event.index');
+
+Route::get('/profil', function () {
+    return view('profil');
+})->name('profil');
+
 Route::get('/profile', function () {
-    return view('profile'); 
+    return view('profile');
 })->name('profile.view');
 
-Route::get('/login', function () {
-    return view('auth.login'); 
-})->name('login');
+// ======================= ROUTE UNTUK EDIT PROFIL PENGGUNA (AUTH) =======================
+// Ini yang akan menyelesaikan error "Route [profile.edit] not defined"
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/edit', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/superadmin/edit-profil', function () { return view('superadmin.edit-profil'); });
-Route::get('/superadmin/tambah-pengurus', function () { return view('superadmin.tambah-pengurus'); });
-Route::get('/superadmin/tambah-pelatih', function () { return view('superadmin.tambah-pelatih'); });
+// ======================= INCLUDE ROUTE AUTH BAWAAN LARAVEL =======================
+require __DIR__.'/auth.php';

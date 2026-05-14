@@ -8,7 +8,7 @@ class Event extends Model
 {
     protected $table = 'event';
 
-    protected $fillable = ['nama_event', 'tanggal', 'jam', 'lokasi', 'kategori', 'status', 'user_id', 'media_id'];
+    protected $fillable = ['nama_event', 'tanggal', 'jam', 'lokasi', 'kategori', 'status', 'user_id', 'galeri_id'];
 
     // Consistency: Mengonversi string database ke objek waktu Carbon
     protected $casts = [
@@ -20,8 +20,8 @@ class Event extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function media()
+    public function galeri()
     {
-        return $this->belongsTo(Media::class, 'media_id');
+        return $this->belongsTo(Galeri::class, 'galeri_id');
     }
 }

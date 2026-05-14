@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('personel', function (Blueprint $table) {
@@ -19,14 +16,11 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('peran');
             $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
-            $table->foreignId('media_id')->nullable()->constrained('media')->nullOnDelete();
+            $table->foreignId('galeri_id')->nullable()->constrained('galeri')->nullOnDelete();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('personel');
