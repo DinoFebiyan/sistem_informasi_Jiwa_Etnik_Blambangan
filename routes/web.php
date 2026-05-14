@@ -1,80 +1,71 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\KatalogController;
 use Illuminate\Support\Facades\Route;
+
+
 
 Route::get('/', function () {
     return view('dashboard');
 });
 
+// Route default dashboard Laravel Breeze (bisa dihapus jika tidak dipakai)
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Route verifikasi OTP
 Route::get('/auth/verifikasi_otp', function () {
     return view('auth.verifikasi_otp');
 })->name('verifikasi.otp');
 
-// Route::get('/auth/reset_password', function () {
-//     return view('auth.reset_password');
-// })->name('password.reset'); // Dihapus karena bentrok dengan auth bawaan
-
 // ======================= ROUTE UNTUK SUPER ADMIN =======================
-Route::get('/superadmin/dashboard', function () {
-    return view('superadmin.dashboard');
-})->name('superadmin.dashboard');
+// Dashboard Super Admin menggunakan controller
+Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
 
-Route::get('/superadmin/kelola-admin', function () {
-    return view('superadmin.kelola-admin');
-});
+// Kelola Admin
+Route::get('/superadmin/kelola-admin', [SuperAdminController::class, 'kelolaAdmin'])->name('superadmin.kelola-admin');
+Route::get('/superadmin/tambah-admin', [SuperAdminController::class, 'tambahAdmin'])->name('superadmin.tambah-admin');
 
-Route::get('/superadmin/kelola-katalog', function () {
-    return view('superadmin.kelola-katalog');
-});
+// Kelola Katalog (resource controller)
+Route::resource('/superadmin/katalog', KatalogController::class)->parameters([
+    'katalog' => 'katalog'
+])->names([
+    'index'   => 'superadmin.kelola-katalog',
+    'create'  => 'superadmin.tambah-katalog',
+    'store'   => 'superadmin.katalog.store',
+    'show'    => 'superadmin.katalog.show',
+    'edit'    => 'superadmin.katalog.edit',
+    'update'  => 'superadmin.katalog.update',
+    'destroy' => 'superadmin.katalog.destroy',
+]);
 
-Route::get('/superadmin/kelola-event', function () {
-    return view('superadmin.kelola-event');
-});
+// Jika KatalogController belum dibuat, gunakan closure sementara (komentar di atas dan aktifkan di bawah):
+// Route::get('/superadmin/kelola-katalog', function () {
+//     return view('superadmin.kelola-katalog');
+// })->name('superadmin.kelola-katalog');
+// Route::get('/superadmin/tambah-katalog', function () {
+//     return view('superadmin.tambah-katalog');
+// })->name('superadmin.tambah-katalog');
 
-Route::get('/superadmin/publikasi-berita', function () {
-    return view('superadmin.publikasi-berita');
-});
+// Kelola Event
+Route::get('/superadmin/kelola-event', [SuperAdminController::class, 'kelolaEvent'])->name('superadmin.kelola-event');
+Route::get('/superadmin/tambah-event', [SuperAdminController::class, 'tambahEvent'])->name('superadmin.tambah-event');
 
-Route::get('/superadmin/profil', function () {
-    return view('superadmin.kelola-profil');
-});
+// Kelola Berita
+Route::get('/superadmin/kelola-berita', [SuperAdminController::class, 'kelolaBerita'])->name('superadmin.kelola-berita');
+Route::get('/superadmin/publikasi-berita', [SuperAdminController::class, 'publikasiBerita'])->name('superadmin.publikasi-berita');
 
-Route::get('/superadmin/pengaturan', function () {
-    return view('superadmin.pengaturan');
-});
+// Kelola Profil Sanggar
+Route::get('/superadmin/profil', [SuperAdminController::class, 'kelolaProfil'])->name('superadmin.kelola-profil');
+Route::get('/superadmin/edit-profil', [SuperAdminController::class, 'editProfil'])->name('superadmin.edit-profil');
+Route::get('/superadmin/tambah-pengurus', [SuperAdminController::class, 'tambahPengurus'])->name('superadmin.tambah-pengurus');
+Route::get('/superadmin/tambah-pelatih', [SuperAdminController::class, 'tambahPelatih'])->name('superadmin.tambah-pelatih');
 
-Route::get('/superadmin/tambah-admin', function () {
-    return view('superadmin.tambah-admin');
-});
-
-Route::get('/superadmin/tambah-katalog', function () {
-    return view('superadmin.tambah-katalog');
-});
-
-Route::get('/superadmin/tambah-event', function () {
-    return view('superadmin.tambah-event');
-});
-
-Route::get('/superadmin/kelola-berita', function () {
-    return view('superadmin.kelola-berita');
-})->name('superadmin.kelola-berita');
-
-Route::get('/superadmin/edit-profil', function () {
-    return view('superadmin.edit-profil');
-});
-
-Route::get('/superadmin/tambah-pengurus', function () {
-    return view('superadmin.tambah-pengurus');
-});
-
-Route::get('/superadmin/tambah-pelatih', function () {
-    return view('superadmin.tambah-pelatih');
-});
+// Pengaturan
+Route::get('/superadmin/pengaturan', [SuperAdminController::class, 'pengaturan'])->name('superadmin.pengaturan');
 
 // ======================= ROUTE UNTUK ADMIN BIASA =======================
 Route::get('/admin/dashboard', function () {
@@ -107,7 +98,6 @@ Route::get('/profile', function () {
 })->name('profile.view');
 
 // ======================= ROUTE UNTUK EDIT PROFIL PENGGUNA (AUTH) =======================
-// Ini yang akan menyelesaikan error "Route [profile.edit] not defined"
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
