@@ -157,8 +157,11 @@ class SuperAdminController extends Controller
 }
     // ========== METHOD LAIN (BISA DITAMBAHKAN SESUAI KEBUTUHAN) ==========
     // Kelola Katalog
-    public function kelolaKatalog() { return view('superadmin.kelola-katalog'); }
     public function tambahKatalog() { return view('superadmin.tambah-katalog'); }
+    public function storeKatalog(Request $request) { /* validasi & simpan */ }
+    public function editKatalog($id) { /* return view edit */ }
+    public function updateKatalog(Request $request, $id) { /* update */ }
+    public function deleteKatalog($id) { Katalog::findOrFail($id)->delete(); return redirect()->back(); }
 
     // Kelola Event
     public function kelolaEvent() { return view('superadmin.kelola-event'); }
