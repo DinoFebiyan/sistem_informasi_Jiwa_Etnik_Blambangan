@@ -20,8 +20,7 @@ class DatabaseSeeder extends Seeder
         $superAdmin = User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'superadmin@jeb.id',
-            'password' => Hash::make('php artisan route:clear
-php artisan route:cache   # opsional, jika production'),
+            'password' => Hash::make('password'),
             'peran' => 'super_admin',
             'no_handphone' => '081234567890',
             'status' => 'aktif',
