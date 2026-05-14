@@ -24,9 +24,7 @@
             </svg>
             Dashboard
         </a>
-
-        <div class="nav-label">Konten</div>
-
+        
         <a class="nav-item {{ request()->is('superadmin/kelola-admin*') ? 'active' : '' }}" href="{{ route('superadmin.kelola-admin') }}">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -37,6 +35,16 @@
             Kelola Admin
             <span class="nav-badge">{{ \App\Models\User::where('peran', 'admin')->count() }}</span>
         </a>
+        
+        <a class="nav-item {{ request()->is('superadmin/log-aktivitas*') ? 'active' : '' }}" href="{{ route('superadmin.log-aktivitas') }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Log Aktivitas
+        </a>
+        
+        <div class="nav-label">Konten</div>
 
         <a class="nav-item {{ request()->is('superadmin/kelola-katalog*') ? 'active' : '' }}" href="{{ route('superadmin.kelola-katalog') }}">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -77,13 +85,6 @@
         <div class="nav-label">Sistem</div>
 
         <!-- MENU LOG AKTIVITAS (BARU) -->
-        <a class="nav-item {{ request()->is('superadmin/log-aktivitas*') ? 'active' : '' }}" href="{{ route('superadmin.log-aktivitas') }}">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
-            </svg>
-            Log Aktivitas
-        </a>
 
         <a class="nav-item {{ request()->is('superadmin/pengaturan*') ? 'active' : '' }}" href="{{ route('superadmin.pengaturan') }}">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
