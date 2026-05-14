@@ -1,239 +1,265 @@
 @extends('layouts.superadmin')
 
-@section('title', 'Kelola Profil — JEB')
-@section('header_title', 'Kelola Profil')
+@section('title', 'Kelola Profil Sanggar — JEB')
+@section('header_title', 'Kelola Profil Sanggar')
 
 @section('content')
-<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
-    <div>
-        <h2 style="font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--teks);">Kelola Profil Sanggar</h2>
-        <p style="color: var(--teks-abu); font-size: 0.85rem;">Informasi publik Sanggar JEB</p>
+<style>
+  /* ══ CONTAINER UTAMA ══ */
+  .prof-wrapper { 
+    width: 100%; 
+    font-family: 'Poppins', sans-serif; 
+    color: #333; 
+  }
+
+  /* ══ HEADER (Perbaikan Posisi Tombol) ══ */
+  .prof-header { 
+    margin-bottom: 24px; 
+    display: flex; 
+    justify-content: space-between; /* Judul di kiri, tombol di kanan */
+    align-items: center; 
+    width: 100%;
+  }
+
+  .prof-header h2 { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.8rem; 
+    margin: 0; 
+    color: #1a0000;
+  }
+
+  .prof-header p { 
+    color: #999; 
+    font-size: 0.85rem; 
+    margin: 4px 0 0 0; 
+  }
+
+  /* ══ TOMBOL EDIT PROFIL ══ */
+  .btn-edit-prof { 
+    background: #5B1A1A; 
+    color: #fff !important; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    font-size: 0.85rem; 
+    text-decoration: none; 
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .btn-edit-prof:hover {
+    background: #8B0000;
+    transform: translateY(-2px);
+  }
+
+  /* ══ CARD & INFO UMUM ══ */
+  .prof-card { 
+    background: #ffffff; 
+    border-radius: 12px; 
+    padding: 25px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    margin-bottom: 24px; 
+  }
+
+  .prof-card h3 { 
+    font-size: 1.1rem; 
+    font-weight: 700; 
+    margin: 0 0 20px 0; 
+    border-bottom: 1px solid #f0f0f0; 
+    padding-bottom: 10px; 
+    color: #5B1A1A;
+  }
+
+  .info-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+  }
+
+  .info-group { display: flex; flex-direction: column; gap: 8px; }
+  .info-group.full { grid-column: 1 / -1; }
+  .info-group label { font-size: 0.8rem; font-weight: 700; color: #555; }
+  
+  .info-box { 
+    background: #fff; 
+    border: 1.5px solid #eee; 
+    border-radius: 8px; 
+    padding: 12px; 
+    font-size: 0.85rem; 
+    color: #333; 
+    line-height: 1.5; 
+    min-height: 45px; 
+  }
+
+  /* ══ TOMBOL TAMBAH DATA ══ */
+  .btn-tambah-data { 
+    background: #5B1A1A; 
+    color: #fff; 
+    border: none; 
+    padding: 8px 16px; 
+    border-radius: 8px; 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    font-size: 0.8rem; 
+    text-decoration: none; 
+    margin-left: auto; 
+  }
+
+  /* ══ TABEL ══ */
+  .prof-table { width: 100%; border-collapse: collapse; }
+  .prof-table th { text-align: left; padding: 12px 10px; color: #b07d7d; font-weight: 600; font-size: 0.8rem; border-bottom: 2px solid #f9f9f9; text-transform: uppercase; }
+  .prof-table td { padding: 12px 10px; border-bottom: 1px solid #f9f9f9; vertical-align: middle; font-size: 0.8rem; }
+  
+  .avatar-table { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; background: #eee; }
+  .badge-aktif { background: #dcfce7; color: #16a34a; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.7rem; }
+  
+  .btn-table { border: 1px solid #eee; padding: 4px 10px; border-radius: 5px; background: #fff; cursor: pointer; font-size: 0.7rem; color: #888; transition: 0.2s; }
+  .btn-table:hover { border-color: #5B1A1A; color: #5B1A1A; }
+
+  .pagination-wrap { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; font-size: 0.75rem; color: #999; }
+</style>
+
+<div class="prof-wrapper">
+    <!-- HEADER -->
+    <div class="prof-header">
+        <div>
+            <h2>Kelola Profil Sanggar</h2>
+            <p>Senin, 01 Januari 2026 - Selamat datang kembali!</p>
+        </div>
+        <a href="{{ url('/superadmin/edit-profil') }}" class="btn-edit-prof">
+            <i class="fas fa-edit"></i> Edit Profil
+        </a>
     </div>
-    <button style="background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-        Simpan Perubahan
-    </button>
-</div>
 
-<div class="card">
-    <div class="card-header">
-        <h3 style="font-size: 1rem;">Informasi Umum</h3>
-    </div>
-    <div class="card-body" style="padding: 25px;">
-        <form style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-            <div style="grid-column: span 2;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">Deskripsi Sanggar</label>
-                <input type="text" value="Sanggar Tari Jiwa Etnik Blambangan (JEB) adalah pusat seni tari tradisional yang berdedikasi untuk melestarikan kekayaan budaya Banyuwangi dan Nusantara. Kami membina generasi muda untuk mencintai dan menguasai seni tari tradisional, mulai dari tari Gandrung, hingga tari kreasi baru berbasis budaya lokal Blambangan." style="width: 100%; padding: 12px; border: 1px solid var(--abu-border); border-radius: 10px; background: #fafafa;">
+    <!-- INFORMASI UMUM -->
+    <div class="prof-card">
+        <h3>Informasi Umum</h3>
+        <div class="info-grid">
+            <div class="info-group full">
+                <label>Deskripsi Sanggar</label>
+                <div class="info-box">Sanggar Tari Jiwa Etnik Blambangan (JEB) adalah pusat seni tari tradisional yang berdedikasi untuk melestarikan kekayaan budaya Banyuwangi dan Nusantara...</div>
             </div>
-
-            <div style="grid-column: span 1;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">Visi</label>
-                <input type="text" value="Menjadi sanggar seni yang unggul, berkarakter, (bisa) dan memiliki keunikan tersendiri (berbeda) serta mampu menghasilkan karya nyata dalam pelestarian dan pengembangan seni budaya Blambangan di Banyuwangi" style="width: 100%; padding: 12px; border: 1px solid var(--abu-border); border-radius: 10px; background: #fafafa;">
+            <div class="info-group">
+                <label>Visi</label>
+                <div class="info-box">Menjadi sanggar seni yang unggul, berkarakter, dan memiliki keunikan tersendiri serta mampu menghasilkan karya nyata.</div>
             </div>
-            <div style="grid-column: span 1;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">Misi</label>
-                <input type="text" value="Mengembangkan potensi anggota agar memilik kemampuan (bisa) yang terampil dan profesional di bidang seni budaya.
-
-
- Menciptakan karya seni yang inovatif, kreatif, dan memiliki ciri khas (beda) tanpa meninggalkan nilai-nilai budaya Blambangan.
-
- Menghasilkan karya nyata melalui pertunjukan, karya cipta, dan partisipasi aktif dalam berbagai kegiatan seni.
-
-Menyelenggarakan pelatihan dan pembinaan seni secara berkelanjutan dan berkualitas
-
-Menanamkan sikap disiplin, tanggung jawab, dan kecintaan terhadap seni budaya kepada seluruh anggota.
-
-Membangun kerja sama dengan berbagai pihak untuk mendukung perkembangan dan eksistensi sanggar." style="width: 100%; padding: 12px; border: 1px solid var(--abu-border); border-radius: 10px; background: #fafafa;">
+            <div class="info-group">
+                <label>Misi</label>
+                <div class="info-box">Mengembangkan potensi anggota agar memiliki kemampuan yang terampil dan profesional di bidang seni budaya.</div>
             </div>
-        </form>
-    </div>
-</div>
-
-<div style="display: flex; justify-content: flex-end; align-items: flex-start; margin-bottom: 15px; margin-top: 20px;">
-    <button onclick="openModal()" style="background: var(--merah); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-        <i class="fas fa-plus"></i> Tambah Pengurus
-    </button>
-</div>
-
-<div class="card" style="margin-top: 25px;">
-    <div class="card-header" style="border-bottom: none; padding-bottom: 0; ">
-        <h3>Daftar Pengurus</h3>
-        <div style="display: flex; gap: 10px;">
-            <input type="text" placeholder="Cari pengurus..." style="padding: 8px 12px; border: 1px solid var(--abu-border); border-radius: 8px; font-size: 0.8rem; width: 200px;">
-            <select style="padding: 8px 12px; border: 1px solid var(--abu-border); border-radius: 8px; font-size: 0.8rem; color: var(--teks-abu);">
-                <option>Semua Status</option>
-            </select>
+            <div class="info-group">
+                <label>Sambutan Pimpinan Sanggar</label>
+                <div class="info-box">Selamat datang di Sanggar Tari Jiwa Etnik Blambangan. Kami hadir untuk melestarikan seni dan budaya daerah...</div>
+            </div>
+            <div class="info-group">
+                <label>Sejarah Sanggar</label>
+                <div class="info-box">Sanggar Tari Jiwa Etnik Blambangan berdiri sejak tahun 2010 sebagai bentuk kepedulian terhadap seni tradisional...</div>
+            </div>
+            <div class="info-group">
+                <label>Logo Sanggar</label>
+                <div class="info-box">Logo_Sanggar_JEB.png</div>
+            </div>
+            <div class="info-group">
+                <label>Foto Pembina</label>
+                <div class="info-box">IMG-20240112-WA0035.jpg</div>
+            </div>
         </div>
     </div>
-    <div class="card-body">
-        <div class="table-wrap">
-            <table style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Jabatan</th>
-                        <th>No Telepon</th>
-                        <th>STATUS</th>
-                        <th>AKSI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #5a0000; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">RP</div>
-                                <div>
-                                    <div style="font-weight: 700;">Rizky Pratama</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>Ketua</td>
-                        <td>081234567890</td>
-                        <td><span class="badge badge-aktif">Aktif</span></td>
-                        <td>
-                            <button  onclick="openModal()" class="action-btn">Edit</button>
-                            <button class="action-btn">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #2563eb; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">DL</div>
-                                <div>
-                                    <div style="font-weight: 700;">Dewi Lestari</div>  
-                                </div>
-                            </div>
-                        </td>
-                        <td>Wakil Ketua</td>
-                        <td>081234567891</td>
-                        <td><span class="badge badge-aktif">Aktif</span></td>
-                        <td>
-                            <button  onclick="openModal()" class="action-btn">Edit</button>
-                            <button class="action-btn">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #16a34a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">BN</div>
-                                <div>
-                                    <div style="font-weight: 700;">Bagas Nugroho</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>Sekretaris</td>
-                        <td>081234567892</td>
-                        <td><span class="badge badge-aktif">Aktif</span></td>
-                        <td>
-                            <button  onclick="openModal()" class="action-btn">Edit</button>
-                            <button class="action-btn">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--emas); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">SW</div>
-                                <div>
-                                    <div style="font-weight: 700;">Sari Wulandari</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>Bendahara</td>
-                        <td>081234567893</td>
-                        <td><span class="badge badge-nonaktif">Nonaktif</span></td>
-                        <td>
-                            <button  onclick="openModal()" class="action-btn">Edit</button>
-                            <button class="action-btn">Hapus</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+    <!-- DAFTAR PENGURUS -->
+    <div class="prof-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <h3 style="margin: 0; border: none; padding: 0;">Daftar Pengurus</h3>
+            <a href="{{ url('/superadmin/tambah-pengurus') }}" class="btn-tambah-data">
+                <i class="fas fa-plus"></i> Tambah Pengurus
+            </a>
         </div>
         
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid #f5eeee;">
-            <div style="display: flex; gap: 5px;">
-                <button style="padding: 5px 10px; border: 1px solid var(--abu-border); background: #fff; border-radius: 6px; cursor: pointer;">&lsaquo;</button>
-                <button style="padding: 5px 10px; border: none; background: var(--merah); color: #fff; border-radius: 6px; cursor: pointer; font-weight: 700;">1</button>
-                <button style="padding: 5px 10px; border: 1px solid var(--abu-border); background: #fff; border-radius: 6px; cursor: pointer;">&rsaquo;</button>
-            </div>
+        <table class="prof-table">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Nama Lengkap</th>
+                    <th>Jabatan</th>
+                    <th>Instagram</th>
+                    <th>No. Handphone</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for ($i = 0; $i < 3; $i++)
+                <tr>
+                    <td><div class="avatar-table"></div></td>
+                    <td style="font-weight: 600;">Rizky Pratama</td>
+                    <td>Ketua</td>
+                    <td>@rizkyprat</td>
+                    <td>081234567890</td>
+                    <td><span class="badge-aktif">AKTIF</span></td>
+                    <td>
+                        <div style="display: flex; gap: 5px;">
+                            <button class="btn-table">Edit</button>
+                            <button class="btn-table">Hapus</button>
+                        </div>
+                    </td>
+                </tr>
+                @endfor
+            </tbody>
+        </table>
+        <div class="pagination-wrap">
+            <p>Menampilkan 3 pengurus</p>
         </div>
     </div>
-</div>
 
-<div id="modalAdmin" class="modal-overlay">
-    <div class="modal-box">
-        <div class="modal-header">
-            <h3>Tambah Pengurus Baru</h3>
-            <button class="close-btn" onclick="closeModal()">&times;</button>
+    <!-- DAFTAR PELATIH -->
+    <div class="prof-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <h3 style="margin: 0; border: none; padding: 0;">Daftar Pelatih</h3>
+            <a href="{{ url('/superadmin/tambah-pelatih') }}" class="btn-tambah-data">
+                <i class="fas fa-plus"></i> Tambah Pelatih
+            </a>
         </div>
-        <form action="#" method="POST" enctype="multipart/form-data">
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Foto Pengurus</label>
-                    <input type="file" name="foto" accept="image/*" style="padding: 8px;">
-                    <small style="color: var(--teks-abu); font-size: 0.75rem; display: block; margin-top: 4px;">
-                        *Format: JPG, PNG. Maksimal 2MB
-                    </small>
-                </div>
-
-                <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <input type="text" placeholder="Masukkan nama lengkap pengurus" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Jabatan</label>
-                    <select required>
-                        <option value="">-- Pilih Jabatan --</option>
-                        <option>Ketua</option>
-                        <option>Sekretaris</option>
-                        <option>Bendahara</option>
-                        <option>Instruktur</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Nomor Telepon</label>
-                    <input type="tel" placeholder="Contoh: 08123456789" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Status</label>
-                    <select required>
-                        <option value="Aktif">Aktif</option>
-                        <option value="Nonaktif">Nonaktif</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-batal" onclick="closeModal()">Batal</button>
-                <button type="submit" class="btn-simpan">Simpan Pengurus</button>
-            </div>
-        </form>
+        
+        <table class="prof-table">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Nama Lengkap</th>
+                    <th>Jabatan</th>
+                    <th>Instagram</th>
+                    <th>No. Handphone</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for ($i = 0; $i < 3; $i++)
+                <tr>
+                    <td><div class="avatar-table"></div></td>
+                    <td style="font-weight: 600;">Budi Santoso</td>
+                    <td>Pelatih Tari</td>
+                    <td>@buditaridance</td>
+                    <td>081234567891</td>
+                    <td><span class="badge-aktif">AKTIF</span></td>
+                    <td>
+                        <div style="display: flex; gap: 5px;">
+                            <button class="btn-table">Edit</button>
+                            <button class="btn-table">Hapus</button>
+                        </div>
+                    </td>
+                </tr>
+                @endfor
+            </tbody>
+        </table>
+        <div class="pagination-wrap">
+            <p>Menampilkan 3 pelatih</p>
+        </div>
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    function openModal() {
-        document.getElementById('modalAdmin').style.display = 'flex';
-        // Mencegah scroll pada body saat modal terbuka
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        document.getElementById('modalAdmin').style.display = 'none';
-        // Mengembalikan scroll body
-        document.body.style.overflow = 'auto';
-    }
-
-    // Tutup modal jika user klik area luar (overlay)
-    window.onclick = function(event) {
-        let modal = document.getElementById('modalAdmin');
-        if (event.target == modal) {
-            closeModal();
-        }
-    }
-</script>
-@endpush

@@ -150,6 +150,6 @@ Route::get('/dashboard', function () {
 //     return view('superadmin.tambah-event');
 // });
 
-// Route::get('/superadmin/kelola-berita', function () {
-//     return view('superadmin.kelola-berita');
-// })->name('superadmin.kelola-berita');
+Route::get('/superadmin/kelola-berita', function () {
+    return view('superadmin.kelola-berita');
+})->name('superadmin.kelola-berita');
