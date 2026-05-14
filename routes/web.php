@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;      
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\EventController;
@@ -8,11 +9,7 @@ use Illuminate\Support\Facades\Route;
 
  
 
-Route::get('/', function () {
-    return view('dashboard');
-});
-
-// Route default dashboard Laravel Breeze (bisa dihapus jika tidak dipakai)
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -64,15 +61,7 @@ Route::resource('/superadmin/katalog', KatalogController::class)->parameters([
     'update'  => 'superadmin.katalog.update',
     'destroy' => 'superadmin.katalog.destroy',
 ]);
-// ... dan seterusnya
 
-// Jika KatalogController belum dibuat, gunakan closure sementara (komentar di atas dan aktifkan di bawah):
-// Route::get('/superadmin/kelola-katalog', function () {
-//     return view('superadmin.kelola-katalog');
-// })->name('superadmin.kelola-katalog');
-// Route::get('/superadmin/tambah-katalog', function () {
-//     return view('superadmin.tambah-katalog');
-// })->name('superadmin.tambah-katalog');
 
 Route::get('/superadmin/log-aktivitas', [SuperAdminController::class, 'logAktivitas'])->name('superadmin.log-aktivitas');
 
@@ -92,8 +81,13 @@ Route::resource('/superadmin/event', EventController::class)->parameters([
 ]);
 
 // Kelola Berita
+// ======================= HALAMAN PUBLIK (FRONTEND) =======================
 Route::get('/superadmin/kelola-berita', [SuperAdminController::class, 'kelolaBerita'])->name('superadmin.kelola-berita');
-Route::get('/superadmin/publikasi-berita', [SuperAdminController::class, 'publikasiBerita'])->name('superadmin.publikasi-berita');
+Route::get('/superadmin/tambah-berita', [SuperAdminController::class, 'tambahBerita'])->name('superadmin.tambah-berita');
+Route::post('/superadmin/store-berita', [SuperAdminController::class, 'storeBerita'])->name('superadmin.store-berita');
+Route::get('/superadmin/berita/edit/{id}', [SuperAdminController::class, 'editBerita'])->name('superadmin.berita.edit');
+Route::put('/superadmin/berita/update/{id}', [SuperAdminController::class, 'updateBerita'])->name('superadmin.berita.update');
+Route::delete('/superadmin/berita/delete/{id}', [SuperAdminController::class, 'deleteBerita'])->name('superadmin.berita.delete');
 
 // Kelola Profil Sanggar
 Route::get('/superadmin/profil', [SuperAdminController::class, 'kelolaProfil'])->name('superadmin.kelola-profil');
@@ -126,6 +120,15 @@ Route::get('/semua-event', function () {
     return view('semua-event');
 })->name('event.index');
 
+Route::get('/berita', function () { 
+    return view('umum.berita'); 
+})->name('berita.index');  // 
+
+Route::get('/katalog', [KatalogController::class, 'publicIndex'])->name('katalog.index');
+Route::get('/katalog/{id}', [KatalogController::class, 'publicShow'])->name('katalog.detail');
+
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
+
 Route::get('/profil', function () {
     return view('profil');
 })->name('profil');
@@ -140,6 +143,18 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/edit', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::resource('/superadmin/event', EventController::class)->parameters([
+    'event' => 'event'
+])->names([
+    'index'   => 'superadmin.kelola-event',
+    'create'  => 'superadmin.tambah-event',
+    'store'   => 'superadmin.event.store',
+    'show'    => 'superadmin.event.show',
+    'edit'    => 'superadmin.event.edit',
+    'update'  => 'superadmin.event.update',
+    'destroy' => 'superadmin.event.destroy',
+]);
 
 // ======================= INCLUDE ROUTE AUTH BAWAAN LARAVEL =======================
 require __DIR__.'/auth.php';
