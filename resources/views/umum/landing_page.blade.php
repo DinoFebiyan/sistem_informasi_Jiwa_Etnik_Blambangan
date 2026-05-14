@@ -705,6 +705,7 @@
 @endpush
 
 @section('content')
+  <!-- HERO SECTION (tetap statis) -->
   <section id="beranda">
     <div class="hero-grid">
       <div class="hero-text">
@@ -719,64 +720,55 @@
     </div>
   </section>
 
+   <!-- PROFILE SECTION (statis, bisa diambil dari database nanti) -->
   <section id="profile">
     <div class="section-header">
       <span class="badge-pill">TENTANG KAMI</span>
       <h2 class="section-title">Profile Sanggar</h2>
       <p class="section-subtitle">Mengenal lebih dekat Sanggar Tari Jiwa Etnik Blambangan</p>
     </div>
-
     <div class="profile-grid">
       <div class="profile-text">
-        <h3>Melestarikan Budaya Banyuwangi</h3>
-        <p>Sanggar Tari Jiwa Etnik Blambangan (JEB) adalah pusat seni tari tradisional yang berdedikasi untuk melestarikan
-          kekayaan budaya Banyuwangi dan Nusantara.</p>
-        <p>Kami membina generasi muda untuk mencintai dan menguasai seni tari tradisional, mulai dari tari Gandrung,
-          hingga tari kreasi baru berbasis budaya lokal Blambangan.</p>
-        <p>Dengan pengajar berpengalaman dan metode pembelajaran yang menyenangkan, kami hadir untuk semua kalangan usia.
-        </p>
+        <h3>{{ $profil->deskripsi ?? 'Melestarikan Budaya Banyuwangi' }}</h3>
+        <p>{{ $profil->deskripsi ?? 'Sanggar Tari Jiwa Etnik Blambangan (JEB) adalah pusat seni tari tradisional yang berdedikasi untuk melestarikan kekayaan budaya Banyuwangi dan Nusantara.' }}</p>
+        <p>{{ $profil->sejarah ?? 'Kami membina generasi muda untuk mencintai dan menguasai seni tari tradisional, mulai dari tari Gandrung, hingga tari kreasi baru berbasis budaya lokal Blambangan.' }}</p>
       </div>
-
       <div class="profile-card">
-        <img src="{{ asset('img/icon.png') }}" alt="Ilustrasi Penari" class="profile-card-img">
+        @if($profil && $profil->logo)
+          <img src="data:image/jpeg;base64,{{ base64_encode($profil->logo->file_blob) }}" alt="Logo" class="profile-card-img">
+        @else
+          <img src="{{ asset('img/icon.png') }}" alt="Ilustrasi Penari" class="profile-card-img">
+        @endif
         <h4>Warisan Budaya Blambangan</h4>
-        <p>Tari Tradisional adalah jiwa dari identitas budaya kita. Bersama kami, lestarikan dan rayakan kekayaan seni
-          Nusantara.</p>
+        <p>Tari Tradisional adalah jiwa dari identitas budaya kita. Bersama kami, lestarikan dan rayakan kekayaan seni Nusantara.</p>
       </div>
     </div>
     <div class="center-action">
-      <a href="#" class="btn-dark-pill">Profil Lengkap Sanggar</a>
+      <a href="{{ route('profil') }}" class="btn-dark-pill">Profil Lengkap Sanggar</a>
     </div>
   </section>
 
+  <!-- VISI MISI (statis atau dari database) -->
   <section id="visi-misi">
     <div class="section-header">
-      <p style="font-size: 0.8rem; letter-spacing: 2px; color: var(--text-gray); margin-bottom: 0.5rem;">✦ Landasan Kami ✦
-      </p>
+      <p style="font-size: 0.8rem; letter-spacing: 2px; color: var(--text-gray); margin-bottom: 0.5rem;">✦ Landasan Kami ✦</p>
       <h2 class="section-title">VISI <em>&</em> MISI</h2>
       <p class="section-subtitle">Nilai-nilai yang mendasari setiap langkah dan gerakan Sanggar Tari JEB</p>
     </div>
     <div class="vm-container">
       <div class="visi-box">
         <h3>VISI</h3>
-        <p>Menjadi sanggar seni yang unggul, berkarakter, (bisa) dan memiliki keunikan tersendiri (berbeda) serta mampu
-          menghasilkan karya nyata dalam pelestarian dan pengembangan seni budaya Blambangan di Banyuwangi.</p>
+        <p>{{ $profil->visi ?? 'Menjadi sanggar seni yang unggul, berkarakter, dan memiliki keunikan tersendiri serta mampu menghasilkan karya nyata dalam pelestarian dan pengembangan seni budaya Blambangan di Banyuwangi.' }}</p>
       </div>
       <div class="misi-box">
         <h3>MISI</h3>
-        <p>Mengembangkan potensi anggota agar memiliki kemampuan (bisa) yang terampil dan profesional di bidang seni
-          budaya.</p>
-        <p>Menciptakan karya seni yang inovatif, kreatif, dan memiliki ciri khas (beda) tanpa meninggalkan nilai-nilai
-          budaya Blambangan.</p>
-        <p>Menghasilkan karya nyata melalui pertunjukan, karya cipta, dan partisipasi aktif dalam berbagai kegiatan seni.
-        </p>
-        <p>Menyelenggarakan pelatihan dan pembinaan seni secara berkelanjutan dan berkualitas.</p>
-        <p>Menanamkan sikap disiplin, tanggung jawab, dan kecintaan terhadap seni budaya kepada seluruh anggota.</p>
-        <p>Membangun kerja sama dengan berbagai pihak untuk mendukung perkembangan dan eksistensi sanggar.</p>
+        <p>{{ $profil->misi ?? 'Mengembangkan potensi anggota agar memiliki kemampuan terampil dan profesional di bidang seni budaya.' }}</p>
       </div>
     </div>
   </section>
 
+
+  <!-- BERITA & ARTIKEL (DINAMIS) -->
   <section id="berita">
     <div class="section-header">
       <span class="badge-pill">INFORMASI</span>
@@ -784,170 +776,157 @@
       <p class="section-subtitle">Kabar terbaru kegiatan dan prestasi sanggar JEB</p>
     </div>
     <div class="berita-grid">
+      <!-- Berita Utama -->
       <div class="berita-main">
         <span class="badge-yellow">BERITA UTAMA</span>
-        <h3>Sanggar Tari JEB Raih Penghargaan Terbaik di Festival Seni Budaya Jawa Timur 2026</h3>
-        <p>Sanggar Tari Jiwa Etnik Blambangan kembali mengharumkan nama Banyuwangi dengan meraih penghargaan bergengsi
-          pada ajang Festival Seni Budaya Jawa Timur 2026 yang digelar di Surabaya. Prestasi membanggakan ini merupakan
-          buah dari kerja keras seluruh penari dan pengajar sanggar selama bertahun-tahun.</p>
+        <h3>{{ $beritaUtama->judul ?? 'Sanggar Tari JEB Raih Penghargaan Terbaik di Festival Seni Budaya Jawa Timur 2026' }}</h3>
+        <p>{{ Str::limit($beritaUtama->isi_berita ?? 'Sanggar Tari Jiwa Etnik Blambangan kembali mengharumkan nama Banyuwangi...', 150) }}</p>
         <div class="meta">
-          <span>Berita • 22 Feb 2026 • Raka Permana, S.E.</span>
+          <span>Berita • {{ $beritaUtama ? $beritaUtama->created_at->format('d M Y') : '22 Feb 2026' }} • {{ $beritaUtama->user->name ?? 'Admin' }}</span>
           <a href="#" class="btn-red-pill">Baca Selengkapnya</a>
         </div>
       </div>
+      <!-- List Berita Lainnya -->
       <div class="berita-list">
+        @forelse($beritaTerbaru as $item)
         <div class="berita-item">
           <div class="berita-img-placeholder"></div>
           <div class="berita-item-content">
-            <span class="tag">Kegiatan</span>
-            <h5>Latihan Perdana Peserta Didik Baru Akan Segera Dimulai</h5>
-            <span>12 Maret 2026 - Raka Pratama</span>
+            <span class="tag">Berita</span>
+            <h5>{{ $item->judul }}</h5>
+            <span>{{ $item->created_at->format('d M Y') }} - {{ $item->user->name ?? 'Admin' }}</span>
           </div>
         </div>
+        @empty
         <div class="berita-item">
-          <div class="berita-img-placeholder"></div>
           <div class="berita-item-content">
-            <span class="tag">Kegiatan</span>
-            <h5>Latihan Perdana Peserta Didik Baru Akan Segera Dimulai</h5>
-            <span>12 Maret 2026 - Raka Pratama</span>
+            <span class="tag">Belum ada berita</span>
+            <h5>Belum ada berita terbaru</h5>
           </div>
         </div>
+        @endforelse
       </div>
     </div>
     <div class="center-action">
-      <a href="#" class="btn-dark-pill">Lihat Semua Berita</a>
+      <a href="{{ route('berita.index') }}" class="btn-dark-pill">Lihat Semua Berita</a>
     </div>
   </section>
 
+  <!-- KATALOG KOSTUM (DINAMIS) -->
   <section id="katalog">
     <div class="section-header">
       <h2 class="section-title white">Katalog Kostum</h2>
       <p class="section-subtitle white">Koleksi Kostum tari tradisional dan kreasi Sanggar JEB</p>
     </div>
     <div class="katalog-grid">
+      @forelse($katalogs as $item)
       <div class="katalog-card">
-        <div class="katalog-img"><span class="badge">Tradisional</span></div>
+        <div class="katalog-img">
+          @if($item->galeri && $item->galeri->file_blob)
+            <img src="data:image/jpeg;base64,{{ base64_encode($item->galeri->file_blob) }}" alt="{{ $item->nama_tari }}" style="width:100%; height:100%; object-fit:cover;">
+          @else
+            <div style="background:#ddd; height:100%; display:flex; align-items:center; justify-content:center;">No Image</div>
+          @endif
+          <span class="badge">{{ $item->kategori }}</span>
+        </div>
         <div class="katalog-info">
-          <h4>Tari Gandrung</h4>
-          <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
+          <h4>{{ $item->nama_tari }}</h4>
+          <p>{{ Str::limit($item->deskripsi, 80) }}</p>
           <div class="katalog-footer">
-            <span class="tipe">Tayang</span>
+            <span class="tipe">{{ $item->status == 'tersedia' ? 'Tersedia' : 'Tidak Tersedia' }}</span>
             <div class="katalog-actions">
-              <button>Edit</button>
-              <button>Hapus</button>
+              <span>Stok: {{ $item->stok }}</span>
             </div>
           </div>
         </div>
       </div>
+      @empty
       <div class="katalog-card">
-        <div class="katalog-img"><span class="badge">Tradisional</span></div>
         <div class="katalog-info">
-          <h4>Tari Gandrung</h4>
-          <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
-          <div class="katalog-footer">
-            <span class="tipe">Tayang</span>
-            <div class="katalog-actions">
-              <button>Edit</button>
-              <button>Hapus</button>
-            </div>
-          </div>
+          <h4>Belum ada data katalog</h4>
+          <p>Silakan tambah data katalog melalui panel admin.</p>
         </div>
       </div>
-      <div class="katalog-card">
-        <div class="katalog-img"><span class="badge">Tradisional</span></div>
-        <div class="katalog-info">
-          <h4>Tari Gandrung</h4>
-          <p>Tari penyambutan tamu agung khas Banyuwangi.</p>
-          <div class="katalog-footer">
-            <span class="tipe">Tayang</span>
-            <div class="katalog-actions">
-              <button>Edit</button>
-              <button>Hapus</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      @endforelse
     </div>
     <div class="center-action">
-      <a href="#" class="btn-dark-red-pill">Lihat semua katalog</a>
+      <a href="{{ route('katalog.index') }}" class="btn-dark-red-pill">Lihat semua katalog</a>
     </div>
   </section>
 
+  <!-- KALENDER EVENT (DINAMIS) -->
   <section id="kalender">
     <div class="section-header">
       <span class="badge-pill">KEGIATAN</span>
       <h2 class="section-title">Kalender Event</h2>
       <p class="section-subtitle">Jadwal pentas dan kegiatan Sanggar JEB</p>
     </div>
-
     <div class="kalender-container">
       <div class="kalender-grid">
+        <!-- Calendar Widget (sederhana) -->
         <div class="cal-widget">
-          <div class="cal-header">Maret 2026</div>
+          <div class="cal-header">{{ $currentMonthName ?? 'Maret' }} {{ $currentYear ?? '2026' }}</div>
           <div class="cal-body">
             <div class="cal-grid">
-              <span class="day-name">Su</span><span class="day-name">Mo</span><span class="day-name">Tu</span><span
-                class="day-name">We</span><span class="day-name">Th</span><span class="day-name">Fr</span><span
-                class="day-name">Sa</span>
-              <span
-                class="event-day">1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
-              <span class="event-day">8</span><span>9</span><span
-                class="active">10</span><span>11</span><span>12</span><span>13</span><span>14</span>
-              <span
-                class="event-day">15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
-              <span
-                class="event-day">22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
-              <span class="event-day">29</span><span>30</span><span>31</span>
+              <span class="day-name">Su</span><span class="day-name">Mo</span><span class="day-name">Tu</span><span class="day-name">We</span><span class="day-name">Th</span><span class="day-name">Fr</span><span class="day-name">Sa</span>
+              <!-- Calendar hari (sederhana, bisa dikembangkan) -->
+              @for($i=1; $i<=31; $i++)
+                <span class="{{ in_array($i, $eventDays ?? []) ? 'event-day' : '' }} {{ $i == date('d') ? 'active' : '' }}">{{ $i }}</span>
+              @endfor
             </div>
           </div>
         </div>
 
+        <!-- Event List -->
         <div class="event-list">
+          @forelse($events as $event)
           <div class="event-card">
             <div class="event-date">
-              <h2>21</h2><span>MAR</span>
+              <h2>{{ \Carbon\Carbon::parse($event->tanggal)->format('d') }}</h2>
+              <span>{{ strtoupper(\Carbon\Carbon::parse($event->tanggal)->format('M')) }}</span>
             </div>
             <div class="event-info">
-              <h4>Pentas Tari Gandrung</h4>
-              <p>Penampilan dalam rangka HUT Jadi Kabupaten Banyuwangi ke-254</p>
-              <div class="meta"><span>📍 Pendopo Banyuwangi</span><span>🕐 19:00 WIB</span></div>
+              <h4>{{ $event->nama_event }}</h4>
+              <p>{{ $event->deskripsi ?? '' }}</p>
+              <div class="meta">
+                <span>📍 {{ $event->lokasi }}</span>
+                <span>🕐 {{ \Carbon\Carbon::parse($event->jam)->format('H:i') }} WIB</span>
+              </div>
             </div>
           </div>
-
+          @empty
           <div class="event-card">
-            <div class="event-date">
-              <h2>24</h2><span>MAR</span>
-            </div>
             <div class="event-info">
-              <h4>Workshop Seni Tari</h4>
-              <p>Pelatihan teknik dasar tari bagi anggota tingkat pemula.</p>
-              <div class="meta"><span>📍 Sanggar JEB</span><span>🕐 15:00 WIB</span></div>
+              <h4>Belum ada event terjadwal</h4>
+              <p>Silakan cek kembali nanti.</p>
             </div>
           </div>
+          @endforelse
         </div>
       </div>
-
       <div class="center-action">
-        <a href="#" class="btn-dark-pill">Lihat Semua Event</a>
+        <a href="{{ route('event.index') }}" class="btn-dark-pill">Lihat Semua Event</a>
       </div>
     </div>
   </section>
 
+  <!-- GALERI (DINAMIS) -->
   <section id="galeri">
     <div class="section-header">
-      <span class="badge-pill"
-        style="background:transparent; border:1px solid var(--gold); color:var(--gold);">DOKUMENTASI</span>
+      <span class="badge-pill" style="background:transparent; border:1px solid var(--gold); color:var(--gold);">DOKUMENTASI</span>
       <h2 class="section-title white">Galeri Sanggar</h2>
       <p class="section-subtitle white">Momen indah perjalanan seni dan budaya Jiwa Etnik Blambangan</p>
     </div>
     <div class="galeri-mosaik">
-      <div class="g-box large"></div>
-      <div class="g-box"></div>
-      <div class="g-box"></div>
-      <div class="g-box"></div>
-      <div class="g-box"></div>
+      @forelse($galeri as $item)
+      <div class="g-box" style="background-image: url('data:image/jpeg;base64,{{ base64_encode($item->file_blob) }}'); background-size: cover; background-position: center;"></div>
+      @empty
+      <div class="g-box large" style="display: flex; align-items: center; justify-content: center; color: white;">Belum ada foto</div>
+      <div class="g-box"></div><div class="g-box"></div><div class="g-box"></div><div class="g-box"></div>
+      @endforelse
     </div>
-    <div class="center-action"><a href="#" class="btn-gray-pill">Lihat selengkapnya</a></div>
+    <div class="center-action">
+      <a href="{{ route('galeri.index') }}" class="btn-gray-pill">Lihat selengkapnya</a>
+    </div>
   </section>
-
 @endsection
