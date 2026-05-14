@@ -3,9 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
-
+ 
 
 Route::get('/', function () {
     return view('dashboard');
@@ -42,6 +43,29 @@ Route::resource('/superadmin/katalog', KatalogController::class)->parameters([
     'destroy' => 'superadmin.katalog.destroy',
 ]);
 
+
+// KELOLA ADMIN
+Route::get('/superadmin/kelola-admin', [SuperAdminController::class, 'kelolaAdmin'])->name('superadmin.kelola-admin');
+Route::get('/superadmin/tambah-admin', [SuperAdminController::class, 'tambahAdmin'])->name('superadmin.tambah-admin');
+Route::post('/superadmin/store-admin', [SuperAdminController::class, 'storeAdmin'])->name('superadmin.store-admin');
+Route::get('/superadmin/kelola-admin/edit/{id}', [SuperAdminController::class, 'editAdmin'])->name('superadmin.edit-admin');
+Route::put('/superadmin/kelola-admin/update/{id}', [SuperAdminController::class, 'updateAdmin'])->name('superadmin.update-admin');
+Route::delete('/superadmin/kelola-admin/delete/{id}', [SuperAdminController::class, 'deleteAdmin'])->name('superadmin.delete-admin');
+
+// KELOLA LAINNYA
+Route::resource('/superadmin/katalog', KatalogController::class)->parameters([
+    'katalog' => 'katalog'
+])->names([
+    'index'   => 'superadmin.kelola-katalog',
+    'create'  => 'superadmin.tambah-katalog',
+    'store'   => 'superadmin.katalog.store',
+    'show'    => 'superadmin.katalog.show',
+    'edit'    => 'superadmin.katalog.edit',
+    'update'  => 'superadmin.katalog.update',
+    'destroy' => 'superadmin.katalog.destroy',
+]);
+// ... dan seterusnya
+
 // Jika KatalogController belum dibuat, gunakan closure sementara (komentar di atas dan aktifkan di bawah):
 // Route::get('/superadmin/kelola-katalog', function () {
 //     return view('superadmin.kelola-katalog');
@@ -50,9 +74,22 @@ Route::resource('/superadmin/katalog', KatalogController::class)->parameters([
 //     return view('superadmin.tambah-katalog');
 // })->name('superadmin.tambah-katalog');
 
+Route::get('/superadmin/log-aktivitas', [SuperAdminController::class, 'logAktivitas'])->name('superadmin.log-aktivitas');
+
 // Kelola Event
-Route::get('/superadmin/kelola-event', [SuperAdminController::class, 'kelolaEvent'])->name('superadmin.kelola-event');
-Route::get('/superadmin/tambah-event', [SuperAdminController::class, 'tambahEvent'])->name('superadmin.tambah-event');
+
+
+Route::resource('/superadmin/event', EventController::class)->parameters([
+    'event' => 'event'
+])->names([
+    'index'   => 'superadmin.kelola-event',
+    'create'  => 'superadmin.tambah-event',
+    'store'   => 'superadmin.event.store',
+    'show'    => 'superadmin.event.show',
+    'edit'    => 'superadmin.event.edit',
+    'update'  => 'superadmin.event.update',
+    'destroy' => 'superadmin.event.destroy',
+]);
 
 // Kelola Berita
 Route::get('/superadmin/kelola-berita', [SuperAdminController::class, 'kelolaBerita'])->name('superadmin.kelola-berita');
