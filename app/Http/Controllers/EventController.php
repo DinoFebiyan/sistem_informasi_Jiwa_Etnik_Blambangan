@@ -12,27 +12,27 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
-        $query = Event::with('galeri', 'user');
-        if ($request->filled('search')) {
-            $query->where('nama_event', 'like', '%' . $request->search . '%');
-        }
-        $events = $query->latest()->paginate(10);
-
-        $totalEvent = Event::count();
-        $selesai = Event::where('status', 'selesai')->count();
-        $belumSelesai = Event::where('status', 'belum selesai')->count();
-
-        return view('superadmin.dashboard-kelola-event', compact('events', 'totalEvent', 'selesai', 'belumSelesai'));
+   public function index(Request $request)
+{
+    $query = Event::with('galeri', 'user');
+    if ($request->filled('search')) {
+        $query->where('nama_event', 'like', '%' . $request->search . '%');
     }
+    $events = $query->latest()->paginate(10);
+
+    $totalEvent = Event::count();
+    $selesai = Event::where('status', 'selesai')->count();
+    $belumSelesai = Event::where('status', 'belum selesai')->count();
+
+    return view('superadmin.event.index', compact('events', 'totalEvent', 'selesai', 'belumSelesai'));
+}
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('superadmin.tambah-event');
+        return view('superadmin.event.create');
     }
 
     /**
@@ -90,11 +90,10 @@ class EventController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-    {
-        $event = Event::with('galeri')->findOrFail($id);
-        return view('superadmin.edit-event', compact('event'));
-    }
-
+{
+    $event = Event::with('galeri')->findOrFail($id);
+    return view('superadmin.event.edit', compact('event'));
+}
     /**
      * Update the specified resource in storage.
      */

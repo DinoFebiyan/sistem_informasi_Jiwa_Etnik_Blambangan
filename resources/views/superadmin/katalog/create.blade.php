@@ -1,10 +1,8 @@
-@extends('layouts.superadmin')
+@extends('layouts.superadmin-clean')
 
 @section('title', 'Tambah Katalog — JEB')
-@section('header_title', 'Tambah Katalog')
 
-@section('content')
-
+@section('styles')
 <style>
     * { box-sizing: border-box; }
 
@@ -174,15 +172,14 @@
         display: block;
     }
 </style>
+@endsection
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+@section('content')
 <div class="tk-page">
-
     <form action="{{ route('superadmin.katalog.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        {{-- ── Header ── --}}
+        {{-- Header --}}
         <div class="tk-topbar">
             <div class="tk-topbar-title">
                 <h2>Tambah Katalog</h2>
@@ -198,17 +195,14 @@
             </div>
         </div>
 
-        {{-- ── Body ── --}}
+        {{-- Body --}}
         <div class="tk-body">
-
-            {{-- Alert sukses --}}
             @if(session('success'))
             <div style="background:#dcfce7;color:#16a34a;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:0.85rem;">
                 <i class="fas fa-check-circle"></i> {{ session('success') }}
             </div>
             @endif
 
-            {{-- Alert error --}}
             @if($errors->any())
             <div style="background:#fee2e2;color:#b91c1c;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:0.85rem;">
                 <i class="fas fa-exclamation-circle"></i> Harap perbaiki kesalahan pada form.
@@ -235,13 +229,7 @@
             {{-- Nama Katalog --}}
             <div class="tk-form-group">
                 <label>Nama Katalog</label>
-                <input
-                    type="text"
-                    name="nama_tari"
-                    value="{{ old('nama_tari') }}"
-                    placeholder="Masukkan katalog..."
-                    class="{{ $errors->has('nama_tari') ? 'is-invalid' : '' }}"
-                >
+                <input type="text" name="nama_tari" value="{{ old('nama_tari') }}" placeholder="Masukkan katalog..." class="{{ $errors->has('nama_tari') ? 'is-invalid' : '' }}">
                 @error('nama_tari')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
@@ -264,11 +252,7 @@
             {{-- Deskripsi --}}
             <div class="tk-form-group">
                 <label>Deksripsi katalog</label>
-                <textarea
-                    name="deskripsi"
-                    placeholder="Masukkan deskripsi katalog..."
-                    class="{{ $errors->has('deskripsi') ? 'is-invalid' : '' }}"
-                >{{ old('deskripsi') }}</textarea>
+                <textarea name="deskripsi" placeholder="Masukkan deskripsi katalog..." class="{{ $errors->has('deskripsi') ? 'is-invalid' : '' }}">{{ old('deskripsi') }}</textarea>
                 @error('deskripsi')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
@@ -277,27 +261,20 @@
             {{-- Stok --}}
             <div class="tk-form-group">
                 <label>Masukkan Stok Barang</label>
-                <input
-                    type="number"
-                    name="stok"
-                    value="{{ old('stok', 0) }}"
-                    min="0"
-                    placeholder="Masukkan stok barang..."
-                    class="{{ $errors->has('stok') ? 'is-invalid' : '' }}"
-                >
+                <input type="number" name="stok" value="{{ old('stok', 0) }}" min="0" placeholder="Masukkan stok barang..." class="{{ $errors->has('stok') ? 'is-invalid' : '' }}">
                 @error('stok')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
 
-            {{-- Status (hidden default tersedia) --}}
+            {{-- Status hidden default tersedia --}}
             <input type="hidden" name="status" value="tersedia">
-
-        </div>{{-- end tk-body --}}
-
+        </div>
     </form>
 </div>
+@endsection
 
+@section('scripts')
 <script>
     function previewFoto(event) {
         const file = event.target.files[0];
@@ -313,5 +290,4 @@
         reader.readAsDataURL(file);
     }
 </script>
-
 @endsection

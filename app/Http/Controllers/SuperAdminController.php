@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\Berita;
 use App\Models\LogAktivitas;
 use App\Models\Galeri;
+use App\Models\Personel;
 use App\Models\ProfilSanggar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -45,26 +46,25 @@ class SuperAdminController extends Controller
      * Menampilkan daftar admin (dengan pencarian & paginasi)
      */
     public function kelolaAdmin(Request $request)
-    {
-        $query = User::where('peran', 'admin');
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
-            });
-        }
-        $admins = $query->latest()->paginate(10);
-        $totalAdmin = User::where('peran', 'admin')->count();
-        $activeAdmins = User::where('peran', 'admin')->where('status', 'aktif')->count();
-        $inactiveAdmins = User::where('peran', 'admin')->where('status', 'nonaktif')->count();
-
-        return view('superadmin.kelola-admin', compact('admins', 'totalAdmin', 'activeAdmins', 'inactiveAdmins'));
+{
+    $query = User::where('peran', 'admin');
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%");
+        });
     }
+    $admins = $query->latest()->paginate(10);
+    $totalAdmin = User::where('peran', 'admin')->count();
+    $activeAdmins = User::where('peran', 'admin')->where('status', 'aktif')->count();
+    $inactiveAdmins = User::where('peran', 'admin')->where('status', 'nonaktif')->count();
+    return view('superadmin.admin.index', compact('admins', 'totalAdmin', 'activeAdmins', 'inactiveAdmins'));
+}
 
     public function tambahAdmin()
     {
-        return view('superadmin.tambah-admin');
+        return view('superadmin.admin.create');
     }
 
     public function storeAdmin(Request $request)
@@ -92,7 +92,7 @@ class SuperAdminController extends Controller
     public function editAdmin($id)
     {
         $admin = User::where('peran', 'admin')->findOrFail($id);
-        return view('superadmin.edit-admin', compact('admin'));
+        return view('superadmin.admin.edit', compact('admin'));
     }
 
     public function updateAdmin(Request $request, $id)
@@ -129,8 +129,7 @@ class SuperAdminController extends Controller
         return view('superadmin.log-aktivitas', compact('logs'));
     }
 
-    // ========== METHOD LAIN (BISA DITAMBAHKAN SESUAI KEBUTUHAN) ==========
-    // Kelola Katalog
+    
     public function tambahKatalog() { return view('superadmin.tambah-katalog'); }
     public function storeKatalog(Request $request) { /* validasi & simpan */ }
     public function editKatalog($id) { /* return view edit */ }
@@ -142,14 +141,40 @@ class SuperAdminController extends Controller
     public function tambahEvent() { return view('superadmin.tambah-event'); }
 
     // Kelola Berita
-    public function kelolaBerita() { return view('superadmin.kelola-berita'); }
-    public function publikasiBerita() { return view('superadmin.publikasi-berita'); }
+    public function kelolaBerita(Request $request) {
+    $query = Berita::with('user', 'galeri');
+    if ($request->filled('search')) {
+        $query->where('judul', 'like', '%'.$request->search.'%');
+    }
+    $beritas = $query->latest()->paginate(10);
+    $totalBerita = Berita::count();
+    $ditayangkan = Berita::where('status', 'tayang')->count();
+    $tidakDitayangkan = Berita::where('status', 'tidak ditayangkan')->count();
+    return view('superadmin.berita.index', compact('beritas', 'totalBerita', 'ditayangkan', 'tidakDitayangkan'));
+}
 
     // Kelola Profil Sanggar
-    public function kelolaProfil() { return view('superadmin.kelola-profil'); }
-    public function editProfil() { return view('superadmin.edit-profil'); }
-    public function tambahPengurus() { return view('superadmin.tambah-pengurus'); }
-    public function tambahPelatih() { return view('superadmin.tambah-pelatih'); }
+    public function kelolaProfil()
+{
+    // Ambil data profil sanggar (relasi logo & foto pembina)
+    $profil = ProfilSanggar::with('logo', 'fotoPembina')->first();
+
+    // Jika belum ada data profil, buat objek kosong agar tidak error
+    if (!$profil) {
+        $profil = new ProfilSanggar();
+    }
+
+    // Ambil data pengurus & pelatih dari model Personel (atau sesuai struktur Anda)
+    // Pastikan kolom 'peran' ada di tabel personel, atau sesuaikan query
+    $pengurus = Personel::where('peran', 'pengurus')->paginate(10);
+    $pelatih  = Personel::where('peran', 'pelatih')->paginate(10);
+
+    // Kirim semua variabel ke view
+    return view('superadmin.profil.index', compact('profil', 'pengurus', 'pelatih'));
+}
+    public function editProfil() { return view('superadmin.profil.update'); }
+    public function tambahPengurus() { return view('superadmin.profil.tambah-pengurus'); }
+    public function tambahPelatih() { return view('superadmin.profil.tambah-pelatih'); }
 
     // Pengaturan
     public function pengaturan() { return view('superadmin.pengaturan'); }

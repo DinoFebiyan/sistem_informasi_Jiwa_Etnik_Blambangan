@@ -4,15 +4,13 @@
 @section('header_title', 'Kelola Admin')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-    /* ══ CONTAINER UTAMA ══ */
     .adm-wrapper {
         width: 100%;
         font-family: 'Poppins', sans-serif;
         color: #333;
     }
-
-    /* ══ HEADER ══ */
     .adm-header {
         margin-bottom: 24px;
     }
@@ -27,8 +25,6 @@
         font-size: 0.85rem;
         margin: 0;
     }
-
-    /* ══ STATS GRID (4 KOTAK ATAS) ══ */
     .adm-stats-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -57,7 +53,6 @@
     .adm-icon-blue { background: #eff6ff; color: #3b82f6; }
     .adm-icon-green { background: #f0fdf4; color: #16a34a; }
     .adm-icon-red { background: #fef2f2; color: #ef4444; }
-    
     .adm-stat-text h4 {
         margin: 0;
         font-size: 0.7rem;
@@ -72,8 +67,6 @@
         color: #333;
         font-weight: 700;
     }
-
-    /* TOMBOL TAMBAH ADMIN */
     .adm-btn-tambah {
         background: #e2c0c0;
         color: #5a1a1a;
@@ -91,8 +84,6 @@
     .adm-btn-tambah:hover {
         background: #d4aeae;
     }
-
-    /* ══ SEARCH & FILTER ══ */
     .adm-search-row {
         display: flex;
         gap: 15px;
@@ -128,14 +119,11 @@
         border-radius: 12px;
         font-weight: 600;
         font-size: 1rem;
-        font-family: 'Poppins', sans-serif;
         display: flex;
         align-items: center;
         gap: 10px;
         cursor: pointer;
     }
-
-    /* ══ TABEL ADMIN ══ */
     .adm-table-card {
         background: #ffffff;
         border-radius: 12px;
@@ -168,7 +156,6 @@
         vertical-align: middle;
         font-size: 0.85rem;
     }
-    
     .adm-foto {
         width: 35px;
         height: 35px;
@@ -181,7 +168,6 @@
         font-weight: 600;
         font-size: 0.8rem;
     }
-    
     .adm-badge-aktif {
         background: #dcfce7;
         color: #16a34a;
@@ -198,8 +184,7 @@
         font-size: 0.75rem;
         font-weight: 600;
     }
-    
-    .adm-action-btns button, .adm-action-btns a {
+    .adm-action-btns a, .adm-action-btns button {
         border: none;
         padding: 6px 14px;
         border-radius: 6px;
@@ -211,9 +196,7 @@
         display: inline-block;
     }
     .adm-btn-edit { background: #eff6ff; color: #3b82f6; }
-    .adm-btn-hapus { background: #fef2f2; color: #ef4444; margin-right: 0 !important; }
-
-    /* ══ PAGINASI ══ */
+    .adm-btn-hapus { background: #fef2f2; color: #ef4444; }
     .adm-pagination {
         display: flex;
         justify-content: space-between;
@@ -229,15 +212,17 @@
         display: flex;
         gap: 5px;
     }
-    .adm-page-controls a {
-        border: 1px solid #eee;
-        background: #fff;
+    .adm-page-controls a, .adm-page-controls span {
+        display: inline-block;
         padding: 6px 12px;
         border-radius: 6px;
+        border: 1px solid #eee;
+        background: #fff;
         text-decoration: none;
         color: #333;
+        font-size: 0.8rem;
     }
-    .adm-page-controls a.active {
+    .adm-page-controls a.active, .adm-page-controls span.active {
         background: #5B1A1A;
         color: #fff;
         border: none;
@@ -245,17 +230,12 @@
     }
 </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 <div class="adm-wrapper">
-    
-    <!-- HEADER -->
     <div class="adm-header">
         <h2>Kelola Admin</h2>
         <p>{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }} - Selamat datang kembali!</p>
     </div>
 
-    <!-- STATS GRID -->
     <div class="adm-stats-grid">
         <div class="adm-stat-card">
             <div class="adm-icon-box adm-icon-blue"><i class="fas fa-user"></i></div>
@@ -264,7 +244,6 @@
                 <h2>{{ $totalAdmin ?? 0 }}</h2>
             </div>
         </div>
-        
         <div class="adm-stat-card">
             <div class="adm-icon-box adm-icon-green"><i class="fas fa-check-circle"></i></div>
             <div class="adm-stat-text">
@@ -272,7 +251,6 @@
                 <h2>{{ $activeAdmins ?? 0 }}</h2>
             </div>
         </div>
-        
         <div class="adm-stat-card">
             <div class="adm-icon-box adm-icon-red"><i class="fas fa-ban"></i></div>
             <div class="adm-stat-text">
@@ -280,14 +258,11 @@
                 <h2>{{ $inactiveAdmins ?? 0 }}</h2>
             </div>
         </div>
-        
-        <!-- TOMBOL TAMBAH ADMIN -->
         <a href="{{ route('superadmin.tambah-admin') }}" class="adm-btn-tambah">
             <span>+</span> Tambah Admin
         </a>
     </div>
 
-    <!-- SEARCH & FILTER -->
     <form method="GET" action="{{ route('superadmin.kelola-admin') }}" class="adm-search-row">
         <div class="adm-search-box">
             <input type="text" name="search" placeholder="Cari nama Admin..." value="{{ request('search') }}">
@@ -298,10 +273,8 @@
         </button>
     </form>
 
-    <!-- TABEL -->
     <div class="adm-table-card">
         <h3>Daftar Admin</h3>
-        
         <table class="adm-table">
             <thead>
                 <tr>
@@ -316,14 +289,10 @@
             <tbody>
                 @forelse($admins as $admin)
                 <tr>
-                    <td>
-                        <div class="adm-foto">
-                            {{ strtoupper(substr($admin->name, 0, 2)) }}
-                        </div>
-                    </td>
-                    <td style="font-weight: 600;">{{ $admin->name }}</td>
+                    <td><div class="adm-foto">{{ strtoupper(substr($admin->name, 0, 2)) }}</div></td>
+                    <td style="font-weight:600">{{ $admin->name }}</td>
                     <td>{{ $admin->email }}</td>
-                    <td>{{ $admin->no_handphone }}</td>
+                    <td>{{ $admin->no_handphone ?? '-' }}</td>
                     <td>
                         @if($admin->status == 'aktif')
                             <span class="adm-badge-aktif">Aktif</span>
@@ -335,20 +304,15 @@
                         <a href="{{ route('superadmin.edit-admin', $admin->id) }}" class="adm-btn-edit">Edit</a>
                         <button class="adm-btn-hapus" onclick="confirmDelete({{ $admin->id }})">Hapus</button>
                         <form id="delete-form-{{ $admin->id }}" action="{{ route('superadmin.delete-admin', $admin->id) }}" method="POST" style="display: none;">
-                            @csrf
-                            @method('DELETE')
+                            @csrf @method('DELETE')
                         </form>
                     </td>
                 </tr>
                 @empty
-                <tr>
-                    <td colspan="6" style="text-align: center;">Tidak ada data admin.</td>
-                </tr>
+                <tr><td colspan="6" style="text-align:center">Belum ada data admin.</td></tr>
                 @endforelse
             </tbody>
         </table>
-
-        <!-- PAGINASI -->
         <div class="adm-pagination">
             <p>Menampilkan {{ $admins->firstItem() ?? 0 }} - {{ $admins->lastItem() ?? 0 }} dari {{ $admins->total() ?? 0 }} admin</p>
             <div class="adm-page-controls">
@@ -361,7 +325,7 @@
 <script>
     function confirmDelete(id) {
         if(confirm('Yakin ingin menghapus admin ini?')) {
-            document.getElementById('delete-form-' + id).submit();
+            document.getElementById('delete-form-'+id).submit();
         }
     }
 </script>
