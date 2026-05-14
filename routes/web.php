@@ -156,5 +156,12 @@ Route::resource('/superadmin/event', EventController::class)->parameters([
     'destroy' => 'superadmin.event.destroy',
 ]);
 
+// Kelola Berita (CRUD)
+Route::get('/superadmin/kelola-berita', [SuperAdminController::class, 'kelolaBerita'])->name('superadmin.kelola-berita');
+Route::get('/superadmin/publikasi-berita', [SuperAdminController::class, 'publikasiBerita'])->name('superadmin.publikasi-berita');
+Route::get('/superadmin/berita/edit/{id}', [SuperAdminController::class, 'editBerita'])->name('superadmin.berita.edit');
+Route::put('/superadmin/berita/update/{id}', [SuperAdminController::class, 'updateBerita'])->name('superadmin.berita.update');
+Route::delete('/superadmin/berita/delete/{id}', [SuperAdminController::class, 'deleteBerita'])->name('superadmin.berita.delete');
+
 // ======================= INCLUDE ROUTE AUTH BAWAAN LARAVEL =======================
 require __DIR__.'/auth.php';
