@@ -39,43 +39,43 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama_event' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'jam' => 'required',
-            'lokasi' => 'required|string',
-            'kategori' => 'required|string',
-            'status' => 'required|in:selesai,belum selesai',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+{
+    $request->validate([
+        'nama_event' => 'required|string|max:255',
+        'tanggal' => 'required|date',
+        'jam' => 'required',
+        'lokasi' => 'required|string',
+        'kategori' => 'required|string',
+        'status' => 'required|in:selesai,belum selesai',
+        'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+    ]);
+
+    $galeriId = null;
+    if ($request->hasFile('foto')) {
+        $file = $request->file('foto');
+        $fileBlob = file_get_contents($file->getRealPath());
+        $galeri = Galeri::create([
+            'file_blob' => $fileBlob,
+            'nama_file' => $file->getClientOriginalName(),
+            'kategori_modul' => 'event',
+            'is_watermark' => false,
         ]);
-
-        $galeriId = null;
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $fileBlob = file_get_contents($file->getRealPath());
-            $galeri = Galeri::create([
-                'file_blob' => $fileBlob,
-                'nama_file' => $file->getClientOriginalName(),
-                'kategori_modul' => 'event',
-                'is_watermark' => false,
-            ]);
-            $galeriId = $galeri->id;
-        }
-
-        Event::create([
-            'nama_event' => $request->nama_event,
-            'tanggal' => $request->tanggal,
-            'jam' => $request->jam,
-            'lokasi' => $request->lokasi,
-            'kategori' => $request->kategori,
-            'status' => $request->status,
-            'user_id' => Auth::id(),
-            'galeri_id' => $galeriId,
-        ]);
-
-        return redirect()->route('superadmin.kelola-event')->with('success', 'Event berhasil ditambahkan.');
+        $galeriId = $galeri->id;
     }
+
+    Event::create([
+        'nama_event' => $request->nama_event,
+        'tanggal' => $request->tanggal,
+        'jam' => $request->jam,
+        'lokasi' => $request->lokasi,
+        'kategori' => $request->kategori,
+        'status' => $request->status,
+        'user_id' => Auth::id(), 
+        'galeri_id' => $galeriId,
+    ]);
+
+    return redirect()->route('superadmin.kelola-event')->with('success', 'Event berhasil ditambahkan.');
+}
 
     /**
      * Display the specified resource.
