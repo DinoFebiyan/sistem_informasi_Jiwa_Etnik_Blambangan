@@ -23,9 +23,16 @@ class SuperAdminController extends Controller
         $activeEvents = Event::where('status', 'belum selesai')->count();
         $totalBerita = Berita::count();
 
-        $latestAdmins = User::where('peran', 'admin')->latest()->take(5)->get();
+        $latestAdmins = User::where('peran', 'admin')
+            ->latest()
+            ->take(5)
+            ->get();
 
-        $recentActivities = LogAktivitas::with('user')->latest()->take(5)->get();
+        // Data aktivitas terbaru (jika tabel log_aktivitas sudah ada)
+        $recentActivities = LogAktivitas::with('user')
+            ->latest()
+            ->take(5)
+            ->get();
 
         return view('superadmin.dashboard', compact(
             'totalAdmin', 'totalKatalog', 'activeEvents', 'totalBerita',
@@ -33,11 +40,74 @@ class SuperAdminController extends Controller
         ));
     }
 
-    // ===================== KELOLA ADMIN =====================
+    // FUNGSI UNTUK HALAMAN KELOLA ADMIN
+    public function kelolaAdmin()
+    {
+        // Ambil semua user yang memiliki peran 'admin'
+        // Gunakan paginate(5) agar sesuai dengan tampilan "Menampilkan 5 dari X admin"
+        $admins = User::where('peran', 'admin')->paginate(5);
+
+        // Hitung statistik ringkas untuk kartu di atas
+        $totalAdmin = User::where('peran', 'admin')->count();
+        $totalAktif = User::where('peran', 'admin')->where('status', 'aktif')->count();
+        $totalNonaktif = User::where('peran', 'admin')->where('status', 'nonaktif')->count();
+
+        return view('superadmin.kelola-admin', compact(
+            'admins',
+            'totalAdmin',
+            'totalAktif',
+            'totalNonaktif'
+        ));
+    }
+
+    // Method placeholder agar tidak error saat route diakses (tambahkan logic nanti)
+    public function tambahAdmin()
+    {
+        return view('superadmin.tambah-admin');
+    }
+    public function kelolaEvent()
+    {
+        return view('superadmin.kelola-event');
+    }
+    public function tambahEvent()
+    {
+        return view('superadmin.tambah-event');
+    }
+    public function kelolaBerita()
+    {
+        return view('superadmin.kelola-berita');
+    }
+    public function publikasiBerita()
+    {
+        return view('superadmin.publikasi-berita');
+    }
+    public function kelolaProfil()
+    {
+        return view('superadmin.profil');
+    }
+    public function editProfil()
+    {
+        return view('superadmin.edit-profil');
+    }
+    public function tambahPengurus()
+    {
+        return view('superadmin.tambah-pengurus');
+    }
+    public function tambahPelatih()
+    {
+        return view('superadmin.tambah-pelatih');
+    }
+    public function pengaturan()
+    {
+        return view('superadmin.pengaturan');
+    }
+
+    /**
+     * Menampilkan daftar admin (dengan pencarian & paginasi)
+     */
     public function kelolaAdmin(Request $request)
     {
         $query = User::where('peran', 'admin');
-
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
@@ -45,7 +115,6 @@ class SuperAdminController extends Controller
                   ->orWhere('email', 'like', "%{$search}%");
             });
         }
-
         $admins = $query->latest()->paginate(10);
         $totalAdmin = User::where('peran', 'admin')->count();
         $activeAdmins = User::where('peran', 'admin')->where('status', 'aktif')->count();
@@ -91,7 +160,7 @@ class SuperAdminController extends Controller
     {
         $admin = User::where('peran', 'admin')->findOrFail($id);
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
             'no_handphone' => 'required|string|max:20',
@@ -103,7 +172,6 @@ class SuperAdminController extends Controller
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
-
         $admin->update($data);
         return redirect()->route('superadmin.kelola-admin')->with('success', 'Admin berhasil diperbarui.');
     }
@@ -115,141 +183,33 @@ class SuperAdminController extends Controller
         return redirect()->route('superadmin.kelola-admin')->with('success', 'Admin berhasil dihapus.');
     }
 
-    // ===================== KELOLA KATALOG =====================
-    public function kelolaKatalog()
-    {
-        $katalogs = Katalog::with('galeri')->latest()->paginate(10);
-        return view('superadmin.kelola-katalog', compact('katalogs'));
-    }
-
-    // ===================== KELOLA EVENT =====================
-    public function kelolaEvent()
-    {
-        $events = Event::with('galeri')->latest()->paginate(10);
-        return view('superadmin.kelola-event', compact('events'));
-    }
-
-    // ===================== KELOLA BERITA =====================
-    public function kelolaBerita()
-    {
-        $beritas = Berita::with('user', 'galeri')->latest()->paginate(10);
-        return view('superadmin.kelola-berita', compact('beritas'));
-    }
-
-    public function tambahBerita()
-    {
-        return view('superadmin.tambah-berita');
-    }
-
-    public function storeBerita(Request $request)
-    {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'isi_berita' => 'required|string',
-            'status' => 'required|in:tayang,tidak ditayangkan',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
-
-        $galeriId = null;
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $fileBlob = file_get_contents($file->getRealPath());
-            $galeri = Galeri::create([
-                'file_blob' => $fileBlob,
-                'nama_file' => $file->getClientOriginalName(),
-                'kategori_modul' => 'berita',
-                'is_watermark' => false,
-            ]);
-            $galeriId = $galeri->id;
-        }
-
-        Berita::create([
-            'judul' => $request->judul,
-            'isi_berita' => $request->isi_berita,
-            'tgl_terbit' => now(),
-            'status' => $request->status,
-            'user_id' => Auth::id(),
-            'galeri_id' => $galeriId,
-        ]);
-
-        return redirect()->route('superadmin.kelola-berita')->with('success', 'Berita berhasil ditambahkan.');
-    }
-
-    public function editBerita($id)
-    {
-        $berita = Berita::with('galeri')->findOrFail($id);
-        return view('superadmin.edit-berita', compact('berita'));
-    }
-
-    public function updateBerita(Request $request, $id)
-    {
-        $berita = Berita::findOrFail($id);
-
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'isi_berita' => 'required|string',
-            'status' => 'required|in:tayang,tidak ditayangkan',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
-
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $fileBlob = file_get_contents($file->getRealPath());
-
-            if ($berita->galeri_id) {
-                $galeri = Galeri::find($berita->galeri_id);
-                $galeri->update([
-                    'file_blob' => $fileBlob,
-                    'nama_file' => $file->getClientOriginalName(),
-                ]);
-            } else {
-                $galeri = Galeri::create([
-                    'file_blob' => $fileBlob,
-                    'nama_file' => $file->getClientOriginalName(),
-                    'kategori_modul' => 'berita',
-                    'is_watermark' => false,
-                ]);
-                $berita->galeri_id = $galeri->id;
-            }
-        }
-
-        $berita->update([
-            'judul' => $request->judul,
-            'isi_berita' => $request->isi_berita,
-            'status' => $request->status,
-        ]);
-
-        return redirect()->route('superadmin.kelola-berita')->with('success', 'Berita berhasil diperbarui.');
-    }
-
-    public function deleteBerita($id)
-    {
-        $berita = Berita::findOrFail($id);
-        if ($berita->galeri_id) {
-            Galeri::find($berita->galeri_id)?->delete();
-        }
-        $berita->delete();
-
-        return redirect()->route('superadmin.kelola-berita')->with('success', 'Berita berhasil dihapus.');
-    }
-
-    // ===================== KELOLA PROFIL SANGAR =====================
-    public function kelolaProfil()
-    {
-        $profil = ProfilSanggar::with('logo', 'fotoPembina')->first();
-        return view('superadmin.kelola-profil', compact('profil'));
-    }
-
-    // ===================== PENGATURAN =====================
-    public function pengaturan()
-    {
-        return view('superadmin.pengaturan');
-    }
-
-    // ===================== LOG AKTIVITAS =====================
     public function logAktivitas()
-    {
-        $logs = LogAktivitas::with('user')->latest()->paginate(15);
-        return view('superadmin.log-aktivitas', compact('logs'));
-    }
+{
+    // Ambil semua log aktivitas, urutkan terbaru, dengan paginasi
+    $logs = LogAktivitas::with('user')->latest()->paginate(15);
+    return view('superadmin.log-aktivitas', compact('logs'));
+}
+    // ========== METHOD LAIN (BISA DITAMBAHKAN SESUAI KEBUTUHAN) ==========
+    // Kelola Katalog
+    public function tambahKatalog() { return view('superadmin.tambah-katalog'); }
+    public function storeKatalog(Request $request) { /* validasi & simpan */ }
+    public function editKatalog($id) { /* return view edit */ }
+    public function updateKatalog(Request $request, $id) { /* update */ }
+    public function deleteKatalog($id) { Katalog::findOrFail($id)->delete(); return redirect()->back(); }
+
+    // Kelola Event
+    public function kelolaEvent() { return view('superadmin.kelola-event'); }
+    public function tambahEvent() { return view('superadmin.tambah-event'); }
+
+    // Kelola Berita
+    public function kelolaBerita() { return view('superadmin.kelola-berita'); }
+
+    // Kelola Profil Sanggar
+    public function kelolaProfil() { return view('superadmin.kelola-profil'); }
+    public function editProfil() { return view('superadmin.edit-profil'); }
+    public function tambahPengurus() { return view('superadmin.tambah-pengurus'); }
+    public function tambahPelatih() { return view('superadmin.tambah-pelatih'); }
+
+    // Pengaturan
+    public function pengaturan() { return view('superadmin.pengaturan'); }
 }
