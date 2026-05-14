@@ -144,5 +144,17 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile/edit', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('/superadmin/event', EventController::class)->parameters([
+    'event' => 'event'
+])->names([
+    'index'   => 'superadmin.kelola-event',
+    'create'  => 'superadmin.tambah-event',
+    'store'   => 'superadmin.event.store',
+    'show'    => 'superadmin.event.show',
+    'edit'    => 'superadmin.event.edit',
+    'update'  => 'superadmin.event.update',
+    'destroy' => 'superadmin.event.destroy',
+]);
+
 // ======================= INCLUDE ROUTE AUTH BAWAAN LARAVEL =======================
 require __DIR__.'/auth.php';
