@@ -513,132 +513,185 @@
       background: #5c0d0d;
     }
 
-    /* ══ KALENDER ══ */
+    /* ══ KALENDER EVENT FIX ══ */
+
+    /* 1. Container Utama */
     #kalender {
-      background: var(--white);
+        background: #ffffff !important;
+        padding: 80px 0;
+        width: 100%;
+        display: block;
     }
 
+    .kalender-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* 2. Layout Grid (Kiri: Kalender, Kanan: List Event) */
     .kalender-grid {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 2rem;
-      align-items: start;
+        display: grid;
+        grid-template-columns: 350px 1fr; /* Kolom kiri tetap 350px, kanan fleksibel */
+        gap: 3rem;
+        align-items: start;
     }
 
+    /* 3. Widget Kalender (Sisi Kiri) */
     .cal-widget {
-      border: 1px solid #eee;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     }
 
     .cal-header {
-      background: var(--maroon-dark);
-      color: var(--white);
-      padding: 1rem;
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.1rem;
+        background: #5a1a1a; /* Maroon Dark */
+        color: #ffffff !important;
+        padding: 1.2rem;
+        text-align: center;
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 1.2rem;
     }
 
     .cal-body {
-      padding: 1rem;
-      background: var(--white);
+        padding: 1.5rem;
+        background: #ffffff;
     }
 
     .cal-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      text-align: center;
-      gap: 5px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        gap: 8px;
     }
 
     .cal-grid span {
-      font-size: 0.8rem;
-      padding: 0.5rem 0;
-      color: var(--text-gray);
+        font-size: 0.9rem;
+        color: #444444 !important;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.2s;
     }
 
     .day-name {
-      font-size: 0.7rem;
-      color: #aaa;
-      margin-bottom: 0.5rem;
+        font-weight: 700;
+        color: #aaa !important;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        margin-bottom: 5px;
     }
 
-    .cal-grid .active {
-      background: var(--maroon-dark);
-      color: var(--white);
-      border-radius: 5px;
-      font-weight: 600;
+    /* 4. State Tanggal (Merah & Hari Ini) */
+    .cal-grid .event-day {
+        background-color: #b91c1c !important; /* Merah untuk tanggal event */
+        color: #ffffff !important;
+        border-radius: 50%;
+        font-weight: 700;
+        width: 35px;
+        height: 35px;
+        margin: auto;
     }
 
-    .event-day {
-      background: var(--red-bg);
-      color: #000;
-      border-radius: 5px;
-      font-weight: 700;
+    .cal-grid .active-today {
+        border: 2px solid #b91c1c; /* Border untuk hari ini */
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        margin: auto;
     }
 
-
+    /* 5. List Event (Sisi Kanan) */
     .event-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
     }
 
-    .event-card {
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 1rem;
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
+    #kalender .event-card {
+        background-color: #ffffff !important;
+        border: 1px solid #eee;
+        border-radius: 15px;
+        padding: 1.5rem;
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        transition: transform 0.3s ease;
     }
 
-    .event-date {
-      background: var(--maroon-dark);
-      color: var(--white);
-      text-align: center;
-      border-radius: 8px;
-      padding: 0.8rem 1rem;
-      min-width: 70px;
+    #kalender .event-card:hover {
+        transform: translateX(10px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     }
 
-    .event-date h2 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.5rem;
-      line-height: 1;
+    /* Kotak Tanggal di dalam Card */
+    #kalender .event-date {
+        background: #5a1a1a !important;
+        color: #ffffff !important;
+        text-align: center;
+        border-radius: 12px;
+        padding: 1rem;
+        min-width: 85px;
     }
 
-    .event-date span {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    #kalender .event-date h2 {
+        margin: 0;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        line-height: 1;
+        color: #ffffff !important;
     }
 
-    .event-info h4 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 0.3rem;
+    #kalender .event-date span {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #ffffff !important;
     }
 
-    .event-info p {
-      font-size: 0.8rem;
-      color: var(--text-gray);
-      margin-bottom: 0.5rem;
+    /* Info Text (Judul & Deskripsi) */
+    #kalender .event-info h4 {
+        color: #222222 !important; /* Hitam pekat agar terbaca */
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-family: 'Poppins', sans-serif;
     }
 
-    .event-info .meta {
-      font-size: 0.75rem;
-      color: var(--maroon-dark);
-      font-weight: 500;
-      display: flex;
-      gap: 1rem;
+    #kalender .event-info p {
+        color: #555555 !important; /* Abu gelap untuk deskripsi */
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 12px;
     }
-
+    
+    #kalender .event-info .meta i {
+    color: #b91c1c;
+    font-size: 0.9rem;
+}
+    #kalender .event-info .meta span {
+    background: transparent !important; 
+    color: #b91c1c !important;       
+    padding: 0 !important;            
+    font-weight: 600 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+    /* 6. Responsive (Untuk HP) */
+    @media (max-width: 992px) {
+        .kalender-grid {
+            grid-template-columns: 1fr;
+        }
+        .cal-widget {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    }
     /* ══ GALERI ══ */
     #galeri {
       background: var(--red-bg);
@@ -700,6 +753,82 @@
       .nav-links {
         display: none;
       }
+    }
+
+    /* ══ SECTION CTA BERGABUNG ══ */
+    #cta-join {
+        background-color: #3D0C0C; /* Warna cokelat gelap sesuai gambar */
+        color: var(--white);
+        padding: 5rem 10%;
+    }
+
+    .cta-container {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        align-items: center;
+        gap: 3rem;
+    }
+
+    .cta-badge {
+        background-color: #D4AF37; /* Warna emas badge */
+        color: white;
+        padding: 0.4rem 1.2rem;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+    }
+
+    .cta-content h2 {
+        font-size: 2.8rem;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .cta-content p {
+        font-size: 1rem;
+        line-height: 1.7;
+        opacity: 0.8;
+        max-width: 600px;
+    }
+
+    .cta-action {
+        text-align: right;
+    }
+
+    .btn-daftar-cta {
+        background-color: #A8762E; /* Warna tombol cokelat keemasan */
+        color: white;
+        padding: 1.2rem 3.5rem;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .btn-daftar-cta:hover {
+        background-color: #C5A059;
+        transform: translateY(-5px);
+    }
+
+    /* Responsive untuk HP */
+    @media (max-width: 968px) {
+        .cta-container {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        .cta-action {
+            text-align: center;
+        }
+        .cta-content h2 {
+            font-size: 2rem;
+        }
     }
   </style>
 @endpush
@@ -767,6 +896,49 @@
     </div>
   </section>
 
+  <!-- KATALOG KOSTUM (DINAMIS) -->
+  <section id="katalog">
+    <div class="section-header">
+      <h2 class="section-title white">Katalog Kostum</h2>
+      <p class="section-subtitle white">Koleksi Kostum tari tradisional dan kreasi Sanggar JEB</p>
+    </div>
+    <div class="katalog-grid">
+      @forelse($katalogs as $item)
+      <div class="katalog-card">
+        <div class="katalog-img">
+          @if($item->galeri && $item->galeri->file_blob)
+            <img src="data:image/jpeg;base64,{{ base64_encode($item->galeri->file_blob) }}" alt="{{ $item->nama_tari }}" style="width:100%; height:100%; object-fit:cover;">
+          @else
+            <div style="background:#ddd; height:100%; display:flex; align-items:center; justify-content:center;">No Image</div>
+          @endif
+          <span class="badge">{{ $item->kategori }}</span>
+        </div>
+        <div class="katalog-info">
+          <h4>{{ $item->nama_tari }}</h4>
+          <p>{{ Str::limit($item->deskripsi, 80) }}</p>
+          <div class="katalog-footer">
+            <span class="tipe">{{ $item->status == 'tersedia' ? 'Tersedia' : 'Tidak Tersedia' }}</span>
+            <div class="katalog-actions">
+              <span>Stok: {{ $item->stok }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      @empty
+      <div class="katalog-card">
+        <div class="katalog-info">
+          <h4>Belum ada data katalog</h4>
+          <p>Silakan tambah data katalog melalui panel admin.</p>
+        </div>
+      </div>
+      @endforelse
+    </div>
+    <div class="center-action">
+      <a href="{{ route('katalog.index') }}" class="btn-dark-red-pill">Lihat semua katalog</a>
+    </div>
+  </section>
+
+
 
   <!-- BERITA & ARTIKEL (DINAMIS) -->
   <section id="berita">
@@ -812,104 +984,6 @@
     </div>
   </section>
 
-  <!-- KATALOG KOSTUM (DINAMIS) -->
-  <section id="katalog">
-    <div class="section-header">
-      <h2 class="section-title white">Katalog Kostum</h2>
-      <p class="section-subtitle white">Koleksi Kostum tari tradisional dan kreasi Sanggar JEB</p>
-    </div>
-    <div class="katalog-grid">
-      @forelse($katalogs as $item)
-      <div class="katalog-card">
-        <div class="katalog-img">
-          @if($item->galeri && $item->galeri->file_blob)
-            <img src="data:image/jpeg;base64,{{ base64_encode($item->galeri->file_blob) }}" alt="{{ $item->nama_tari }}" style="width:100%; height:100%; object-fit:cover;">
-          @else
-            <div style="background:#ddd; height:100%; display:flex; align-items:center; justify-content:center;">No Image</div>
-          @endif
-          <span class="badge">{{ $item->kategori }}</span>
-        </div>
-        <div class="katalog-info">
-          <h4>{{ $item->nama_tari }}</h4>
-          <p>{{ Str::limit($item->deskripsi, 80) }}</p>
-          <div class="katalog-footer">
-            <span class="tipe">{{ $item->status == 'tersedia' ? 'Tersedia' : 'Tidak Tersedia' }}</span>
-            <div class="katalog-actions">
-              <span>Stok: {{ $item->stok }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      @empty
-      <div class="katalog-card">
-        <div class="katalog-info">
-          <h4>Belum ada data katalog</h4>
-          <p>Silakan tambah data katalog melalui panel admin.</p>
-        </div>
-      </div>
-      @endforelse
-    </div>
-    <div class="center-action">
-      <a href="{{ route('katalog.index') }}" class="btn-dark-red-pill">Lihat semua katalog</a>
-    </div>
-  </section>
-
-  <!-- KALENDER EVENT (DINAMIS) -->
-  <section id="kalender">
-    <div class="section-header">
-      <span class="badge-pill">KEGIATAN</span>
-      <h2 class="section-title">Kalender Event</h2>
-      <p class="section-subtitle">Jadwal pentas dan kegiatan Sanggar JEB</p>
-    </div>
-    <div class="kalender-container">
-      <div class="kalender-grid">
-        <!-- Calendar Widget (sederhana) -->
-        <div class="cal-widget">
-          <div class="cal-header">{{ $currentMonthName ?? 'Maret' }} {{ $currentYear ?? '2026' }}</div>
-          <div class="cal-body">
-            <div class="cal-grid">
-              <span class="day-name">Su</span><span class="day-name">Mo</span><span class="day-name">Tu</span><span class="day-name">We</span><span class="day-name">Th</span><span class="day-name">Fr</span><span class="day-name">Sa</span>
-              <!-- Calendar hari (sederhana, bisa dikembangkan) -->
-              @for($i=1; $i<=31; $i++)
-                <span class="{{ in_array($i, $eventDays ?? []) ? 'event-day' : '' }} {{ $i == date('d') ? 'active' : '' }}">{{ $i }}</span>
-              @endfor
-            </div>
-          </div>
-        </div>
-
-        <!-- Event List -->
-        <div class="event-list">
-          @forelse($events as $event)
-          <div class="event-card">
-            <div class="event-date">
-              <h2>{{ \Carbon\Carbon::parse($event->tanggal)->format('d') }}</h2>
-              <span>{{ strtoupper(\Carbon\Carbon::parse($event->tanggal)->format('M')) }}</span>
-            </div>
-            <div class="event-info">
-              <h4>{{ $event->nama_event }}</h4>
-              <p>{{ $event->deskripsi ?? '' }}</p>
-              <div class="meta">
-                <span>📍 {{ $event->lokasi }}</span>
-                <span>🕐 {{ \Carbon\Carbon::parse($event->jam)->format('H:i') }} WIB</span>
-              </div>
-            </div>
-          </div>
-          @empty
-          <div class="event-card">
-            <div class="event-info">
-              <h4>Belum ada event terjadwal</h4>
-              <p>Silakan cek kembali nanti.</p>
-            </div>
-          </div>
-          @endforelse
-        </div>
-      </div>
-      <div class="center-action">
-        <a href="{{ route('event.index') }}" class="btn-dark-pill">Lihat Semua Event</a>
-      </div>
-    </div>
-  </section>
-
   <!-- GALERI (DINAMIS) -->
   <section id="galeri">
     <div class="section-header">
@@ -929,4 +1003,83 @@
       <a href="{{ route('galeri.index') }}" class="btn-gray-pill">Lihat selengkapnya</a>
     </div>
   </section>
+
+  <!-- KALENDER EVENT (DINAMIS) -->
+ <section id="kalender">
+    <div class="section-header">
+        <span class="badge-pill">KEGIATAN</span>
+        <h2 class="section-title">Kalender Event</h2>
+        <p class="section-subtitle">Jadwal pentas dan kegiatan Sanggar JEB</p>
+    </div>
+
+    <div class="kalender-container">
+        <div class="kalender-grid">
+            
+            <div class="cal-widget">
+                <div class="cal-header">{{ $currentMonthName ?? 'Mei' }} 2026</div>
+                <div class="cal-body">
+                    <div class="cal-grid">
+                        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                        
+                        @for($x = 0; $x < $blankDays; $x++)
+                            <span></span>
+                        @endfor
+
+                        @for($i = 1; $i <= $daysInMonth; $i++)
+                            @php 
+                                $isEvent = in_array($i, $eventDays ?? []); 
+                                $isToday = ($i == date('d'));
+                            @endphp
+                            <span class="{{ $isEvent ? 'event-day' : '' }} {{ $isToday ? 'active' : '' }}">
+                                {{ $i }}
+                            </span>
+                        @endfor
+                    </div>
+                </div>
+            </div> <div class="event-list">
+                @forelse($events as $event)
+                <div class="event-card">
+                    <div class="event-date">
+                        <h2>{{ \Carbon\Carbon::parse($event->tanggal)->format('d') }}</h2>
+                        <span>{{ strtoupper(\Carbon\Carbon::parse($event->tanggal)->format('M')) }}</span>
+                    </div>
+                    <div class="event-info">
+                        <h4>{{ $event->nama_event }}</h4>
+                        <p>{{ $event->deskripsi ?? 'Kegiatan seni Sanggar Tari JEB.' }}</p>
+                        <div class="meta">
+                            <span>📍 {{ $event->lokasi }}</span>
+                            <span style="margin-left: 15px;">🕒 {{ \Carbon\Carbon::parse($event->jam)->format('H:i') }} WIB</span>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <p>Belum ada event terjadwal.</p>
+                @endforelse
+        </div> <div class="center-action" style="text-align: center; margin-top: 4rem; width: 100%; grid-column: 1 / -1;">
+            <a href="{{ route('event.index') }}" class="btn-dark-pill" style="background: #5a1a1a; color: #fff; padding: 0.8rem 3rem; border-radius: 30px; text-decoration: none; font-weight: 600; display: inline-block; transition: 0.3s;">
+                Lihat Semua Event
+            </a>
+        </div>
+        </div> </div> </section>
+            </div> 
+           </div> 
+      </div>
+</section>
+
+  <section id="cta-join">
+    <div class="cta-container">
+        <div class="cta-content">
+            <span class="cta-badge">BERGABUNG</span>
+            <h2>Kembangkan Bakat Seni <br> Anda Bersama Kami</h2>
+            <p>
+                Sanggar Seni Jiwa Etnik Blambangan adalah ruang kreatif bagi pecinta seni budaya Banyuwangi 
+                untuk belajar, berkarya, dan berprestasi. Kami menghadirkan pelatihan tari tradisional, 
+                pertunjukan seni, serta kegiatan budaya yang menginspirasi dan mempererat kebersamaan.
+            </p>
+        </div>
+        <div class="cta-action">
+            <a href="#" class="btn-daftar-cta">DAFTAR SEKARANG</a>
+        </div>
+    </div>
+</section>
 @endsection

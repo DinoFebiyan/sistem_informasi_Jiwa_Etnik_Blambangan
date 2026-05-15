@@ -122,12 +122,24 @@ class SuperAdminController extends Controller
         return redirect()->route('superadmin.kelola-admin')->with('success', 'Admin berhasil dihapus.');
     }
 
-    public function logAktivitas()
-    {
-        // Ambil semua log aktivitas, urutkan terbaru, dengan paginasi
-        $logs = LogAktivitas::with('user')->latest()->paginate(15);
-        return view('superadmin.log-aktivitas', compact('logs'));
+    public function logAktivitas(Request $request)
+{
+    $query = LogAktivitas::with('user');
+
+    if ($request->filled('search')) {
+        $query->where('aktivitas', 'like', '%' . $request->search . '%')
+              ->orWhere('deskripsi', 'like', '%' . $request->search . '%');
     }
+
+    $logs = $query->latest()->paginate(15);
+
+    // Statistik
+    $totalAktivitas = LogAktivitas::count();
+    $aktivitasHariIni = LogAktivitas::whereDate('created_at', today())->count();
+    $aktivitasBulanIni = LogAktivitas::whereMonth('created_at', now()->month)->count();
+
+    return view('superadmin.log-aktivitas.index', compact('logs', 'totalAktivitas', 'aktivitasHariIni', 'aktivitasBulanIni'));
+}
 
     
     public function tambahKatalog() { return view('superadmin.tambah-katalog'); }
@@ -163,9 +175,6 @@ class SuperAdminController extends Controller
     if (!$profil) {
         $profil = new ProfilSanggar();
     }
-
-    // Ambil data pengurus & pelatih dari model Personel (atau sesuai struktur Anda)
-    // Pastikan kolom 'peran' ada di tabel personel, atau sesuaikan query
     $pengurus = Personel::where('peran', 'pengurus')->paginate(10);
     $pelatih  = Personel::where('peran', 'pelatih')->paginate(10);
 
@@ -176,6 +185,44 @@ class SuperAdminController extends Controller
     public function tambahPengurus() { return view('superadmin.profil.tambah-pengurus'); }
     public function tambahPelatih() { return view('superadmin.profil.tambah-pelatih'); }
 
-    // Pengaturan
-    public function pengaturan() { return view('superadmin.pengaturan'); }
+public function pengaturan()
+{
+    return view('superadmin.pengaturan.index');
+}
+
+public function updateProfil(Request $request)
+{
+    $user = auth()->user();
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'no_handphone' => 'nullable|string|max:20',
+    ]);
+
+    $user->update($request->only('name', 'email', 'no_handphone'));
+
+    return redirect()->route('superadmin.pengaturan')->with('success', 'Profil berhasil diperbarui.');
+}
+
+public function updatePassword(Request $request)
+{
+    $user = auth()->user();
+    $request->validate([
+        'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+            if (!Hash::check($value, $user->password)) {
+                $fail('Password saat ini salah.');
+            }
+        }],
+        'password' => 'required|min:6|confirmed',
+    ]);
+
+    $user->update([
+        'password' => Hash::make($request->password)
+    ]);
+
+    return redirect()->route('superadmin.pengaturan')->with('success', 'Password berhasil diubah.');
+    
+}
+
+
 }

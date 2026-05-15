@@ -92,7 +92,7 @@ class EventController extends Controller
     public function edit($id)
 {
     $event = Event::with('galeri')->findOrFail($id);
-    return view('superadmin.event.edit', compact('event'));
+    return view('superadmin.event.update', compact('event'));
 }
     /**
      * Update the specified resource in storage.

@@ -66,15 +66,20 @@ Route::get('/superadmin/berita/edit/{id}', [SuperAdminController::class, 'editBe
 Route::put('/superadmin/berita/update/{id}', [SuperAdminController::class, 'updateBerita'])->name('superadmin.berita.update');
 Route::delete('/superadmin/berita/delete/{id}', [SuperAdminController::class, 'deleteBerita'])->name('superadmin.berita.delete');
 
+
 // Kelola Profil Sanggar
 Route::get('/superadmin/profil', [SuperAdminController::class, 'kelolaProfil'])->name('superadmin.kelola-profil');
 Route::get('/superadmin/edit-profil', [SuperAdminController::class, 'editProfil'])->name('superadmin.edit-profil');
+Route::put('/superadmin/profil/update', [SuperAdminController::class, 'updateProfil'])->name('superadmin.profil.update'); 
+
 Route::get('/superadmin/tambah-pengurus', [SuperAdminController::class, 'tambahPengurus'])->name('superadmin.tambah-pengurus');
 Route::get('/superadmin/tambah-pelatih', [SuperAdminController::class, 'tambahPelatih'])->name('superadmin.tambah-pelatih');
 
 // Log Aktivitas & Pengaturan
 Route::get('/superadmin/log-aktivitas', [SuperAdminController::class, 'logAktivitas'])->name('superadmin.log-aktivitas');
 Route::get('/superadmin/pengaturan', [SuperAdminController::class, 'pengaturan'])->name('superadmin.pengaturan');
+Route::put('/superadmin/pengaturan/update', [SuperAdminController::class, 'updateProfil'])->name('superadmin.pengaturan.update');
+Route::put('/superadmin/pengaturan/password', [SuperAdminController::class, 'updatePassword'])->name('superadmin.pengaturan.password');
 
 // ======================= ROUTE UNTUK ADMIN BIASA =======================
 Route::get('/admin/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');

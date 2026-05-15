@@ -28,7 +28,7 @@ class KatalogController extends Controller
      */
     public function create()
     {
-        return view('superadmin.index.create');
+        return view('superadmin.katalog.create');
     }
 
     /**

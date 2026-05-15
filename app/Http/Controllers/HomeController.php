@@ -2,54 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
-use App\Models\Event;
+use Illuminate\Http\Request;
+use App\Models\Event; 
 use App\Models\Katalog;
 use App\Models\ProfilSanggar;
+use App\Models\Berita;
 use App\Models\Galeri;
-use Carbon\Carbon;
-
+use Carbon\Carbon; 
 class HomeController extends Controller
 {
     public function index()
-    {
-        // Data berita
-        $beritaUtama = Berita::where('status', 'tayang')->latest()->first();
-        $beritaTerbaru = Berita::where('status', 'tayang')->latest()->skip(1)->take(3)->get();
+{
+    // 1. Ambil semua data dasar untuk Landing Page
+    $profil = ProfilSanggar::first();
+    $beritaUtama = Berita::where('status', 'tayang')->latest()->first();
+    $beritaTerbaru = Berita::where('status', 'tayang')->latest()->take(3)->get();
+    $katalogs = Katalog::take(6)->get();
+    $galeri = Galeri::latest()->take(6)->get();
+    $events = Event::latest()->get();
 
-        // Data event (belum selesai, diurutkan tanggal terdekat)
-        $events = Event::where('status', 'belum selesai')
-            ->orderBy('tanggal', 'asc')
-            ->take(4)
-            ->get();
+    // 2. LOGIKA KALENDER
+    // Ambil angka tanggal saja (1-31) dari database untuk ditandai merah
+    $eventDays = $events->map(function($event) {
+        return Carbon::parse($event->tanggal)->format('j');
+    })->unique()->toArray();
 
-        // Data katalog (tersedia)
-        $katalogs = Katalog::where('status', 'tersedia')
-            ->latest()
-            ->take(6)
-            ->get();
+    // Tentukan bulan dan tahun yang ingin ditampilkan (Sekarang: Mei 2026)
+    $targetDate = Carbon::create(2026, 5, 1);
+    
+    // Hitung jumlah hari kosong di awal bulan (0 = Minggu, 5 = Jumat)
+    $blankDays = $targetDate->dayOfWeek; 
+    
+    // Hitung total hari dalam bulan tersebut (Mei = 31)
+    $daysInMonth = $targetDate->daysInMonth;
 
-        // Data profil sanggar
-        $profil = ProfilSanggar::with('logo', 'fotoPembina')->first();
-
-        // Data galeri
-        $galeri = Galeri::latest()->take(5)->get();
-
-        // Untuk calendar (event days)
-        $eventDays = Event::whereMonth('tanggal', Carbon::now()->month)
-            ->whereYear('tanggal', Carbon::now()->year)
-            ->pluck('tanggal')
-            ->map(function($date) {
-                return Carbon::parse($date)->day;
-            })
-            ->toArray();
-
-        $currentMonthName = Carbon::now()->translatedFormat('F');
-        $currentYear = Carbon::now()->year;
-
-        return view('umum.landing_page', compact(
-            'beritaUtama', 'beritaTerbaru', 'events', 'katalogs', 
-            'profil', 'galeri', 'eventDays', 'currentMonthName', 'currentYear'
-        ));
-    }
+    // 3. Kirim semua variabel ke View
+    // Pastikan semua nama di dalam compact() sama persis dengan nama variabel di atas
+    return view('umum.landing_page', compact(
+        'profil', 
+        'beritaUtama', 
+        'beritaTerbaru', 
+        'katalogs', 
+        'galeri', 
+        'events', 
+        'eventDays', 
+        'blankDays', 
+        'daysInMonth'
+    ));
 }
+};
