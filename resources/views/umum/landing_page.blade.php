@@ -1044,7 +1044,11 @@
                         <span>{{ strtoupper(\Carbon\Carbon::parse($event->tanggal)->format('M')) }}</span>
                     </div>
                     <div class="event-info">
-                        <h4>{{ $event->nama_event }}</h4>
+                    <h4>
+                            <a href="{{ route('event.detail', $event->id) }}" style="text-decoration:none; color:inherit;">
+                                {{ $event->nama_event }}
+                            </a>
+                        </h4>
                         <p>{{ $event->deskripsi ?? 'Kegiatan seni Sanggar Tari JEB.' }}</p>
                         <div class="meta">
                             <span>📍 {{ $event->lokasi }}</span>

@@ -61,8 +61,11 @@
         </div>
 
         <div class="event-list">
-            <template x-for="event in filteredEvents" :key="event.id">
-                <div class="event-card">
+        <template x-for="event in filteredEvents" :key="event.id">
+                <div class="event-card" 
+                    @click="window.location.href = '/event/' + event.id" 
+                    style="cursor:pointer; transition: transform 0.2s;">
+                    
                     <div class="event-date-box">
                         <h2 x-text="event.day" style="margin:0"></h2>
                         <span x-text="monthNames[month].substring(0,3).toUpperCase()"></span>
@@ -94,10 +97,21 @@ function calendarApp() {
         year: 2026,
         monthNames: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
         allEvents: [
-            { id: 1, day: 21, month: 2, year: 2026, title: 'Pentas Tari Gandrung', desc: 'HUT Jadi Kabupaten Banyuwangi ke-254', loc: 'Pendopo', time: '19:00 WIB' },
-            { id: 2, day: 24, month: 2, year: 2026, title: 'Workshop Seni Tari', desc: 'Pelatihan dasar pemula.', loc: 'Sanggar JEB', time: '15:00 WIB' },
-            { id: 3, day: 15, month: 3, year: 2026, title: 'Latihan Alam', desc: 'Latihan di tepi pantai.', loc: 'Pantai Boom', time: '16:00 WIB' }
-        ],
+    @foreach($events as $e)
+    { 
+        id: {{ $e->id }}, 
+        // Mengambil angka tanggal (1-31)
+        day: {{ \Carbon\Carbon::parse($e->tanggal)->format('j') }}, 
+        // JavaScript bulan dimulai dari 0 (Jan = 0), jadi bulan PHP (1-12) harus dikurangi 1
+        month: {{ \Carbon\Carbon::parse($e->tanggal)->format('n') - 1 }}, 
+        year: {{ \Carbon\Carbon::parse($e->tanggal)->format('Y') }}, 
+        title: '{{ $e->nama_event }}', 
+        desc: '{{ $e->deskripsi ?? "Kegiatan Sanggar JEB" }}', 
+        loc: '{{ $e->lokasi }}', 
+        time: '{{ \Carbon\Carbon::parse($e->jam)->format('H:i') }} WIB' 
+    },
+    @endforeach
+],
         blankDays: [], daysInMonth: [],
         init() { this.calc(); },
         calc() {

@@ -50,4 +50,26 @@ class HomeController extends Controller
         'daysInMonth'
     ));
 }
+
+public function allEvents()
+{
+    $events = Event::orderBy('tanggal', 'asc')->get();
+    
+    $targetDate = \Carbon\Carbon::create(2026, 5, 1);
+    $blankDays = $targetDate->dayOfWeek;
+    $daysInMonth = $targetDate->daysInMonth;
+
+    return view('umum.event', compact('events', 'blankDays', 'daysInMonth'));
+}
+
+public function eventDetail($id)
+{
+    // Ambil data event yang diklik
+    $event = Event::with('galeri')->findOrFail($id);
+    
+    // Ambil 4 event lainnya untuk bagian "Event lain"
+    $eventLain = Event::where('id', '!=', $id)->latest()->take(4)->get();
+
+    return view('umum.event_detail', compact('event', 'eventLain'));
+}
 };

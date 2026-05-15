@@ -88,7 +88,8 @@ Route::get('/admin/news', function () { return view('admin.news.index'); })->nam
 Route::get('/admin/profile', function () { return view('admin.profile.index'); })->name('admin.profile.index');
 
 // ======================= HALAMAN PUBLIK (FRONTEND) =======================
-Route::get('/semua-event', function () { return view('semua-event'); })->name('event.index');
+Route::get('/event', [App\Http\Controllers\HomeController::class, 'allEvents'])->name('event.index');
+Route::get('/event/{id}', [App\Http\Controllers\HomeController::class, 'eventDetail'])->name('event.detail');
 Route::get('/berita', function () { return view('umum.berita'); })->name('berita.index');
 Route::get('/katalog', [KatalogController::class, 'publicIndex'])->name('katalog.index');
 Route::get('/katalog/{id}', [KatalogController::class, 'publicShow'])->name('katalog.detail');
