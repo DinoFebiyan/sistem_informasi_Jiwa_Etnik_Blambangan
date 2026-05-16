@@ -82,7 +82,7 @@ Route::put('/superadmin/pengaturan/update', [SuperAdminController::class, 'updat
 Route::put('/superadmin/pengaturan/password', [SuperAdminController::class, 'updatePassword'])->name('superadmin.pengaturan.password');
 
 // ======================= ROUTE UNTUK ADMIN BIASA =======================
-Route::get('/admin/dashboard', function () { return view('admin.dashboard'); })->name('admin.dashboard');
+Route::get('/admin/dashboard', function () { return view('admin.dashboard.index'); })->name('admin.dashboard');
 Route::get('/admin/events', function () { return view('admin.events.index'); })->name('admin.events.index');
 Route::get('/admin/news', function () { return view('admin.news.index'); })->name('admin.news.index');
 Route::get('/admin/profile', function () { return view('admin.profile.index'); })->name('admin.profile.index');
