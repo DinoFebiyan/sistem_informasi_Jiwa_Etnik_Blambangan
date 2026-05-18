@@ -147,6 +147,16 @@
                 @csrf
                 @method('PUT')
 
+                @if($errors->any())
+                    <div
+                        style="background:#fee2e2; padding:12px 16px; border-radius:8px; margin-bottom:15px; border-left:4px solid #dc2626;">
+                        <ul style="margin:0; color:#dc2626; padding-left:16px;">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 {{-- FOTO --}}
                 <div class="form-group">
                     <label>Foto</label>

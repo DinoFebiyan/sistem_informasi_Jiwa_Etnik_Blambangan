@@ -87,7 +87,7 @@ class KatalogController extends Controller
     public function edit($id)
     {
         $katalog = Katalog::with('galeri')->findOrFail($id);
-        return view('superadmin.katalog.upadate', compact('katalog'));
+        return view('superadmin.katalog.update', compact('katalog'));
     }
 
     /**

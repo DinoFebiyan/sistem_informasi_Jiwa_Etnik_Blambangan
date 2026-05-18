@@ -5,14 +5,12 @@
 @section('styles')
 <style>
     * { box-sizing: border-box; }
-
     .tk-page {
         font-family: 'Poppins', sans-serif;
         background: #e5e5e5;
         min-height: 100vh;
         padding-bottom: 40px;
     }
-
     /* ── Header bar ── */
     .tk-topbar {
         background: #5a1a1a;
@@ -66,7 +64,6 @@
         transition: background 0.2s;
     }
     .tk-btn-simpan:hover { background: #991b1b; }
-
     /* ── Form body ── */
     .tk-body {
         padding: 28px;
@@ -112,7 +109,6 @@
         background-position: right 16px center;
         padding-right: 40px;
     }
-
     /* ── File input row ── */
     .tk-file-row {
         display: flex;
@@ -151,8 +147,6 @@
         margin-top: 5px;
     }
     #fotoInput { display: none; }
-
-    /* ── Preview foto ── */
     #fotoPreview {
         width: 80px;
         height: 80px;
@@ -162,7 +156,6 @@
         display: none;
         border: 1px solid #e8dede;
     }
-
     /* ── Error ── */
     .is-invalid { border-color: #ef4444 !important; }
     .invalid-feedback {
@@ -176,6 +169,7 @@
 
 @section('content')
 <div class="tk-page">
+
     <form action="{{ route('superadmin.katalog.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -197,6 +191,7 @@
 
         {{-- Body --}}
         <div class="tk-body">
+
             @if(session('success'))
             <div style="background:#dcfce7;color:#16a34a;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:0.85rem;">
                 <i class="fas fa-check-circle"></i> {{ session('success') }}
@@ -218,7 +213,8 @@
                     </div>
                     <span class="tk-file-name" id="fotoFileName">Masukkan foto atau baru...</span>
                 </div>
-                <input type="file" id="fotoInput" name="foto" accept="image/jpeg,image/png,image/jpg" onchange="previewFoto(event)">
+                <input type="file" id="fotoInput" name="foto" accept="image/jpeg,image/png,image/jpg"
+                       onchange="updateFileNameAndPreview(this)">
                 <div class="tk-file-hint">Format: JPG, PNG. Maks 2MB.</div>
                 <img id="fotoPreview" src="" alt="Preview Foto">
                 @error('foto')
@@ -229,7 +225,9 @@
             {{-- Nama Katalog --}}
             <div class="tk-form-group">
                 <label>Nama Katalog</label>
-                <input type="text" name="nama_tari" value="{{ old('nama_tari') }}" placeholder="Masukkan katalog..." class="{{ $errors->has('nama_tari') ? 'is-invalid' : '' }}">
+                <input type="text" name="nama_tari" value="{{ old('nama_tari') }}"
+                       placeholder="Masukkan katalog..."
+                       class="{{ $errors->has('nama_tari') ? 'is-invalid' : '' }}">
                 @error('nama_tari')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
@@ -251,8 +249,9 @@
 
             {{-- Deskripsi --}}
             <div class="tk-form-group">
-                <label>Deksripsi katalog</label>
-                <textarea name="deskripsi" placeholder="Masukkan deskripsi katalog..." class="{{ $errors->has('deskripsi') ? 'is-invalid' : '' }}">{{ old('deskripsi') }}</textarea>
+                <label>Deskripsi Katalog</label>
+                <textarea name="deskripsi" placeholder="Masukkan deskripsi katalog..."
+                          class="{{ $errors->has('deskripsi') ? 'is-invalid' : '' }}">{{ old('deskripsi') }}</textarea>
                 @error('deskripsi')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
@@ -261,7 +260,9 @@
             {{-- Stok --}}
             <div class="tk-form-group">
                 <label>Masukkan Stok Barang</label>
-                <input type="number" name="stok" value="{{ old('stok', 0) }}" min="0" placeholder="Masukkan stok barang..." class="{{ $errors->has('stok') ? 'is-invalid' : '' }}">
+                <input type="number" name="stok" value="{{ old('stok', 0) }}" min="0"
+                       placeholder="Masukkan stok barang..."
+                       class="{{ $errors->has('stok') ? 'is-invalid' : '' }}">
                 @error('stok')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
@@ -269,25 +270,38 @@
 
             {{-- Status hidden default tersedia --}}
             <input type="hidden" name="status" value="tersedia">
+
         </div>
     </form>
+
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
-    function previewFoto(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        document.getElementById('fotoFileName').textContent = file.name;
-        document.getElementById('fotoFileName').style.color = '#333';
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = document.getElementById('fotoPreview');
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
+    function updateFileNameAndPreview(input) {
+        var fileNameSpan = document.getElementById('fotoFileName');
+        var previewImg = document.getElementById('fotoPreview');
+
+        if (input.files && input.files.length > 0) {
+            var file = input.files[0];
+
+            // Update nama file
+            fileNameSpan.textContent = file.name;
+            fileNameSpan.style.color = '#333';
+
+            // Update preview foto
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            fileNameSpan.textContent = 'Masukkan foto atau baru...';
+            fileNameSpan.style.color = '#aaa';
+            previewImg.style.display = 'none';
+        }
     }
 </script>
-@endsection
+@endpush
