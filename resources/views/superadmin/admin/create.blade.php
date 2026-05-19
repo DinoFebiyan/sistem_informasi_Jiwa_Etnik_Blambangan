@@ -96,13 +96,13 @@
         }
 
         .btn-pilih-file {
-            background: #8A4B4B;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-right: 1px solid #e8dede;
-        }
-
+        background: #8A4B4B;
+        color: white !important;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-right: 1px solid #e8dede;
+        margin-bottom: 0 !important;
+    }
         .file-name-display {
             padding: 0 15px;
             display: flex;
