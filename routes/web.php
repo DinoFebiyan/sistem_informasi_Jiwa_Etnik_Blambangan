@@ -58,18 +58,10 @@ Route::prefix('superadmin')->middleware(['auth'])->group(function () {
     // Dashboard -> views/superadmin/dashboard.blade.php
     Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
 
-    // Kelola Admin -> folder: views/superadmin/admin (Sinkron dengan redirect baru di SuperAdminController)
-    Route::get('/kelola-admin', [SuperAdminController::class, 'kelolaAdmin'])->name('superadmin.admin.index');
-    Route::get('/tambah-admin', [SuperAdminController::class, 'tambahAdmin'])->name('superadmin.admin.create');
-    Route::post('/store-admin', [SuperAdminController::class, 'storeAdmin'])->name('superadmin.admin.store');
-    Route::get('/kelola-admin/edit/{id}', [SuperAdminController::class, 'editAdmin'])->name('superadmin.admin.edit');
-    Route::put('/kelola-admin/update/{id}', [SuperAdminController::class, 'updateAdmin'])->name('superadmin.admin.update');
-    Route::delete('/kelola-admin/delete/{id}', [SuperAdminController::class, 'deleteAdmin'])->name('superadmin.admin.delete');
-
     // Kelola Berita -> folder: views/superadmin/berita
     Route::get('/kelola-berita', [SuperAdminController::class, 'kelolaBerita'])->name('superadmin.kelola-berita');
     Route::get('/tambah-berita', [SuperAdminController::class, 'tambahBerita'])->name('superadmin.tambah-berita');
-    Route::post('/store-berita', [SuperAdminController::class, 'storeBerita'])->name('superadmin.store-berita');
+    // Route::post('/store-berita', [SuperAdminController::class, 'storeBerita'])->name('superadmin.store-berita');
     Route::get('/berita/edit/{id}', [SuperAdminController::class, 'editBerita'])->name('superadmin.berita.edit');
     Route::put('/berita/update/{id}', [SuperAdminController::class, 'updateBerita'])->name('superadmin.berita.update');
     Route::delete('/berita/delete/{id}', [SuperAdminController::class, 'deleteBerita'])->name('superadmin.berita.delete');
@@ -89,6 +81,19 @@ Route::prefix('superadmin')->middleware(['auth'])->group(function () {
     Route::put('/pengaturan/update', [SuperAdminController::class, 'updateProfil'])->name('superadmin.pengaturan.update');
     Route::put('/pengaturan/password', [SuperAdminController::class, 'updatePassword'])->name('superadmin.pengaturan.password');
 });
+
+// Kelola Admin (Resource) -> folder: views/superadmin/admin
+Route::resource('/superadmin/admin', App\Http\Controllers\AdminController::class)->parameters([
+    'admin' => 'id'
+])->names([
+    'index'   => 'superadmin.admin.index',
+    'create'  => 'superadmin.admin.create',
+    'store'   => 'superadmin.admin.store',
+    'show'    => 'superadmin.admin.show',
+    'edit'    => 'superadmin.admin.edit',
+    'update'  => 'superadmin.admin.update',
+    'destroy' => 'superadmin.admin.destroy',
+]);
 
 // Kelola Katalog (Resource) -> folder: views/superadmin/katalog (Sinkron dengan KatalogController baru)
 Route::resource('/superadmin/katalog', KatalogController::class)->parameters([
