@@ -11,9 +11,9 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    
     /**
-     * Display the user's profile form.
+     * Menampilkan halaman form edit profil pengguna (Auth)
+     * Mengarah ke file: resources/views/profile/edit.blade.php
      */
     public function edit(Request $request): View
     {
@@ -22,15 +22,8 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function view(Request $request): View
-    {
-        return view('profil', [
-            'user' => $request->user(),
-        ]);
-    }
-
     /**
-     * Update the user's profile information.
+     * Memperbarui informasi profil pengguna
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
@@ -46,7 +39,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Delete the user's account.
+     * Menghapus akun pengguna
      */
     public function destroy(Request $request): RedirectResponse
     {

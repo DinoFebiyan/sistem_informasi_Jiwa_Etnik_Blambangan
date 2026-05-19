@@ -260,7 +260,7 @@
                 <h2>{{ $belumSelesai ?? 0 }}</h2>
             </div>
         </div>
-        <a href="{{ route('superadmin.tambah-event') }}" class="event-btn-tambah">
+        <a href="{{ route('superadmin.event.create') }}" class="event-btn-tambah">
             <i class="fas fa-plus"></i> Tambah Event
         </a>
     </div>

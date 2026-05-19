@@ -127,12 +127,12 @@
                 <p>Kelola Admin</p>
             </div>
             <div class="header-actions">
-                <a href="{{ route('superadmin.kelola-admin') }}" class="btn-batal"><i class="fas fa-times"></i> Batal</a>
+                <a href="{{ route('superadmin.admin.index') }}" class="btn-batal"><i class="fas fa-times"></i> Batal</a>
                 <button type="submit" form="formTambahAdmin" class="btn-simpan"><i class="fas fa-save"></i> Simpan</button>
             </div>
         </div>
         <div class="form-body">
-            <form id="formTambahAdmin" action="{{ route('superadmin.store-admin') }}" method="POST"
+            <form id="formTambahAdmin" action="{{ route('superadmin.admin.store') }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 @if($errors->any())

@@ -258,12 +258,12 @@
                 <h2>{{ $inactiveAdmins ?? 0 }}</h2>
             </div>
         </div>
-        <a href="{{ route('superadmin.tambah-admin') }}" class="adm-btn-tambah">
+        <a href="{{ route('superadmin.admin.create') }}" class="adm-btn-tambah">
             <span>+</span> Tambah Admin
         </a>
     </div>
 
-    <form method="GET" action="{{ route('superadmin.kelola-admin') }}" class="adm-search-row">
+    <form method="GET" action="{{ route('superadmin.admin.index') }}" class="adm-search-row">
         <div class="adm-search-box">
             <input type="text" name="search" placeholder="Cari nama Admin..." value="{{ request('search') }}">
             <i class="fas fa-search"></i>
@@ -301,9 +301,9 @@
                         @endif
                     </td>
                     <td class="adm-action-btns">
-                        <a href="{{ route('superadmin.edit-admin', $admin->id) }}" class="adm-btn-edit">Edit</a>
+                        <a href="{{ route('superadmin.admin.edit', $admin->id) }}" class="adm-btn-edit">Edit</a>
                         <button class="adm-btn-hapus" onclick="confirmDelete({{ $admin->id }})">Hapus</button>
-                        <form id="delete-form-{{ $admin->id }}" action="{{ route('superadmin.delete-admin', $admin->id) }}" method="POST" style="display: none;">
+                        <form id="delete-form-{{ $admin->id }}" action="{{ route('superadmin.admin.delete', $admin->id) }}" method="POST" style="display: none;">
                             @csrf @method('DELETE')
                         </form>
                     </td>

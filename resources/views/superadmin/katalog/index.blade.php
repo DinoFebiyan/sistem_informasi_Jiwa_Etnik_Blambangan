@@ -221,7 +221,7 @@
                 <h2>{{ $tidakTersedia ?? 0 }}</h2>
             </div>
         </div>
-        <a href="{{ route('superadmin.tambah-katalog') }}" class="katalog-btn-tambah">
+        <a href="{{ route('superadmin.katalog.create') }}" class="katalog-btn-tambah">
             <span>+</span> Tambah Katalog
         </a>
     </div>

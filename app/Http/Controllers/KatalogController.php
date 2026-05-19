@@ -69,7 +69,8 @@ class KatalogController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('superadmin.kelola-katalog')->with('success', 'Katalog berhasil ditambahkan.');
+        // DIPERBAIKI: Disamakan menggunakan rute .katalog.index
+        return redirect()->route('superadmin.katalog.index')->with('success', 'Katalog berhasil ditambahkan.');
     }
 
     /**
@@ -77,8 +78,8 @@ class KatalogController extends Controller
      */
     public function show($id)
     {
-        $katalog = Katalog::with('galeri')->findOrFail($id);
-        return view('superadmin.detail-katalog', compact('katalog'));
+        // DIPERBAIKI: Dialihkan karena file superadmin.detail-katalog tidak ada di views
+        return redirect()->route('superadmin.katalog.index')->with('error', 'Halaman detail tidak tersedia.');
     }
 
     /**
@@ -136,7 +137,7 @@ class KatalogController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('superadmin.kelola-katalog')->with('success', 'Katalog berhasil diperbarui.');
+        return redirect()->route('superadmin.katalog.index')->with('success', 'Katalog berhasil diperbarui.');
     }
 
     /**
@@ -151,6 +152,6 @@ class KatalogController extends Controller
         }
         $katalog->delete();
 
-        return redirect()->route('superadmin.kelola-katalog')->with('success', 'Katalog berhasil dihapus.');
+        return redirect()->route('superadmin.katalog.index')->with('success', 'Katalog berhasil dihapus.');
     }
 }

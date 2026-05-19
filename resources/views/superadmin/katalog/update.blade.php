@@ -215,7 +215,7 @@
                 <span>Kelola Katalog</span>
             </div>
             <div class="tk-topbar-actions">
-                <a href="{{ route('superadmin.kelola-katalog') }}" class="tk-btn-batal">
+                <a href="{{ route('superadmin.katalog.index') }}" class="tk-btn-batal">
                     <i class="fas fa-times"></i> Batal
                 </a>
                 <button type="submit" class="tk-btn-simpan">
