@@ -4,29 +4,14 @@
 @section('header_title', 'Kelola Event')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-    /* ========== KELOLA EVENT STYLES ========== */
     .event-wrapper {
         width: 100%;
         font-family: 'Poppins', sans-serif;
         color: #333;
     }
-    .event-header {
-        margin-bottom: 24px;
-    }
-    .event-header h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.8rem;
-        margin: 0 0 4px 0;
-        color: #1a0000;
-    }
-    .event-header p {
-        color: #999;
-        font-size: 0.85rem;
-        margin: 0;
-    }
-
-    /* STATS GRID */
+    
     .event-stats-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -41,7 +26,7 @@
         align-items: center;
         gap: 15px;
         border: 1px solid #f0f0f0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
     }
     .event-icon-box {
         width: 45px;
@@ -53,19 +38,21 @@
         font-size: 1.2rem;
     }
     .event-icon-blue { background: #eff6ff; color: #3b82f6; }
-    .event-icon-green { background: #dcfce7; color: #16a34a; }
+    .event-icon-green { background: #f0fdf4; color: #16a34a; }
     .event-icon-red { background: #fef2f2; color: #ef4444; }
     .event-stat-text h4 {
         margin: 0;
         font-size: 0.7rem;
         color: #999;
         text-transform: uppercase;
+        font-weight: 600;
         letter-spacing: 0.5px;
     }
     .event-stat-text h2 {
         margin: 0;
         font-size: 1.5rem;
         font-weight: 700;
+        color: #333;
     }
     .event-btn-tambah {
         background: #e2c0c0;
@@ -76,16 +63,14 @@
         justify-content: center;
         gap: 8px;
         font-weight: 700;
+        font-size: 1.1rem;
         text-decoration: none;
         border: 1px solid #e8dede;
-        transition: all 0.2s;
+        transition: 0.2s;
     }
     .event-btn-tambah:hover {
         background: #d4aeae;
-        transform: translateY(-2px);
     }
-
-    /* SEARCH & FILTER */
     .event-search-row {
         display: flex;
         gap: 15px;
@@ -101,8 +86,8 @@
         border-radius: 12px;
         border: 1px solid #e8dede;
         outline: none;
+        font-family: 'Poppins', sans-serif;
         font-size: 0.95rem;
-        background: #fff;
     }
     .event-search-box .fa-search {
         position: absolute;
@@ -119,26 +104,23 @@
         padding: 0 35px;
         border-radius: 12px;
         font-weight: 600;
+        font-size: 1rem;
         display: flex;
         align-items: center;
         gap: 10px;
         cursor: pointer;
-        transition: background 0.2s;
     }
-    .event-btn-filter:hover {
-        background: #8b0000;
-    }
-
-    /* TABEL EVENT */
     .event-table-card {
         background: #fff;
         border-radius: 12px;
-        padding: 25px;
+        padding: 25px 0; 
         border: 1px solid #f0f0f0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         overflow-x: auto;
     }
     .event-table-card h3 {
         margin: 0 0 20px 0;
+        padding: 0 25px; 
         font-size: 1.1rem;
         color: #333;
     }
@@ -147,29 +129,33 @@
         border-collapse: collapse;
         min-width: 1000px;
     }
+    .event-table thead {
+        background-color: #F5EBEB; 
+    }
     .event-table th {
         text-align: left;
-        padding: 12px 10px;
+        padding: 14px 25px;
         color: #b07d7d;
         font-weight: 600;
         font-size: 0.85rem;
-        border-bottom: 2px solid #f9f9f9;
+        border-bottom: none;
+        text-transform: uppercase; 
     }
     .event-table td {
-        padding: 15px 10px;
-        border-bottom: 1px solid #f9f9f9;
+        padding: 15px 25px;
+        border-bottom: 1px solid #E0E0E0; 
         vertical-align: middle;
         font-size: 0.85rem;
     }
     .event-foto-preview {
         width: 50px;
         height: 50px;
-        background: #f5f0f0;
+        background: #f0f0f0;
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.7rem;
+        font-size: 1rem;
         color: #999;
         overflow: hidden;
     }
@@ -181,22 +167,22 @@
     .badge-selesai {
         background: #dcfce7;
         color: #16a34a;
-        padding: 4px 12px;
+        padding: 6px 16px;
         border-radius: 20px;
         font-size: 0.75rem;
         font-weight: 600;
     }
     .badge-belum-selesai {
-        background: #fef3c7;
-        color: #d97706;
-        padding: 4px 12px;
+        background: #fef08a;
+        color: #a16207;
+        padding: 6px 16px;
         border-radius: 20px;
         font-size: 0.75rem;
         font-weight: 600;
     }
     .event-actions a, .event-actions button {
         border: none;
-        padding: 5px 12px;
+        padding: 6px 14px;
         border-radius: 6px;
         font-size: 0.7rem;
         font-weight: 600;
@@ -205,39 +191,60 @@
         display: inline-block;
         cursor: pointer;
     }
-    .btn-edit-event { background: #eff6ff; color: #3b82f6; transition: 0.2s; }
-    .btn-edit-event:hover { background: #dbeafe; }
-    .btn-hapus-event { background: #fef2f2; color: #ef4444; transition: 0.2s; }
-    .btn-hapus-event:hover { background: #fee2e2; }
-
-    /* PAGINATION */
+    .btn-edit-event { background: #eff6ff; color: #3b82f6; }
+    .btn-hapus-event { background: #fef2f2; color: #ef4444; }
+    
+    /* Pagination */
     .event-pagination {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-top: 25px;
+        padding: 0 25px;
     }
     .event-pagination p {
-        font-size: 0.8rem;
-        color: #999;
+        font-size: 0.85rem;
+        color: #b07d7d;
+        margin: 0;
+        font-weight: 500;
     }
-    .pagination-links nav {
-        display: inline-block;
+    .event-page-controls {
+        display: flex;
+        gap: 8px;
     }
-    .pagination-links .relative {
-        gap: 5px;
+    .event-page-controls a, .event-page-controls span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        border: 1px solid #e8dede;
+        background: #fff;
+        color: #333;
+        font-size: 0.85rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .event-page-controls a:hover {
+        background: #f5ebeb;
+        border-color: #d4aeae;
+    }
+    .event-page-controls span.active {
+        background: #5B1A1A;
+        color: #fff;
+        border-color: #5B1A1A;
+        font-weight: 700;
+    }
+    .event-page-controls span.disabled {
+        color: #ccc;
+        cursor: not-allowed;
+        background: #fdfdfd;
     }
 </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 <div class="event-wrapper">
-    <div class="event-header">
-        <h2>Kelola Event</h2>
-        <p>{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }} - Kelola jadwal kegiatan dan pentas</p>
-    </div>
-
-    <!-- STATS CARDS -->
     <div class="event-stats-grid">
         <div class="event-stat-card">
             <div class="event-icon-box event-icon-blue"><i class="fas fa-calendar-alt"></i></div>
@@ -254,40 +261,38 @@
             </div>
         </div>
         <div class="event-stat-card">
-            <div class="event-icon-box event-icon-red"><i class="fas fa-hourglass-half"></i></div>
+            <div class="event-icon-box event-icon-red"><i class="fas fa-ban"></i></div>
             <div class="event-stat-text">
                 <h4>Belum Selesai</h4>
                 <h2>{{ $belumSelesai ?? 0 }}</h2>
             </div>
         </div>
         <a href="{{ route('superadmin.event.create') }}" class="event-btn-tambah">
-            <i class="fas fa-plus"></i> Tambah Event
+            <span>+</span> Tambah Event
         </a>
     </div>
 
-    <!-- SEARCH & FILTER -->
     <div class="event-search-row">
         <div class="event-search-box">
-            <input type="text" id="searchEvent" placeholder="Cari event..." autocomplete="off">
+            <input type="text" placeholder="Cari Event..." id="searchEvent">
             <i class="fas fa-search"></i>
         </div>
         <button class="event-btn-filter" onclick="filterEvent()"><i class="fas fa-filter"></i> Filter</button>
     </div>
 
-    <!-- TABEL EVENT -->
     <div class="event-table-card">
         <h3>Daftar Event</h3>
         <table class="event-table" id="eventTable">
             <thead>
                 <tr>
-                    <th>Foto</th>
-                    <th>Nama Event</th>
-                    <th>Tanggal</th>
-                    <th>Jam</th>
-                    <th>Lokasi</th>
-                    <th>Kategori</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                    <th>FOTO</th>
+                    <th>NAMA EVENT</th>
+                    <th>TANGGAL</th>
+                    <th>JAM</th>
+                    <th>LOKASI</th>
+                    <th>KATEGORI</th>
+                    <th>STATUS</th> 
+                    <th>AKSI</th>
                 </tr>
             </thead>
             <tbody>
@@ -295,20 +300,21 @@
                 <tr>
                     <td>
                         <div class="event-foto-preview">
+                            {{-- Sesuaikan dengan relasi foto event kamu --}}
                             @if($event->galeri && $event->galeri->file_blob)
-                                <img src="data:image/jpeg;base64,{{ base64_encode($event->galeri->file_blob) }}" alt="Foto Event">
+                                <img src="data:image/jpeg;base64,{{ base64_encode($event->galeri->file_blob) }}" alt="Foto">
                             @else
                                 <i class="fas fa-image"></i>
                             @endif
                         </div>
                     </td>
-                    <td><strong>{{ $event->nama_event }}</strong></td>
+                    <td style="font-weight:600">{{ $event->nama_event }}</td>
                     <td>{{ \Carbon\Carbon::parse($event->tanggal)->translatedFormat('d F Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($event->jam)->format('H:i') }} WIB</td>
+                    <td>{{ $event->jam ?? '-' }} WIB</td>
                     <td>{{ $event->lokasi }}</td>
                     <td>{{ $event->kategori }}</td>
                     <td>
-                        @if($event->status == 'selesai')
+                        @if(strtolower($event->status) == 'selesai')
                             <span class="badge-selesai">Selesai</span>
                         @else
                             <span class="badge-belum-selesai">Belum Selesai</span>
@@ -323,14 +329,27 @@
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="8" style="text-align:center; padding: 40px;">Belum ada data event. <a href="{{ route('superadmin.tambah-event') }}" style="color: #b91c1c;">Tambah event sekarang</a></td></tr>
+                <tr><td colspan="8" style="text-align:center;">Belum ada data event.</td></tr>
                 @endforelse
             </tbody>
         </table>
+        
         <div class="event-pagination">
             <p>Menampilkan {{ $events->firstItem() ?? 0 }} - {{ $events->lastItem() ?? 0 }} dari {{ $events->total() ?? 0 }} event</p>
-            <div class="pagination-links">
-                {{ $events->links() }}
+            <div class="event-page-controls">
+                @if ($events->onFirstPage())
+                    <span class="disabled"><i class="fas fa-chevron-left"></i></span>
+                @else
+                    <a href="{{ $events->previousPageUrl() }}"><i class="fas fa-chevron-left"></i></a>
+                @endif
+
+                <span class="active">{{ $events->currentPage() }}</span>
+
+                @if ($events->hasMorePages())
+                    <a href="{{ $events->nextPageUrl() }}"><i class="fas fa-chevron-right"></i></a>
+                @else
+                    <span class="disabled"><i class="fas fa-chevron-right"></i></span>
+                @endif
             </div>
         </div>
     </div>
@@ -338,11 +357,11 @@
 
 <script>
     function confirmDelete(id) {
-        if(confirm('Yakin ingin menghapus event ini? Data yang dihapus tidak dapat dikembalikan.')) {
+        if(confirm('Yakin ingin menghapus event ini?')) {
             document.getElementById('delete-form-'+id).submit();
         }
     }
-
+    
     function filterEvent() {
         let input = document.getElementById('searchEvent');
         let filter = input.value.toLowerCase();
@@ -356,5 +375,7 @@
             }
         }
     }
+
+    document.getElementById('searchEvent').addEventListener('keyup', filterEvent);
 </script>
 @endsection
