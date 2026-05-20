@@ -170,7 +170,7 @@
 @section('content')
 <div class="tk-page">
 
-    <form action="{{ route('superadmin.berita.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('superadmin.store-berita') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         {{-- Header --}}

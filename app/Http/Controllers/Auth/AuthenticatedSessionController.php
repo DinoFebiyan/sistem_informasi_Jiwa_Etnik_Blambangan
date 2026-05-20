@@ -36,8 +36,7 @@ class AuthenticatedSessionController extends Controller
     } elseif ($user->peran == 'admin') {
         return redirect()->intended(route('admin.dashboard'));
     }
-    
-    return redirect()->intended(route('dashboard'));
+    return redirect()->back()->with('error', 'Peran anda tidak diketahui, mohon hubungi superadmin untuk pengecekan lebih lanjut.');
 }
 
     /**

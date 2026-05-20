@@ -189,6 +189,40 @@ class SuperAdminController extends Controller
         return view('superadmin.berita.index', compact('beritas', 'totalBerita', 'ditayangkan', 'tidakDitayangkan'));
     }
 
+    public function tambahBerita()
+    {
+        return view('superadmin.berita.create');
+    }
+
+    public function storeBerita(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi_berita' => 'required|string',
+            'jenis_berita' => 'required|in:pengumuman,prestasi,kolaborasi,event,lainnya',
+            'foto_header.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $berita = Berita::create([
+            'judul' => $request->judul,
+            'konten' => $request->isi_berita,
+            'status' => $request->jenis_berita,
+            'user_id' => auth()->id(),
+        ]);
+
+        if ($request->hasFile('foto_header')) {
+            foreach ($request->file('foto_header') as $file) {
+                $path = $file->store('public/berita');
+                Galeri::create([
+                    'berita_id' => $berita->id,
+                    'path' => $path,
+                ]);
+            }
+        }
+
+        return redirect()->route('superadmin.kelola-berita')->with('success', 'Berita berhasil ditambahkan.');
+    }
+
     // Kelola Profil Sanggar
     public function kelolaProfil()
     {
