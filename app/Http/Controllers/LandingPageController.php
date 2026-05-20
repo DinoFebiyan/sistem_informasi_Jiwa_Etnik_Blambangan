@@ -10,7 +10,7 @@ use App\Models\Berita;
 use App\Models\Galeri;
 use Carbon\Carbon; 
 
-class HomeController extends Controller
+class LandingPageController extends Controller
 {
     /**
      * Halaman Utama / Landing Page

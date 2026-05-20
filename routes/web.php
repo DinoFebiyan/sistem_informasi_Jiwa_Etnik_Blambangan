@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\EventController;
@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Route;
 // =========================================================================
 // 1. HALAMAN UTAMA & PUBLIK (FRONTEND - Folder: views/umum)
 // =========================================================================
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [LandingPageController::class, 'index'])->name('home');
 
-Route::get('/event', [HomeController::class, 'allEvents'])->name('event.index');
-Route::get('/event/{id}', [HomeController::class, 'eventDetail'])->name('event.detail');
+Route::get('/event', [LandingPageController::class, 'allEvents'])->name('event.index');
+Route::get('/event/{id}', [LandingPageController::class, 'eventDetail'])->name('event.detail');
 Route::get('/berita', function () { return view('umum.berita'); })->name('berita.index');
 Route::get('/katalog', [KatalogController::class, 'publicIndex'])->name('katalog.index');
 Route::get('/katalog/{id}', [KatalogController::class, 'publicShow'])->name('katalog.detail');
