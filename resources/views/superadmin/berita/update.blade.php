@@ -1,4 +1,4 @@
-@extends('layouts('layouts.superadmin-clean')
+@extends('layouts.superadmin-clean')
 
 @section('title', 'Edit Berita — JEB')
 
