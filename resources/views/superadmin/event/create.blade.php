@@ -179,7 +179,7 @@
                 <span>Kelola Event</span>
             </div>
             <div class="te-topbar-actions">
-                <a href="{{ route('superadmin.kelola-event') }}" class="te-btn-batal">
+                <a href="{{ route('superadmin.event.index') }}" class="te-btn-batal">
                     <i class="fas fa-times"></i> Batal
                 </a>
                 <button type="submit" class="te-btn-simpan">

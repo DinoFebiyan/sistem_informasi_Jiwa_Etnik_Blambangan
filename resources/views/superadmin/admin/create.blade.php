@@ -96,13 +96,13 @@
         }
 
         .btn-pilih-file {
-            background: #8A4B4B;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-right: 1px solid #e8dede;
-        }
-
+        background: #8A4B4B;
+        color: white !important;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-right: 1px solid #e8dede;
+        margin-bottom: 0 !important;
+    }
         .file-name-display {
             padding: 0 15px;
             display: flex;
@@ -127,12 +127,12 @@
                 <p>Kelola Admin</p>
             </div>
             <div class="header-actions">
-                <a href="{{ route('superadmin.kelola-admin') }}" class="btn-batal"><i class="fas fa-times"></i> Batal</a>
+                <a href="{{ route('superadmin.admin.index') }}" class="btn-batal"><i class="fas fa-times"></i> Batal</a>
                 <button type="submit" form="formTambahAdmin" class="btn-simpan"><i class="fas fa-save"></i> Simpan</button>
             </div>
         </div>
         <div class="form-body">
-            <form id="formTambahAdmin" action="{{ route('superadmin.store-admin') }}" method="POST"
+            <form id="formTambahAdmin" action="{{ route('superadmin.admin.store') }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 @if($errors->any())

@@ -137,12 +137,12 @@
                 <p>Kelola Admin</p>
             </div>
             <div class="header-actions">
-                <a href="{{ route('superadmin.kelola-admin') }}" class="btn-batal"><i class="fas fa-times"></i> Batal</a>
+                <a href="{{ route('superadmin.admin.index') }}" class="btn-batal"><i class="fas fa-times"></i> Batal</a>
                 <button type="submit" form="formEditAdmin" class="btn-simpan"><i class="fas fa-save"></i> Simpan</button>
             </div>
         </div>
         <div class="form-body">
-            <form id="formEditAdmin" action="{{ route('superadmin.update-admin', $admin->id) }}" method="POST"
+            <form id="formEditAdmin" action="{{ route('superadmin.admin.update', $admin->id) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

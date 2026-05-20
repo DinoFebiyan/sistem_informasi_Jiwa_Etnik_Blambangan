@@ -186,7 +186,7 @@
                 <span>Kelola Event</span>
             </div>
             <div class="eu-topbar-actions">
-                <a href="{{ route('superadmin.kelola-event') }}" class="eu-btn-batal">
+                <a href="{{ route('superadmin.event.index') }}" class="eu-btn-batal">
                     <i class="fas fa-times"></i> Batal
                 </a>
                 <button type="submit" class="eu-btn-simpan">

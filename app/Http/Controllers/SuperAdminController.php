@@ -9,6 +9,7 @@ use App\Models\Berita;
 use App\Models\LogAktivitas;
 use App\Models\Galeri;
 use App\Models\Personel;
+use App\Models\ProfilSangsam;
 use App\Models\ProfilSanggar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SuperAdminController extends Controller
 {
-    // ===================== DASHBOARD =====================
+    
     public function dashboard()
     {
         $totalAdmin = User::where('peran', 'admin')->count();
@@ -29,7 +30,6 @@ class SuperAdminController extends Controller
             ->take(5)
             ->get();
 
-        // Data aktivitas terbaru (jika tabel log_aktivitas sudah ada)
         $recentActivities = LogAktivitas::with('user')
             ->latest()
             ->take(5)
@@ -45,87 +45,7 @@ class SuperAdminController extends Controller
         ));
     }
 
-    // FUNGSI UNTUK HALAMAN KELOLA ADMIN
-    /**
-     * Menampilkan daftar admin (dengan pencarian & paginasi)
-     */
-    public function kelolaAdmin(Request $request)
-    {
-        $query = User::where('peran', 'admin');
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
-            });
-        }
-        $admins = $query->latest()->paginate(10);
-        $totalAdmin = User::where('peran', 'admin')->count();
-        $activeAdmins = User::where('peran', 'admin')->where('status', 'aktif')->count();
-        $inactiveAdmins = User::where('peran', 'admin')->where('status', 'nonaktif')->count();
-        return view('superadmin.admin.index', compact('admins', 'totalAdmin', 'activeAdmins', 'inactiveAdmins'));
-    }
-
-    public function tambahAdmin()
-    {
-        return view('superadmin.admin.create');
-    }
-
-    public function storeAdmin(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'no_handphone' => 'required|string|max:20',
-            'status' => 'required|in:aktif,nonaktif',
-        ]);
-
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'peran' => 'admin',
-            'no_handphone' => $request->no_handphone,
-            'status' => $request->status,
-        ]);
-
-        return redirect()->route('superadmin.kelola-admin')->with('success', 'Admin berhasil ditambahkan.');
-    }
-
-    public function editAdmin($id)
-    {
-        $admin = User::where('peran', 'admin')->findOrFail($id);
-        return view('superadmin.admin.update', compact('admin'));
-    }
-
-    public function updateAdmin(Request $request, $id)
-    {
-        $admin = User::where('peran', 'admin')->findOrFail($id);
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'no_handphone' => 'required|string|max:20',
-            'status' => 'required|in:aktif,nonaktif',
-            'password' => 'nullable|min:6|confirmed',
-        ]);
-
-        $data = $request->only(['name', 'email', 'no_handphone', 'status']);
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
-        $admin->update($data);
-        return redirect()->route('superadmin.kelola-admin')->with('success', 'Admin berhasil diperbarui.');
-    }
-
-    public function deleteAdmin($id)
-    {
-        $admin = User::where('peran', 'admin')->findOrFail($id);
-        $admin->delete();
-        return redirect()->route('superadmin.kelola-admin')->with('success', 'Admin berhasil dihapus.');
-    }
-
+   
     public function logAktivitas(Request $request)
     {
         $query = LogAktivitas::with('user');
@@ -145,37 +65,7 @@ class SuperAdminController extends Controller
         return view('superadmin.log-aktivitas.index', compact('logs', 'totalAktivitas', 'aktivitasHariIni', 'aktivitasBulanIni'));
     }
 
-
-    public function tambahKatalog()
-    {
-        return view('superadmin.tambah-katalog');
-    }
-    public function storeKatalog(Request $request)
-    { /* validasi & simpan */
-    }
-    public function editKatalog($id)
-    { /* return view edit */
-    }
-    public function updateKatalog(Request $request, $id)
-    { /* update */
-    }
-    public function deleteKatalog($id)
-    {
-        Katalog::findOrFail($id)->delete();
-        return redirect()->back();
-    }
-
-    // Kelola Event
-    public function kelolaEvent()
-    {
-        return view('superadmin.kelola-event');
-    }
-    public function tambahEvent()
-    {
-        return view('superadmin.tambah-event');
-    }
-
-    // Kelola Berita
+   
     public function kelolaBerita(Request $request)
     {
         $query = Berita::with('user', 'galeri');
@@ -186,6 +76,7 @@ class SuperAdminController extends Controller
         $totalBerita = Berita::count();
         $ditayangkan = Berita::where('status', 'tayang')->count();
         $tidakDitayangkan = Berita::where('status', 'tidak ditayangkan')->count();
+        
         return view('superadmin.berita.index', compact('beritas', 'totalBerita', 'ditayangkan', 'tidakDitayangkan'));
     }
 
@@ -226,32 +117,33 @@ class SuperAdminController extends Controller
     // Kelola Profil Sanggar
     public function kelolaProfil()
     {
-        // Ambil data profil sanggar (relasi logo & foto pembina)
         $profil = ProfilSanggar::with('logo', 'fotoPembina')->first();
 
-        // Jika belum ada data profil, buat objek kosong agar tidak error
         if (!$profil) {
             $profil = new ProfilSanggar();
         }
         $pengurus = Personel::where('peran', 'pengurus')->paginate(10);
         $pelatih = Personel::where('peran', 'pelatih')->paginate(10);
 
-        // Kirim semua variabel ke view
         return view('superadmin.profil.index', compact('profil', 'pengurus', 'pelatih'));
     }
+
     public function editProfil()
     {
         return view('superadmin.profil.update');
     }
+
     public function tambahPengurus()
     {
         return view('superadmin.profil.tambah-pengurus');
     }
+
     public function tambahPelatih()
     {
         return view('superadmin.profil.tambah-pelatih');
     }
 
+   
     public function pengaturan()
     {
         return view('superadmin.pengaturan.index');
@@ -268,7 +160,8 @@ class SuperAdminController extends Controller
 
         $user->update($request->only('name', 'email', 'no_handphone'));
 
-        return redirect()->route('superadmin.pengaturan')->with('success', 'Profil berhasil diperbarui.');
+        // DIPERBAIKI: Mengarah ke rute baru kelompokmu (.index)
+        return redirect()->route('superadmin.pengaturan.index')->with('success', 'Profil berhasil diperbarui.');
     }
 
     public function updatePassword(Request $request)
@@ -290,9 +183,7 @@ class SuperAdminController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect()->route('superadmin.pengaturan')->with('success', 'Password berhasil diubah.');
-
+        // DIPERBAIKI: Mengarah ke rute baru kelompokmu (.index)
+        return redirect()->route('superadmin.pengaturan.index')->with('success', 'Password berhasil diubah.');
     }
-
-
 }
