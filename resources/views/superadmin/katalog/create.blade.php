@@ -3,305 +3,248 @@
 @section('title', 'Tambah Katalog — JEB')
 
 @section('styles')
-<style>
-    * { box-sizing: border-box; }
-    .tk-page {
-        font-family: 'Poppins', sans-serif;
-        background: #e5e5e5;
-        min-height: 100vh;
-        padding-bottom: 40px;
-    }
-    /* ── Header bar ── */
-    .tk-topbar {
-        background: #5a1a1a;
-        padding: 14px 28px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .tk-topbar-title h2 {
-        margin: 0;
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #fff;
-    }
-    .tk-topbar-title span {
-        font-size: 0.75rem;
-        color: #d4a5a5;
-    }
-    .tk-topbar-actions {
-        display: flex;
-        gap: 10px;
-    }
-    .tk-btn-batal {
-        padding: 7px 20px;
-        border-radius: 8px;
-        border: 1.5px solid #fff;
-        background: transparent;
-        color: #fff;
-        font-size: 0.82rem;
-        font-weight: 600;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        text-decoration: none;
-        transition: background 0.2s;
-    }
-    .tk-btn-batal:hover { background: rgba(255,255,255,0.1); color: #fff; }
-    .tk-btn-simpan {
-        padding: 7px 20px;
-        border-radius: 8px;
-        border: none;
-        background: #b91c1c;
-        color: #fff;
-        font-size: 0.82rem;
-        font-weight: 600;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        transition: background 0.2s;
-    }
-    .tk-btn-simpan:hover { background: #991b1b; }
-    /* ── Form body ── */
-    .tk-body {
-        padding: 28px;
-    }
-    .tk-form-group {
-        margin-bottom: 20px;
-    }
-    .tk-form-group label {
-        display: block;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #3a1010;
-        margin-bottom: 7px;
-    }
-    .tk-form-group input[type="text"],
-    .tk-form-group input[type="number"],
-    .tk-form-group select,
-    .tk-form-group textarea {
-        width: 100%;
-        padding: 11px 16px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 0.88rem;
-        font-family: 'Poppins', sans-serif;
-        background: #fff;
-        color: #333;
-        outline: none;
-        transition: border-color 0.2s;
-    }
-    .tk-form-group input:focus,
-    .tk-form-group select:focus,
-    .tk-form-group textarea:focus {
-        border-color: #b91c1c;
-    }
-    .tk-form-group textarea {
-        resize: vertical;
-        min-height: 110px;
-    }
-    .tk-form-group select {
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 16px center;
-        padding-right: 40px;
-    }
-    /* ── File input row ── */
-    .tk-file-row {
-        display: flex;
-        align-items: center;
-        gap: 0;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        background: #fff;
-    }
-    .tk-file-btn {
-        padding: 11px 18px;
-        background: #b91c1c;
-        color: #fff;
-        font-size: 0.82rem;
-        font-weight: 600;
-        cursor: pointer;
-        white-space: nowrap;
-        flex-shrink: 0;
-        transition: background 0.2s;
-    }
-    .tk-file-btn:hover { background: #991b1b; }
-    .tk-file-name {
-        flex: 1;
-        padding: 11px 16px;
-        font-size: 0.85rem;
-        color: #aaa;
-        font-family: 'Poppins', sans-serif;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .tk-file-hint {
-        font-size: 0.75rem;
-        color: #888;
-        margin-top: 5px;
-    }
-    #fotoInput { display: none; }
-    #fotoPreview {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 8px;
-        margin-top: 10px;
-        display: none;
-        border: 1px solid #e8dede;
-    }
-    /* ── Error ── */
-    .is-invalid { border-color: #ef4444 !important; }
-    .invalid-feedback {
-        font-size: 0.78rem;
-        color: #ef4444;
-        margin-top: 4px;
-        display: block;
-    }
-</style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .page-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: #EAEAEA; /* Background abu-abu sesuai desain */
+            border-radius: 14px;
+            border: 1px solid #dcdcdc;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-header {
+            background: #5B1A1A;
+            padding: 1.2rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #E4C15A;
+        }
+
+        .form-header h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .form-header p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-batal,
+        .btn-simpan {
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .btn-batal {
+            background: white;
+            color: #FF4D4D;
+            border: 1px solid #FF4D4D;
+        }
+
+        .btn-simpan {
+            background: white;
+            color: #007BFF;
+            border: 1px solid #007BFF;
+        }
+
+        .form-body {
+            padding: 2.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #8A4B4B;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid #A87C7C; /* Warna garis merah kecoklatan */
+            border-radius: 30px; /* Bentuk kapsul */
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            background: #fff;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        /* Khusus textarea agar radiusnya tidak terlalu lonjong tapi tetap serasi */
+        .form-group textarea {
+            border-radius: 20px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #b0b0b0;
+        }
+
+        .custom-file-wrapper {
+            display: flex;
+            border: 1px solid #A87C7C;
+            border-radius: 30px;
+            overflow: hidden;
+            background: #fff;
+            align-items: center;
+        }
+
+        .btn-pilih-file {
+            background: #8A4B4B;
+            color: white !important;
+            padding: 12px 25px;
+            cursor: pointer;
+            border-right: 1px solid #A87C7C;
+            margin-bottom: 0 !important;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .file-name-display {
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            color: #b0b0b0;
+            flex-grow: 1;
+            font-size: 0.9rem;
+        }
+
+        .form-helper {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 6px;
+            margin-left: 10px;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238A4B4B' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: calc(100% - 20px) center;
+        }
+    </style>
 @endsection
 
 @section('content')
-<div class="tk-page">
-
-    <form action="{{ route('superadmin.katalog.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        {{-- Header --}}
-        <div class="tk-topbar">
-            <div class="tk-topbar-title">
-                <h2>Tambah Katalog</h2>
-                <span>Kelola Katalog</span>
+    <div class="page-container">
+        <div class="form-header">
+            <div>
+                <h1>Tambah Katalog</h1>
+                <p>Kelola Katalog</p>
             </div>
-            <div class="tk-topbar-actions">
-                <a href="{{ route('superadmin.katalog.index') }}" class="tk-btn-batal">
-                    <i class="fas fa-times"></i> Batal
-                </a>
-                <button type="submit" class="tk-btn-simpan">
-                    <i class="fas fa-save"></i> Simpan
-                </button>
+            <div class="header-actions">
+                <a href="{{ route('superadmin.katalog.index') }}" class="btn-batal"><i class="fas fa-times"></i> Batal</a>
+                <button type="submit" form="formTambahKatalog" class="btn-simpan"><i class="fas fa-save"></i> Simpan</button>
             </div>
         </div>
-
-        {{-- Body --}}
-        <div class="tk-body">
-
-            @if(session('success'))
-            <div style="background:#dcfce7;color:#16a34a;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:0.85rem;">
-                <i class="fas fa-check-circle"></i> {{ session('success') }}
-            </div>
-            @endif
-
-            @if($errors->any())
-            <div style="background:#fee2e2;color:#b91c1c;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:0.85rem;">
-                <i class="fas fa-exclamation-circle"></i> Harap perbaiki kesalahan pada form.
-            </div>
-            @endif
-
-            {{-- Foto --}}
-            <div class="tk-form-group">
-                <label>Foto</label>
-                <div class="tk-file-row {{ $errors->has('foto') ? 'is-invalid' : '' }}">
-                    <div class="tk-file-btn" onclick="document.getElementById('fotoInput').click()">
-                        Pilih File
+        <div class="form-body">
+            <form id="formTambahKatalog" action="{{ route('superadmin.katalog.store') }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                
+                @if($errors->any())
+                    <div style="background:#fee2e2; padding:12px 16px; border-radius:8px; margin-bottom:15px; border-left:4px solid #dc2626;">
+                        <ul style="margin:0; color:#dc2626; padding-left:16px;">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                    <span class="tk-file-name" id="fotoFileName">Masukkan foto atau baru...</span>
+                @endif
+
+                <div class="form-group">
+                    <label>Foto Katalog</label>
+                    <div class="custom-file-wrapper">
+                        <label for="foto" class="btn-pilih-file">Pilih File</label>
+                        <span class="file-name-display" id="fileNameDisplay">Masukkan foto produk...</span>
+                        <input type="file" id="foto" name="foto" accept="image/*" style="display:none"
+                            onchange="updateFileName(this)">
+                    </div>
+                    <div class="form-helper">Format: JPG, PNG. Maks 2MB.</div>
                 </div>
-                <input type="file" id="fotoInput" name="foto" accept="image/jpeg,image/png,image/jpg"
-                       onchange="updateFileNameAndPreview(this)">
-                <div class="tk-file-hint">Format: JPG, PNG. Maks 2MB.</div>
-                <img id="fotoPreview" src="" alt="Preview Foto">
-                @error('foto')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
+                
+                <div class="form-group">
+                    <label>Nama Katalog (Tari)</label>
+                    <input type="text" name="nama_tari" value="{{ old('nama_tari') }}" placeholder="Masukkan nama tari/kostum..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select name="kategori" required>
+                        <option value="" disabled selected hidden>Masukkan kategori katalog...</option>
+                        <option value="Kostum" {{ old('kategori') == 'Kostum' ? 'selected' : '' }}>Kostum</option>
+                        <option value="Properti" {{ old('kategori') == 'Properti' ? 'selected' : '' }}>Properti</option>
+                        <option value="Alat Musik" {{ old('kategori') == 'Alat Musik' ? 'selected' : '' }}>Alat Musik</option>
+                    </select>
+                </div>
 
-            {{-- Nama Katalog --}}
-            <div class="tk-form-group">
-                <label>Nama Katalog</label>
-                <input type="text" name="nama_tari" value="{{ old('nama_tari') }}"
-                       placeholder="Masukkan katalog..."
-                       class="{{ $errors->has('nama_tari') ? 'is-invalid' : '' }}">
-                @error('nama_tari')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
-
-            {{-- Kategori --}}
-            <div class="tk-form-group">
-                <label>Kategori</label>
-                <select name="kategori" class="{{ $errors->has('kategori') ? 'is-invalid' : '' }}">
-                    <option value="">Pilih kategori katalog...</option>
-                    <option value="Kostum"   {{ old('kategori') == 'Kostum'   ? 'selected' : '' }}>Kostum</option>
-                    <option value="Properti" {{ old('kategori') == 'Properti' ? 'selected' : '' }}>Properti</option>
-                    <option value="Aksesori" {{ old('kategori') == 'Aksesori' ? 'selected' : '' }}>Aksesori</option>
-                </select>
-                @error('kategori')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
-
-            {{-- Deskripsi --}}
-            <div class="tk-form-group">
-                <label>Deskripsi Katalog</label>
-                <textarea name="deskripsi" placeholder="Masukkan deskripsi katalog..."
-                          class="{{ $errors->has('deskripsi') ? 'is-invalid' : '' }}">{{ old('deskripsi') }}</textarea>
-                @error('deskripsi')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
-
-            {{-- Stok --}}
-            <div class="tk-form-group">
-                <label>Masukkan Stok Barang</label>
-                <input type="number" name="stok" value="{{ old('stok', 0) }}" min="0"
-                       placeholder="Masukkan stok barang..."
-                       class="{{ $errors->has('stok') ? 'is-invalid' : '' }}">
-                @error('stok')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                @enderror
-            </div>
-
-            {{-- Status hidden default tersedia --}}
-            <input type="hidden" name="status" value="tersedia">
-
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea name="deskripsi" placeholder="Masukkan deskripsi lengkap mengenai katalog ini..." required>{{ old('deskripsi') }}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Stok</label>
+                    <input type="number" name="stok" value="{{ old('stok') }}" placeholder="Masukkan jumlah stok tersedia..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" required>
+                        <option value="" disabled selected hidden>Masukkan status ketersediaan...</option>
+                        <option value="tersedia" {{ old('status') == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
+                        <option value="tidak tersedia" {{ old('status') == 'tidak tersedia' ? 'selected' : '' }}>Tidak Tersedia</option>
+                    </select>
+                </div>
+            </form>
         </div>
-    </form>
-
-</div>
-@endsection
-
-@push('scripts')
-<script>
-    function updateFileNameAndPreview(input) {
-        var fileNameSpan = document.getElementById('fotoFileName');
-        var previewImg = document.getElementById('fotoPreview');
-
-        if (input.files && input.files.length > 0) {
-            var file = input.files[0];
-
-            // Update nama file
-            fileNameSpan.textContent = file.name;
-            fileNameSpan.style.color = '#333';
-
-            // Update preview foto
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                previewImg.src = e.target.result;
-                previewImg.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        } else {
-            fileNameSpan.textContent = 'Masukkan foto atau baru...';
-            fileNameSpan.style.color = '#aaa';
-            previewImg.style.display = 'none';
+    </div>
+    
+    <script>
+        function updateFileName(input) {
+            const display = document.getElementById('fileNameDisplay');
+            if (input.files.length) {
+                display.textContent = input.files[0].name;
+                display.style.color = "#333";
+            } else {
+                display.textContent = "Masukkan foto produk...";
+                display.style.color = "#b0b0b0";
+            }
         }
-    }
-</script>
-@endpush
+    </script>
+@endsection

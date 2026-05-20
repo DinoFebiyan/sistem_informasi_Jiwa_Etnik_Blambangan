@@ -4,25 +4,14 @@
 @section('header_title', 'Kelola Katalog')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
     .katalog-wrapper {
         width: 100%;
         font-family: 'Poppins', sans-serif;
         color: #333;
     }
-    .katalog-header {
-        margin-bottom: 24px;
-    }
-    .katalog-header h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.8rem;
-        margin: 0 0 4px 0;
-    }
-    .katalog-header p {
-        color: #999;
-        font-size: 0.85rem;
-        margin: 0;
-    }
+    
     .katalog-stats-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -37,6 +26,7 @@
         align-items: center;
         gap: 15px;
         border: 1px solid #f0f0f0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
     }
     .katalog-icon-box {
         width: 45px;
@@ -48,18 +38,21 @@
         font-size: 1.2rem;
     }
     .katalog-icon-blue { background: #eff6ff; color: #3b82f6; }
-    .katalog-icon-green { background: #dcfce7; color: #16a34a; }
+    .katalog-icon-green { background: #f0fdf4; color: #16a34a; }
     .katalog-icon-red { background: #fef2f2; color: #ef4444; }
     .katalog-stat-text h4 {
         margin: 0;
         font-size: 0.7rem;
         color: #999;
         text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
     }
     .katalog-stat-text h2 {
         margin: 0;
         font-size: 1.5rem;
         font-weight: 700;
+        color: #333;
     }
     .katalog-btn-tambah {
         background: #e2c0c0;
@@ -70,6 +63,7 @@
         justify-content: center;
         gap: 8px;
         font-weight: 700;
+        font-size: 1.1rem;
         text-decoration: none;
         border: 1px solid #e8dede;
         transition: 0.2s;
@@ -92,6 +86,7 @@
         border-radius: 12px;
         border: 1px solid #e8dede;
         outline: none;
+        font-family: 'Poppins', sans-serif;
         font-size: 0.95rem;
     }
     .katalog-search-box .fa-search {
@@ -100,6 +95,7 @@
         top: 50%;
         transform: translateY(-50%);
         color: #eab308;
+        font-size: 1.2rem;
     }
     .katalog-btn-filter {
         background: #b91c1c;
@@ -108,6 +104,7 @@
         padding: 0 35px;
         border-radius: 12px;
         font-weight: 600;
+        font-size: 1rem;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -116,30 +113,43 @@
     .katalog-table-card {
         background: #fff;
         border-radius: 12px;
-        padding: 25px;
+        padding: 25px 0; 
         border: 1px solid #f0f0f0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         overflow-x: auto;
+    }
+    .katalog-table-card h3 {
+        margin: 0 0 20px 0;
+        padding: 0 25px; 
+        font-size: 1.1rem;
+        color: #333;
     }
     .katalog-table {
         width: 100%;
         border-collapse: collapse;
         min-width: 1000px;
     }
+    .katalog-table thead {
+        background-color: #F5EBEB; 
+    }
     .katalog-table th {
         text-align: left;
-        padding: 12px 10px;
+        padding: 14px 25px;
         color: #b07d7d;
         font-weight: 600;
-        border-bottom: 2px solid #f9f9f9;
+        font-size: 0.85rem;
+        border-bottom: none;
+        text-transform: uppercase; 
     }
     .katalog-table td {
-        padding: 15px 10px;
-        border-bottom: 1px solid #f9f9f9;
+        padding: 15px 25px;
+        border-bottom: 1px solid #E0E0E0; 
         vertical-align: middle;
+        font-size: 0.85rem;
     }
     .katalog-foto-preview {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         background: #f0f0f0;
         border-radius: 8px;
         display: flex;
@@ -157,7 +167,7 @@
     .badge-tersedia {
         background: #dcfce7;
         color: #16a34a;
-        padding: 4px 12px;
+        padding: 6px 16px;
         border-radius: 20px;
         font-size: 0.75rem;
         font-weight: 600;
@@ -165,14 +175,14 @@
     .badge-tidak-tersedia {
         background: #fee2e2;
         color: #ef4444;
-        padding: 4px 12px;
+        padding: 6px 16px;
         border-radius: 20px;
         font-size: 0.75rem;
         font-weight: 600;
     }
     .katalog-actions a, .katalog-actions button {
         border: none;
-        padding: 5px 12px;
+        padding: 6px 14px;
         border-radius: 6px;
         font-size: 0.7rem;
         font-weight: 600;
@@ -183,22 +193,59 @@
     }
     .btn-edit-katalog { background: #eff6ff; color: #3b82f6; }
     .btn-hapus-katalog { background: #fef2f2; color: #ef4444; }
-    .pagination-links {
-        margin-top: 20px;
+    
+    /* Penyesuaian Pagination Katalog */
+    .katalog-pagination {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 25px;
+        padding: 0 25px;
+    }
+    .katalog-pagination p {
+        font-size: 0.85rem;
+        color: #b07d7d;
+        margin: 0;
+        font-weight: 500;
+    }
+    .katalog-page-controls {
+        display: flex;
+        gap: 8px;
+    }
+    .katalog-page-controls a, .katalog-page-controls span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        border: 1px solid #e8dede;
+        background: #fff;
+        color: #333;
+        font-size: 0.85rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .katalog-page-controls a:hover {
+        background: #f5ebeb;
+        border-color: #d4aeae;
+    }
+    .katalog-page-controls span.active {
+        background: #5B1A1A;
+        color: #fff;
+        border-color: #5B1A1A;
+        font-weight: 700;
+    }
+    .katalog-page-controls span.disabled {
+        color: #ccc;
+        cursor: not-allowed;
+        background: #fdfdfd;
     }
 </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <div class="katalog-wrapper">
-    <div class="katalog-header">
-        <h2>Kelola Katalog</h2>
-        <p>{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }} - Kelola data kostum dan properti tari</p>
-    </div>
-
-    <!-- STATS -->
     <div class="katalog-stats-grid">
         <div class="katalog-stat-card">
             <div class="katalog-icon-box katalog-icon-blue"><i class="fas fa-box"></i></div>
@@ -226,28 +273,26 @@
         </a>
     </div>
 
-    <!-- SEARCH & FILTER (opsional, bisa diaktifkan nanti) -->
     <div class="katalog-search-row">
         <div class="katalog-search-box">
-            <input type="text" placeholder="Cari katalog..." id="searchKatalog">
+            <input type="text" placeholder="Cari Katalog..." id="searchKatalog">
             <i class="fas fa-search"></i>
         </div>
         <button class="katalog-btn-filter" onclick="filterKatalog()"><i class="fas fa-filter"></i> Filter</button>
     </div>
 
-    <!-- TABEL KATALOG -->
     <div class="katalog-table-card">
-        <h3>Daftar Katalog Kostum & Properti</h3>
+        <h3>Daftar Katalog</h3>
         <table class="katalog-table" id="katalogTable">
             <thead>
                 <tr>
-                    <th>Foto</th>
-                    <th>Nama Tari</th>
-                    <th>Kategori</th>
-                    <th>Deskripsi</th>
-                    <th>Stok</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                    <th>FOTO</th>
+                    <th>NAMA</th>
+                    <th>KATEGORI</th>
+                    <th>DESKRIPSI</th>
+                    <th>STOK</th>
+                    <th>STATUS</th> 
+                    <th>AKSI</th>
                 </tr>
             </thead>
             <tbody>
@@ -262,10 +307,10 @@
                             @endif
                         </div>
                     </td>
-                    <td><strong>{{ $katalog->nama_tari }}</strong></td>
+                    <td style="font-weight:600">{{ $katalog->nama_tari }}</td>
                     <td>{{ $katalog->kategori }}</td>
-                    <td>{{ Str::limit($katalog->deskripsi, 50) }}</td>
-                    <td>{{ $katalog->stok }}</td>
+                    <td>{{ Str::limit($katalog->deskripsi, 60) }}</td>
+                    <td><strong style="color: #333;">{{ $katalog->stok }}</strong></td>
                     <td>
                         @if($katalog->status == 'tersedia')
                             <span class="badge-tersedia">Tersedia</span>
@@ -286,8 +331,24 @@
                 @endforelse
             </tbody>
         </table>
-        <div class="pagination-links">
-            {{ $katalogs->links() }}
+        
+        <div class="katalog-pagination">
+            <p>Menampilkan {{ $katalogs->firstItem() ?? 0 }} dari {{ $katalogs->total() ?? 0 }} katalog</p>
+            <div class="katalog-page-controls">
+                @if ($katalogs->onFirstPage())
+                    <span class="disabled"><i class="fas fa-chevron-left"></i></span>
+                @else
+                    <a href="{{ $katalogs->previousPageUrl() }}"><i class="fas fa-chevron-left"></i></a>
+                @endif
+
+                <span class="active">{{ $katalogs->currentPage() }}</span>
+
+                @if ($katalogs->hasMorePages())
+                    <a href="{{ $katalogs->nextPageUrl() }}"><i class="fas fa-chevron-right"></i></a>
+                @else
+                    <span class="disabled"><i class="fas fa-chevron-right"></i></span>
+                @endif
+            </div>
         </div>
     </div>
 </div>
@@ -298,6 +359,8 @@
             document.getElementById('delete-form-'+id).submit();
         }
     }
+    
+    // Fungsi search simpel di sisi client
     function filterKatalog() {
         let input = document.getElementById('searchKatalog');
         let filter = input.value.toLowerCase();
@@ -311,5 +374,7 @@
             }
         }
     }
+
+    document.getElementById('searchKatalog').addEventListener('keyup', filterKatalog);
 </script>
 @endsection
